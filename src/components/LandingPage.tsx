@@ -1,0 +1,432 @@
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Language } from '../types';
+import { translations } from '../data/translations';
+import {
+  Sparkles,
+  ShieldCheck,
+  CheckCircle2,
+  ArrowRight,
+  ChevronDown,
+  Globe,
+  Clock,
+  ExternalLink,
+  Users,
+  Check,
+  BarChart2,
+  Zap,
+} from 'lucide-react';
+
+interface LandingPageProps {
+  lang: Language;
+  onOpenCheckout: (tier: 'tier1' | 'tier2') => void;
+  onOpenGiveaway: () => void;
+  onOpenApp?: () => void;
+}
+
+export const LandingPage: React.FC<LandingPageProps> = ({
+  lang,
+  onOpenCheckout,
+}) => {
+  const [expandedFaq, setExpandedFaq] = useState<number | null>(0);
+  const t = translations[lang];
+
+  const handleScrollToPricing = () => {
+    document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-50 text-slate-900 selection:bg-[#ffb034] selection:text-slate-950 font-sans">
+      {/* Full-width Hero Section */}
+      <section id="hero" className="relative w-full py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-amber-50/50 via-slate-50/50 to-slate-50 overflow-hidden scroll-mt-20">
+        {/* Soft Warm Ambient Glow */}
+        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-b from-amber-200/20 via-amber-100/10 to-transparent rounded-full blur-3xl pointer-events-none -z-0" />
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="text-center max-w-3xl mx-auto space-y-7"
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.1, duration: 0.4 }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-slate-200/80 text-xs font-black text-slate-800 shadow-sm"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-[#d98200]" />
+              <span>Program Pelatihan AI Navigator MAXY Academy</span>
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 leading-[1.15]"
+            >
+              {t.heroTitlePrefix}{' '}
+              <span className="text-[#d98200]">
+                {t.heroTitleHighlight}
+              </span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+              className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto font-medium"
+            >
+              {t.heroSubtitle}
+            </motion.p>
+
+            {/* Action CTAs */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.5 }}
+              className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-2"
+            >
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={handleScrollToPricing}
+                className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-[#ffb034] hover:bg-[#e59d2a] text-slate-900 font-black text-sm flex items-center justify-center gap-2 transition-all shadow-md shadow-[#ffb034]/20 hover:shadow-lg"
+              >
+                <span>{t.enrollNow}</span>
+                <ArrowRight className="w-4 h-4 text-slate-900" />
+              </motion.button>
+
+              <motion.a
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                href="https://www.tiktok.com/@maxy.academy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-900 border border-slate-300 font-extrabold text-sm flex items-center justify-center gap-2 transition-all shadow-sm hover:border-slate-400"
+              >
+                <span>TikTok @maxy.academy</span>
+                <ExternalLink className="w-4 h-4 text-[#d98200]" />
+              </motion.a>
+            </motion.div>
+          </motion.div>
+
+          {/* Highlight Stats Bar inside Hero Container */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.6 }}
+            className="mt-14 max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/80 shadow-sm"
+          >
+            <div className="space-y-1 p-2 rounded-xl hover:bg-slate-50 transition-colors">
+              <div className="flex items-center gap-2 text-slate-900 font-extrabold text-xl sm:text-2xl">
+                <Clock className="w-5 h-5 text-[#d98200]" />
+                <span>28 JP</span>
+              </div>
+              <p className="text-xs font-bold text-slate-900">{t.statMeetings}</p>
+              <p className="text-[11px] text-slate-500">{t.statMeetingsSub}</p>
+            </div>
+
+            <div className="space-y-1 p-2 rounded-xl hover:bg-slate-50 transition-colors">
+              <div className="flex items-center gap-2 text-slate-900 font-extrabold text-xl sm:text-2xl">
+                <ShieldCheck className="w-5 h-5 text-[#d98200]" />
+                <span>Accredify</span>
+              </div>
+              <p className="text-xs font-bold text-slate-900">{t.statAccredify}</p>
+              <p className="text-[11px] text-slate-500">{t.statAccredifySub}</p>
+            </div>
+
+            <div className="space-y-1 p-2 rounded-xl hover:bg-slate-50 transition-colors">
+              <div className="flex items-center gap-2 text-slate-900 font-extrabold text-xl sm:text-2xl">
+                <Users className="w-5 h-5 text-[#d98200]" />
+                <span>10.000+</span>
+              </div>
+              <p className="text-xs font-bold text-slate-900">{t.statTargetFollowers}</p>
+              <p className="text-[11px] text-slate-500">{t.statTargetFollowersSub}</p>
+            </div>
+
+            <div className="space-y-1 p-2 rounded-xl hover:bg-slate-50 transition-colors">
+              <div className="flex items-center gap-2 text-slate-900 font-extrabold text-xl sm:text-2xl">
+                <Zap className="w-5 h-5 text-[#d98200]" />
+                <span>Rp150rb Off</span>
+              </div>
+              <p className="text-xs font-bold text-slate-900">{t.statDiscountTier}</p>
+              <p className="text-[11px] text-slate-500">{t.statDiscountTierSub}</p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Main Page: Features / Keunggulan Section with id="features" */}
+      <section id="features" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-20">
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.5 }}
+          className="p-7 sm:p-10 rounded-3xl bg-white border border-slate-200/90 shadow-md space-y-8"
+        >
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-slate-100">
+            <div className="flex items-center gap-3.5">
+              <div className="p-3.5 bg-[#ffb034]/20 text-slate-900 rounded-2xl border border-[#ffb034]/40 shadow-sm">
+                <BarChart2 className="w-6 h-6 text-[#d98200]" />
+              </div>
+              <div>
+                <span className="text-xs font-mono font-bold text-[#d98200] uppercase tracking-wider">
+                  Program Beasiswa Harian MAXY Academy
+                </span>
+                <h2 className="text-xl sm:text-2xl font-black text-slate-900 mt-0.5">
+                  Statistik Klaim Beasiswa TikTok
+                </h2>
+              </div>
+            </div>
+
+            <a
+              href="https://www.tiktok.com/@maxy.academy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-5 py-2.5 rounded-xl bg-[#ffb034] hover:bg-[#e59d2a] text-slate-900 font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-sm shrink-0"
+            >
+              <span>Follow @maxy.academy</span>
+              <ExternalLink className="w-4 h-4 text-slate-900" />
+            </a>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div className="p-6 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-3 hover:border-slate-300 transition-colors">
+              <span className="text-xs text-slate-500 font-semibold">Target Followers TikTok</span>
+              <div className="text-2xl font-black text-slate-900">10.000 Followers</div>
+              <div className="w-full bg-slate-200/80 h-2.5 rounded-full overflow-hidden">
+                <div className="bg-[#ffb034] h-full w-[64%] rounded-full" />
+              </div>
+              <p className="text-[11px] text-slate-500 font-mono font-medium">6.420 / 10.000 Followers (64%)</p>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-3 hover:border-slate-300 transition-colors">
+              <span className="text-xs text-slate-500 font-semibold">Voucher BEASISWAMAXI Claimed</span>
+              <div className="text-2xl font-black text-emerald-600">1.284 Claims</div>
+              <p className="text-xs text-slate-600">Akses Tier 1 Self-Paced Gratis</p>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-3 hover:border-slate-300 transition-colors">
+              <span className="text-xs text-slate-500 font-semibold">Upsell Conversion Tier 2</span>
+              <div className="text-2xl font-black text-[#d98200]">342 Alumni</div>
+              <p className="text-xs text-slate-600">Peserta CAAI™ Full Mentoring</p>
+            </div>
+          </div>
+
+          {/* TikTok Live Scholarship Notice Banner */}
+          <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-amber-50 via-amber-100/40 to-slate-50 border border-amber-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
+            <div className="flex items-center gap-3">
+              <div className="relative flex h-3 w-3 shrink-0">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span>
+              </div>
+              <div className="text-xs sm:text-sm">
+                <span className="font-extrabold text-slate-900">Info Klaim Beasiswa: </span>
+                <span className="text-slate-700 font-medium">{t.tiktokLiveNote}</span>
+              </div>
+            </div>
+
+            <a
+              href="https://www.tiktok.com/@maxy.academy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs flex items-center gap-2 transition-colors shrink-0 shadow-sm"
+            >
+              <span>Gabung Live TikTok</span>
+              <ExternalLink className="w-3.5 h-3.5 text-[#ffb034]" />
+            </a>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Pricing Tiers Section */}
+      <section id="pricing" className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.5 }}
+          className="text-center max-w-2xl mx-auto mb-12 sm:mb-16 space-y-3"
+        >
+          <span className="text-xs font-mono font-bold text-[#d98200] uppercase tracking-widest px-3 py-1 bg-amber-100/60 rounded-full border border-amber-200">
+            Pilihan Paket Belajar
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900">{t.pricingTitle}</h2>
+          <p className="text-sm sm:text-base text-slate-600 leading-relaxed">{t.pricingSubtitle}</p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 max-w-5xl mx-auto items-stretch">
+          {/* Tier 1 Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            whileHover={{ y: -6, transition: { duration: 0.25 } }}
+            transition={{ duration: 0.4 }}
+            className="p-8 sm:p-9 rounded-[2rem] bg-white border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-8"
+          >
+            <div className="space-y-5">
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <span className="text-xs font-mono text-[#d98200] font-extrabold uppercase tracking-wider">BASIC TIER</span>
+                  <h3 className="text-2xl font-black text-slate-900 mt-0.5">{t.tier1Title}</h3>
+                </div>
+                <span className="px-3.5 py-1 rounded-full bg-[#ffb034]/20 border border-[#ffb034]/50 text-slate-900 text-xs font-mono font-black shrink-0 shadow-sm">
+                  21 JP
+                </span>
+              </div>
+
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">{t.tier1Subtitle}</p>
+
+              <div className="pt-2">
+                <div className="text-3xl font-black text-slate-900">{t.tier1Price}</div>
+                <div className="text-xs text-slate-400 line-through mt-0.5">
+                  Normal: {t.tier1OriginalPrice}
+                </div>
+              </div>
+
+              <ul className="space-y-3.5 text-xs sm:text-sm text-slate-700 pt-4 border-t border-slate-100">
+                {t.tier1Features.map((feat, idx) => (
+                  <li key={idx} className="flex items-start gap-2.5">
+                    <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>{feat}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <motion.button
+              whileTap={{ scale: 0.98 }}
+              onClick={() => onOpenCheckout('tier1')}
+              className="w-full py-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-900 font-extrabold text-xs sm:text-sm border border-slate-200 transition-colors shadow-sm"
+            >
+              {t.selectTier1}
+            </motion.button>
+          </motion.div>
+
+          {/* Tier 2 Card (Featured Sleek Gold/Amber & Dark) */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            whileHover={{ y: -6, transition: { duration: 0.25 } }}
+            transition={{ duration: 0.4, delay: 0.15 }}
+            className="p-8 sm:p-9 rounded-[2rem] bg-slate-900 text-white border-2 border-[#ffb034] shadow-2xl shadow-[#ffb034]/10 relative flex flex-col justify-between space-y-8"
+          >
+            <div className="absolute -top-3.5 right-6 px-4 py-1 rounded-full bg-[#ffb034] text-slate-900 font-black text-[10px] uppercase tracking-wider shadow-md">
+              RECOMMENDED CERTIFICATION
+            </div>
+
+            <div className="space-y-5">
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <span className="text-xs font-mono text-[#ffb034] font-extrabold uppercase tracking-wider">PRO CAAI™ TIER</span>
+                  <h3 className="text-2xl font-black text-white mt-0.5">{t.tier2Title}</h3>
+                </div>
+                <span className="px-3.5 py-1 rounded-full bg-[#ffb034] text-slate-900 text-xs font-mono font-black shrink-0 shadow-md">
+                  28 JP
+                </span>
+              </div>
+
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">{t.tier2Subtitle}</p>
+
+              <div className="pt-2">
+                <div className="flex items-baseline gap-2.5">
+                  <div className="text-3xl font-black text-[#ffb034]">{t.tier2DiscountedPrice}</div>
+                  <div className="text-xs text-slate-400 line-through">{t.tier2Price}</div>
+                </div>
+              </div>
+
+              <ul className="space-y-3.5 text-xs sm:text-sm text-slate-200 pt-4 border-t border-slate-800">
+                {t.tier2Features.map((feat, idx) => (
+                  <li key={idx} className="flex items-start gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-[#ffb034] shrink-0 mt-0.5" />
+                    <span>{feat}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <motion.button
+              whileTap={{ scale: 0.98 }}
+              onClick={() => onOpenCheckout('tier2')}
+              className="w-full py-4 rounded-xl bg-[#ffb034] hover:bg-[#e59d2a] text-slate-900 font-black text-xs sm:text-sm transition-all shadow-lg shadow-[#ffb034]/25 hover:shadow-xl hover:shadow-[#ffb034]/35"
+            >
+              {t.selectTier2}
+            </motion.button>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* FAQ Accordion Section */}
+      <section id="faq" className="py-16 sm:py-24 px-4 sm:px-6 max-w-4xl mx-auto space-y-8 scroll-mt-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center space-y-2"
+        >
+          <span className="text-xs font-mono font-bold text-[#d98200] uppercase tracking-widest px-3 py-1 bg-amber-100/60 rounded-full border border-amber-200">
+            Pusat Bantuan
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900">{t.faqTitle}</h2>
+        </motion.div>
+
+        <div className="space-y-4">
+          {[
+            { q: t.faq1Q, a: t.faq1A },
+            { q: t.faq2Q, a: t.faq2A },
+            { q: t.faq3Q, a: t.faq3A },
+            { q: t.faq4Q, a: t.faq4A },
+          ].map((item, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.08 }}
+              onClick={() => setExpandedFaq(expandedFaq === idx ? null : idx)}
+              className="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md cursor-pointer transition-all"
+            >
+              <div className="flex justify-between items-center font-bold text-sm sm:text-base text-slate-900">
+                <span>{item.q}</span>
+                <ChevronDown
+                  className={`w-5 h-5 text-slate-400 transition-transform duration-200 ${
+                    expandedFaq === idx ? 'rotate-180 text-[#d98200]' : ''
+                  }`}
+                />
+              </div>
+              <AnimatePresence>
+                {expandedFaq === idx && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.25 }}
+                    className="overflow-hidden"
+                  >
+                    <p className="text-xs sm:text-sm text-slate-600 mt-4 pt-4 border-t border-slate-100 leading-relaxed">
+                      {item.a}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-12 px-4 bg-slate-900 text-center text-xs text-slate-400 space-y-3 border-t border-slate-800">
+        <div className="flex items-center justify-center gap-2 font-mono text-slate-300">
+          <Globe className="w-3.5 h-3.5 text-[#ffb034]" />
+          <span>navigator.maxy.academy • ai.maxy.academy</span>
+        </div>
+        <p className="text-slate-400 max-w-md mx-auto">{t.footerTagline}</p>
+        <p className="text-slate-500 pt-2">{t.footerRights}</p>
+      </footer>
+    </div>
+  );
+};

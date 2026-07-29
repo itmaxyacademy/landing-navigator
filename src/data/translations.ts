@@ -1,0 +1,338 @@
+import { Language } from '../types';
+
+export const translations = {
+  id: {
+    // Nav & Common
+    navTitle: 'AI Navigator',
+    byMaxi: 'by MAXY Academy',
+    domainSub: 'navigator.maxy.academy',
+    features: 'Keunggulan',
+    curriculum: 'Kurikulum 28 Hari',
+    pricing: 'Tier Harga',
+    certification: 'Sertifikasi Accredify',
+    mentoringLink: 'Sesi Mentoring (ai.maxy.academy)',
+    openApp: 'Masuk Aplikasi',
+    adminMode: 'Mode Admin Johan',
+    launchingFriday: 'Target Peluncuran: Jumat Minggu Ini',
+    launchBadge: 'Terhubung dengan Accredify & ai.maxy.academy',
+
+    // Hero Section
+    heroTitlePrefix: 'Akselerasi Karir AI dalam',
+    heroTitleHighlight: '28 Hari Pelatihan Bersertifikat',
+    heroSubtitle:
+      'Program komprehensif Certified Applied AI (CAAI™ Level 1) & Badges',
+    enrollNow: 'Daftar Sekarang (Mulai Rp50rb)',
+    tryAppSimulator: 'Buka Simulator Aplikasi (/app)',
+    claimGiveaway: 'Klaim Beasiswa TikTok Harian',
+
+    // Stats Bar
+    statMeetings: '28 Pertemuan / 28 JP',
+    statMeetingsSub: '21 Hari Self-Paced + 7 Hari Mentoring',
+    statAccredify: 'Stempel Accredify',
+    statAccredifySub: 'Terverifikasi Blockchain Anti-Palsu',
+    statTargetFollowers: '10.000+ Target Community',
+    statTargetFollowersSub: 'Kampanye Beasiswa TikTok Harian',
+    statDiscountTier: 'Hemat s/d Rp150.000',
+    statDiscountTierSub: 'Khusus Upsell Tier 2',
+
+    // TikTok Campaign Banner
+    tiktokBannerTitle: '🎁 Kampanye Beasiswa TikTok Harian MAXY Academy',
+    tiktokBannerDesc:
+      'Dorong target 10.000 followers! Dapatkan akses Tier 1 (Rp50.000) GRATIS 100% atau klaim Voucher Upsell Rp150.000 untuk Tier 2 CAAI™!',
+    tiktokBannerButton: 'Klaim Voucher Beasiswa TikTok',
+    tiktokLiveNote: 'Klaim beasiswa juga bisa dilakukan secara langsung saat Sesi Live TikTok @maxy.academy!',
+    eventBoothBadge: '🎪 Khusus Booth Event DTICX & IdeaFest: 50 Pengunjung Pertama Gratis Claim Code!',
+
+    // Pricing Section
+    pricingTitle: 'Dua Tier Harga Fleksibel',
+    pricingSubtitle: 'Pilih paket yang sesuai dengan kebutuhan akademik dan karir Anda.',
+    tier1Title: 'Tier 1: Self-Paced Basic',
+    tier1Subtitle: '21 Hari Pembelajaran Mandiri + Sertifikat Completion (21 JP)',
+    tier1Target: '',
+    tier1Price: 'Rp 50.000',
+    tier1OriginalPrice: 'Rp 200.000',
+    tier1Features: [
+      'Akses 21 Hari Modul Interaktif Self-Paced',
+      'Kuis Pilihan Ganda & Evaluasi Otomatis',
+      'Certificate of Completion (21 Jam Pelajaran / JP)',
+      'Akses Komunitas Belajar AI Navigator',
+      'Bisa Di-upsell ke Tier 2 kapan saja',
+    ],
+    tier2Title: 'Tier 2: Full Mentoring & CAAI™ Certification',
+    tier2Subtitle: '28 Hari (21 Hari Self-Paced + 7 Hari Mentoring) + Sertifikat CAAI™ Level 1 (28 JP)',
+    tier2Target: 'Sertifikasi Profesional & Wajib Submit Project',
+    tier2Price: 'Rp 600.000',
+    tier2DiscountedPrice: 'Rp 300.000',
+    tier2DiscountNote: '',
+    tier2Features: [
+      'Semua Akses Tier 1 (21 Hari Modul Self-Paced)',
+      '7 Hari Sesi Live Mentoring di ai.maxy.academy',
+      'Bimbingan 1-on-1 Penyusunan Capstone Project',
+      'Wajib Submit Project & Review dari Mentor',
+      'Sertifikat Resmi CAAI™ Level 1 (28 JP) terhubung Accredify',
+      'Digital Badge LinkedIn & Verifikasi Kriptografis',
+    ],
+    selectTier1: 'Pilih Tier 1 (Rp50.000)',
+    selectTier2: 'Pilih Tier 2 (Rp300.000)',
+
+    // Curriculum Section
+    curriculumTitle: 'Kurikulum Terstruktur 28 Hari (28 JP)',
+    curriculumSubtitle: 'Transisi dari pemula menjadi praktisi AI tersertifikasi dalam 4 minggu.',
+    filterAll: 'Semua 28 Hari',
+    filterSelfPaced: '21 Hari Self-Paced (Tier 1 & 2)',
+    filterMentoring: '7 Hari Mentoring (Khusus Tier 2)',
+    dayLabel: 'Hari',
+    jpLabel: 'JP',
+    quizAvailable: 'Kuis Pilihan Ganda',
+    projectRequired: 'Wajib Submit Project',
+    mentoringBadge: 'Mentoring ai.maxy.academy',
+
+    // ROI Calculator
+    calculatorTitle: 'Kalkulator Potensi Dampak Skilled AI',
+    calculatorSubtitle: 'Hitung penghematan jam kerja & potensi kenaikan nilai karir Anda.',
+    hoursPerWeek: 'Jam Kerja Rutin per Minggu:',
+    currentRole: 'Peran Saat Ini:',
+    roleStudent: 'Mahasiswa / BEM',
+    roleProfessional: 'Profesional / Staff',
+    roleManager: 'Manager / Owner',
+    hoursSavedResult: 'Estimasi Jam Ditingkatkan / Minggu:',
+    efficiencyBoost: 'Peningkatan Efisiensi:',
+    careerImpact: 'Dampak Karir:',
+
+    // FAQ Section
+    faqTitle: 'Pertanyaan Sering Diajukan (FAQ)',
+    faq1Q: 'Apa perbedaan utama Tier 1 dan Tier 2?',
+    faq1A:
+      'Tier 1 (Rp50.000) mencakup 21 hari modul self-paced dengan Certificate of Completion (21 JP). Tier 2 (Rp300.000) mencakup 28 hari penuh (termasuk 7 hari mentoring intensif via ai.maxy.academy), wajib submit project, dan mendapatkan Sertifikat Resmi CAAI™ Level 1 (28 JP) terhubung ke Accredify.',
+    faq2Q: 'Bagaimana cara klaim Beasiswa TikTok atau Voucher Booth Event?',
+    faq2A:
+      'Klaim beasiswa bisa dilakukan secara langsung saat Sesi Live TikTok @maxy.academy atau dengan memasukkan kode voucher (seperti `BEASISWAMAXI` untuk Tier 1 Gratis, atau `TIKTOKUPSELL` / `IDEAFEST50` / `DTICXBOOTH` untuk diskon Rp150.000 di Tier 2) saat checkout.',
+    faq3Q: 'Bagaimana integrasi dengan Accredify bekerja?',
+    faq3A:
+      'Setiap lulusan Tier 2 yang project-nya disetujui oleh mentor akan menerima ID sertifikat digital unik dengan stempel kriptografis Accredify yang dapat diverifikasi oleh publik atau direkrut di LinkedIn.',
+    faq4Q: 'Kapan target peluncuran resmi AI Navigator?',
+    faq4A:
+      'Inisiatif AI Navigator ditargetkan peluncurannya pada Jumat minggu ini di navigator.maxy.academy dengan integrasi ke ai.maxy.academy.',
+
+    // App Dashboard (/app)
+    appHeaderTitle: 'Dashboard Pembelajaran AI Navigator',
+    appHeaderSub: 'Progres Modul:',
+    appHeaderCompleted: 'Selesai',
+    appHeaderCurrentTier: 'Status Tier Anda:',
+    appUpgradeBanner: 'Status saat ini: FREE / Tier 1. Upgrade ke Tier 2 untuk membuka 7 Hari Mentoring & Sertifikat CAAI™ Accredify!',
+    upgradeBtn: 'Upgrade ke Tier 2 (Diskon Rp150rb)',
+    startModule: 'Mulai Modul',
+    continueModule: 'Lanjutkan Modul',
+    moduleLocked: 'Terkunci (Khusus Tier 2 Mentoring)',
+    quizPassScore: 'Skor Kuis Anda:',
+    retakeQuiz: 'Ulangi Kuis',
+    submitQuiz: 'Kirim Jawaban Kuis',
+    projectSubmissionTitle: 'Portal Pengumpulan Capstone Project (Day 27/28)',
+    projectTitleInput: 'Judul Proyek Capstone:',
+    projectUrlInput: 'Link Repositori / Dokumentasi (GitHub/Drive):',
+    submitProjectBtn: 'Kirim Proyek ke Mentor',
+    projectSubmittedStatus: 'Status Proyek: Terkirim & Menunggu Review Mentor',
+    projectApprovedStatus: 'Status Proyek: DISETUJUI oleh Mentor MAXY! Silakan Klaim Sertifikat CAAI™.',
+
+    // Accredify Certificate Modal
+    certModalTitle: 'Verifikasi & Penerbitan Sertifikat Accredify',
+    certStatusValid: 'Sertifikat Terverifikasi Berstempel Kriptografis',
+    certJpLabel: 'Total Kredit:',
+    certIssuedTo: 'Diberikan Kepada:',
+    certHashLabel: 'Accredify Blockchain Hash:',
+    certQrLabel: 'Pindai untuk Verifikasi:',
+    downloadPdf: 'Unduh Sertifikat PDF',
+    shareLinkedin: 'Bagikan Badge ke LinkedIn',
+
+    // Admin Panel (Johan)
+    adminTitle: 'Panel Kontrol Admin (Johan CMS Simulator)',
+    adminSub: 'Kelola Konten Peluncuran Jumat, Kode Voucher, & Verifikasi Sertifikat Student',
+    togglePublish: 'Status Peluncuran Modul Hari 1-28:',
+    studentList: 'Daftar Siswa & Progres:',
+    approveProjectBtn: 'Setujui Proyek Capstone',
+    generateAccredifyBtn: 'Terbitkan Sertifikat Accredify',
+    giveawayStats: 'Statistik Klaim Beasiswa TikTok:',
+    claimedTotal: 'Total Klaim Voucher TikTok:',
+
+    // Checkout Modal
+    checkoutTitle: 'Pembayaran In-Site AI Navigator',
+    paymentMethod: 'Metode Pembayaran:',
+    couponCodeLabel: 'Punya Kode Promo / Voucher Beasiswa?',
+    applyCoupon: 'Terapkan Kode',
+    subtotal: 'Harga Paket:',
+    discount: 'Potongan Voucher:',
+    totalPayment: 'Total Pembayaran:',
+    payNowBtn: 'Bayar & Buka Akses Sekarang',
+
+    // Footer
+    footerRights: '© 2026 MAXY Academy. Hak Cipta Dilindungi.',
+    footerTagline: 'Inisiatif AI Navigator - Certified Applied AI Training.',
+  },
+  en: {
+    // Nav & Common
+    navTitle: 'AI Navigator',
+    byMaxi: 'by MAXY Academy',
+    domainSub: 'navigator.maxy.academy',
+    features: 'Features',
+    curriculum: '28-Day Curriculum',
+    pricing: 'Pricing Tiers',
+    certification: 'Accredify Certificate',
+    mentoringLink: 'Mentoring Sessions (ai.maxy.academy)',
+    openApp: 'Open App',
+    adminMode: "Johan's Admin Mode",
+    launchingFriday: 'Target Launch: This Friday',
+    launchBadge: 'Connected to Accredify & ai.maxy.academy',
+
+    // Hero Section
+    heroTitlePrefix: 'Accelerate Your AI Career in',
+    heroTitleHighlight: '28 Days Certified Training',
+    heroSubtitle:
+      'Comprehensive Certified Applied AI (CAAI™ Level 1) & Badges',
+    enrollNow: 'Enroll Now (From Rp50k)',
+    tryAppSimulator: 'Open App Simulator (/app)',
+    claimGiveaway: 'Claim Daily TikTok Scholarship',
+
+    // Stats Bar
+    statMeetings: '28 Meetings / 28 JP',
+    statMeetingsSub: '21 Days Self-Paced + 7 Days Mentoring',
+    statAccredify: 'Accredify Stamp',
+    statAccredifySub: 'Tamper-proof Blockchain Verified',
+    statTargetFollowers: '10,000+ Target Community',
+    statTargetFollowersSub: 'Daily TikTok Scholarship Campaign',
+    statDiscountTier: 'Save up to Rp150,000',
+    statDiscountTierSub: 'Exclusive Tier 2 Upsell',
+
+    // TikTok Campaign Banner
+    tiktokBannerTitle: '🎁 MAXY Academy Daily TikTok Scholarship Campaign',
+    tiktokBannerDesc:
+      'Pushing towards 10,000 TikTok followers! Get Tier 1 (Rp50,000) 100% FREE or claim a Rp150,000 Upsell Voucher for Tier 2 CAAI™!',
+    tiktokBannerButton: 'Claim TikTok Scholarship Voucher',
+    tiktokLiveNote: 'Scholarships can also be claimed live during @maxy.academy TikTok Live sessions!',
+    eventBoothBadge: '🎪 DTICX & IdeaFest Event Booth Special: First 50 Visitors Free Claim Code!',
+
+    // Pricing Section
+    pricingTitle: 'Two Flexible Pricing Tiers',
+    pricingSubtitle: 'Choose the plan tailored to your academic and career goals.',
+    tier1Title: 'Tier 1: Self-Paced Basic',
+    tier1Subtitle: '21 Days Self-Paced Learning + Completion Certificate (21 JP)',
+    tier1Target: '',
+    tier1Price: 'Rp 50,000',
+    tier1OriginalPrice: 'Rp 200,000',
+    tier1Features: [
+      'Access to 21 Days Interactive Self-Paced Modules',
+      'Multiple Choice Quizzes & Automated Evaluations',
+      'Certificate of Completion (21 Learning Hours / JP)',
+      'Access to AI Navigator Community',
+      'Upgradeable to Tier 2 at any time',
+    ],
+    tier2Title: 'Tier 2: Full Mentoring & CAAI™ Certification',
+    tier2Subtitle: '28 Days (21 Days Self-Paced + 7 Days Mentoring) + CAAI™ Level 1 Certificate (28 JP)',
+    tier2Target: 'Professional Certification & Mandatory Project Submission',
+    tier2Price: 'Rp 600,000',
+    tier2DiscountedPrice: 'Rp 300,000',
+    tier2DiscountNote: '',
+    tier2Features: [
+      'All Tier 1 Benefits (21 Days Self-Paced Modules)',
+      '7 Days Live Mentoring Sessions on ai.maxy.academy',
+      '1-on-1 Guidance for Capstone Project',
+      'Mandatory Project Submission & Mentor Review',
+      'Official CAAI™ Level 1 Certificate (28 JP) linked to Accredify',
+      'Digital LinkedIn Badges & Cryptographic Verification',
+    ],
+    selectTier1: 'Select Tier 1 (Rp50,000)',
+    selectTier2: 'Select Tier 2 (Rp300,000)',
+
+    // Curriculum Section
+    curriculumTitle: 'Structured 28-Day Curriculum (28 JP)',
+    curriculumSubtitle: 'Transition from beginner to certified AI practitioner in 4 weeks.',
+    filterAll: 'All 28 Days',
+    filterSelfPaced: '21 Days Self-Paced (Tier 1 & 2)',
+    filterMentoring: '7 Days Mentoring (Tier 2 Exclusive)',
+    dayLabel: 'Day',
+    jpLabel: 'JP',
+    quizAvailable: 'Multiple Choice Quiz',
+    projectRequired: 'Mandatory Project',
+    mentoringBadge: 'Mentoring ai.maxy.academy',
+
+    // ROI Calculator
+    calculatorTitle: 'Skilled AI Impact Calculator',
+    calculatorSubtitle: 'Calculate weekly hours saved & potential career value boost.',
+    hoursPerWeek: 'Routine Weekly Work Hours:',
+    currentRole: 'Current Role:',
+    roleStudent: 'Student / Organization Lead',
+    roleProfessional: 'Professional / Staff',
+    roleManager: 'Manager / Business Owner',
+    hoursSavedResult: 'Estimated Hours Saved / Week:',
+    efficiencyBoost: 'Efficiency Boost:',
+    careerImpact: 'Career Value Impact:',
+
+    // FAQ Section
+    faqTitle: 'Frequently Asked Questions (FAQ)',
+    faq1Q: 'What is the key difference between Tier 1 and Tier 2?',
+    faq1A:
+      'Tier 1 (Rp50,000) includes 21 days of self-paced learning with a Certificate of Completion (21 JP). Tier 2 (Rp300,000) includes the full 28 days (with 7 days intensive live mentoring via ai.maxy.academy), mandatory project submission, and earns you an Official CAAI™ Level 1 Certificate (28 JP) verified on Accredify.',
+    faq2Q: 'How do I claim the TikTok Scholarship or Event Booth Voucher?',
+    faq2A:
+      'Scholarships can be claimed directly during MAXY Academy TikTok Live (@maxy.academy) or by applying your voucher code (such as `BEASISWAMAXI` for free Tier 1, or `TIKTOKUPSELL` / `IDEAFEST50` / `DTICXBOOTH` for Rp150,000 off Tier 2) during checkout.',
+    faq3Q: 'How does Accredify integration work?',
+    faq3A:
+      'Every Tier 2 graduate whose project is approved by a mentor receives a unique digital credential ID with Accredify cryptographic hash stamp that can be verified publicly or attached to LinkedIn.',
+    faq4Q: 'When is the official launch target for AI Navigator?',
+    faq4A:
+      'AI Navigator is scheduled for official launch this Friday on navigator.maxy.academy integrated with ai.maxy.academy.',
+
+    // App Dashboard (/app)
+    appHeaderTitle: 'AI Navigator Learning Dashboard',
+    appHeaderSub: 'Module Progress:',
+    appHeaderCompleted: 'Completed',
+    appHeaderCurrentTier: 'Your Tier Status:',
+    appUpgradeBanner: 'Current Status: FREE / Tier 1. Upgrade to Tier 2 to unlock 7-Day Live Mentoring & Accredify CAAI™ Certificate!',
+    upgradeBtn: 'Upgrade to Tier 2 (Rp150k Off)',
+    startModule: 'Start Module',
+    continueModule: 'Continue Module',
+    moduleLocked: 'Locked (Tier 2 Mentoring Exclusive)',
+    quizPassScore: 'Your Quiz Score:',
+    retakeQuiz: 'Retake Quiz',
+    submitQuiz: 'Submit Quiz Answers',
+    projectSubmissionTitle: 'Capstone Project Submission Portal (Day 27/28)',
+    projectTitleInput: 'Capstone Project Title:',
+    projectUrlInput: 'Repository / Document Link (GitHub/Drive):',
+    submitProjectBtn: 'Submit Project to Mentor',
+    projectSubmittedStatus: 'Project Status: Submitted & Pending Mentor Review',
+    projectApprovedStatus: 'Project Status: APPROVED by MAXY Mentor! You can now claim your CAAI™ Certificate.',
+
+    // Accredify Certificate Modal
+    certModalTitle: 'Accredify Certificate Issuance & Verification',
+    certStatusValid: 'Cryptographically Verified Credential',
+    certJpLabel: 'Total Credits:',
+    certIssuedTo: 'Issued To:',
+    certHashLabel: 'Accredify Blockchain Hash:',
+    certQrLabel: 'Scan to Verify:',
+    downloadPdf: 'Download Certificate PDF',
+    shareLinkedin: 'Share Badge to LinkedIn',
+
+    // Admin Panel (Johan)
+    adminTitle: 'Admin Control Panel (Johan CMS Simulator)',
+    adminSub: 'Manage Friday Launch Content, Voucher Codes, & Student Certificate Approvals',
+    togglePublish: 'Day 1-28 Module Launch Status:',
+    studentList: 'Student List & Progress:',
+    approveProjectBtn: 'Approve Capstone Project',
+    generateAccredifyBtn: 'Issue Accredify Certificate',
+    giveawayStats: 'TikTok Scholarship Claim Stats:',
+    claimedTotal: 'Total TikTok Vouchers Claimed:',
+
+    // Checkout Modal
+    checkoutTitle: 'In-Site AI Navigator Payment',
+    paymentMethod: 'Payment Method:',
+    couponCodeLabel: 'Have a Promo / Scholarship Code?',
+    applyCoupon: 'Apply Code',
+    subtotal: 'Package Price:',
+    discount: 'Voucher Discount:',
+    totalPayment: 'Total Payment:',
+    payNowBtn: 'Pay & Unlock Access Now',
+
+    // Footer
+    footerRights: '© 2026 MAXY Academy. All Rights Reserved.',
+    footerTagline: 'AI Navigator Initiative - Certified Applied AI Training.',
+  },
+};

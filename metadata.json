@@ -1,0 +1,6 @@
+{
+  "name": "AI Navigator - MAXY Academy",
+  "description": "Landing page dan platform interaktif AI Navigator oleh MAXY Academy. Pelatihan AI bersertifikat 28 hari (CAAI™ / CAI-TM) dengan 2 tier harga, kuis interaktif, dan integrasi Accredify.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

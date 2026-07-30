@@ -131,13 +131,19 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               whileHover={{ scale: 1.04 }}
               className="inline-flex items-center gap-2 px-4.5 py-2 rounded-full bg-white/95 border border-amber-300 text-xs sm:text-sm font-black text-slate-800 shadow-sm backdrop-blur-md cursor-default"
             >
+              <img
+                src="https://cms.maxy.academy/uploads/edtech50-badge.png"
+                alt="HolonIQ EdTech 50"
+                className="w-5 h-5 object-contain"
+                onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/edtech50-badge.png'; }}
+              />
               <motion.div
                 animate={{ rotate: [0, 360] }}
                 transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
               >
                 <Sparkles className="w-4 h-4 text-[#d98200]" />
               </motion.div>
-              <span>Program Pelatihan AI Navigator MAXY Academy</span>
+              <span>Recognized by HolonIQ EdTech Top 50</span>
             </motion.div>
 
             <motion.h1
@@ -201,11 +207,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.6 }}
-            className="mt-16 max-w-5xl 2xl:max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 p-6 sm:p-7 rounded-2xl bg-white/90 backdrop-blur-md border border-slate-200/90 shadow-lg"
+            className="mt-16 max-w-6xl 2xl:max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-4 p-6 sm:p-7 rounded-2xl bg-white/90 backdrop-blur-md border border-slate-200/90 shadow-lg"
           >
             <div className="space-y-1.5 p-3 rounded-xl hover:bg-slate-50 transition-colors">
-              <div className="flex items-center gap-2 text-slate-900 font-extrabold text-xl sm:text-2xl 2xl:text-3xl">
-                <Clock className="w-5 h-5 sm:w-6 sm:h-6 text-[#d98200]" />
+              <div className="flex items-center gap-2 text-slate-900 font-extrabold text-lg sm:text-xl 2xl:text-2xl">
+                <Clock className="w-5 h-5 text-[#d98200]" />
                 <span>28 JP</span>
               </div>
               <p className="text-xs sm:text-sm font-bold text-slate-900">{t.statMeetings}</p>
@@ -213,17 +219,31 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             </div>
 
             <div className="space-y-1.5 p-3 rounded-xl hover:bg-slate-50 transition-colors">
-              <div className="flex items-center gap-2 text-slate-900 font-extrabold text-xl sm:text-2xl 2xl:text-3xl">
-                <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 text-[#d98200]" />
-                <span>Accredify</span>
+              <div className="flex items-center gap-2 text-slate-900 font-extrabold text-lg sm:text-xl 2xl:text-2xl">
+                <img
+                  src="https://cms.maxy.academy/uploads/edtech50-badge.png"
+                  alt="HolonIQ"
+                  className="w-5.5 h-5.5 object-contain"
+                  onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/edtech50-badge.png'; }}
+                />
+                <span>HolonIQ</span>
+              </div>
+              <p className="text-xs sm:text-sm font-bold text-slate-900">EdTech Top 50</p>
+              <p className="text-[11px] sm:text-xs text-slate-500">Recognized by HolonIQ &amp; QS World</p>
+            </div>
+
+            <div className="space-y-1.5 p-3 rounded-xl hover:bg-slate-50 transition-colors">
+              <div className="flex items-center gap-2 text-slate-900 font-extrabold text-lg sm:text-xl 2xl:text-2xl">
+                <ShieldCheck className="w-5 h-5 text-[#d98200]" />
+                <span>Sertifikat</span>
               </div>
               <p className="text-xs sm:text-sm font-bold text-slate-900">{t.statAccredify}</p>
               <p className="text-[11px] sm:text-xs text-slate-500">{t.statAccredifySub}</p>
             </div>
 
             <div className="space-y-1.5 p-3 rounded-xl hover:bg-slate-50 transition-colors">
-              <div className="flex items-center gap-2 text-slate-900 font-extrabold text-xl sm:text-2xl 2xl:text-3xl">
-                <Users className="w-5 h-5 sm:w-6 sm:h-6 text-[#d98200]" />
+              <div className="flex items-center gap-2 text-slate-900 font-extrabold text-lg sm:text-xl 2xl:text-2xl">
+                <Users className="w-5 h-5 text-[#d98200]" />
                 <span>10.000+</span>
               </div>
               <p className="text-xs sm:text-sm font-bold text-slate-900">{t.statTargetFollowers}</p>
@@ -231,8 +251,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             </div>
 
             <div className="space-y-1.5 p-3 rounded-xl hover:bg-slate-50 transition-colors">
-              <div className="flex items-center gap-2 text-slate-900 font-extrabold text-xl sm:text-2xl 2xl:text-3xl">
-                <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-[#d98200]" />
+              <div className="flex items-center gap-2 text-slate-900 font-extrabold text-lg sm:text-xl 2xl:text-2xl">
+                <Zap className="w-5 h-5 text-[#d98200]" />
                 <span>Rp150rb Off</span>
               </div>
               <p className="text-xs sm:text-sm font-bold text-slate-900">{t.statDiscountTier}</p>

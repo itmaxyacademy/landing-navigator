@@ -144,10 +144,15 @@ const BadgeLevel3SVG = () => (
 
 // HolonIQ by QS Southeast Asia EdTech 50 Graphic
 const HolonIqGraphic = () => (
-  <div className="w-48 sm:w-56 aspect-square rounded-2xl overflow-hidden shadow-lg border border-slate-700/20 flex flex-col mx-auto bg-white p-1">
+  <div className="w-48 sm:w-56 aspect-square rounded-2xl overflow-hidden shadow-2xl border border-slate-700/40 flex flex-col mx-auto bg-slate-950 p-1.5">
     <img
       src="/edtech50-badge.png"
-      onError={(e) => { (e.currentTarget as HTMLImageElement).src = 'https://cms.maxy.academy/uploads/edtech50-badge.png'; }}
+      onError={(e) => {
+        const target = e.currentTarget as HTMLImageElement;
+        if (!target.src.includes('v=2')) {
+          target.src = '/edtech50-badge.png?v=2';
+        }
+      }}
       alt="Southeast Asia EdTech 50 - HolonIQ by QS"
       className="w-full h-full object-contain rounded-xl"
     />

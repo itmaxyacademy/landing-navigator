@@ -5,7 +5,7 @@ import { LandingPage } from './components/LandingPage';
 import { TikTokGiveawayModal } from './components/TikTokGiveawayModal';
 import { CheckoutModal } from './components/CheckoutModal';
 import { LoginModal } from './components/LoginModal';
-import { fetchAiNavigatorPackages } from './services/api';
+import { fetchAiNavigatorPackages, fetchUserProfile, checkoutPayment } from './services/api';
 
 export default function App() {
   const [lang, setLang] = useState<Language>('id');
@@ -37,9 +37,27 @@ export default function App() {
         setCmsPackages(res.data);
       }
     });
+
+    const token = localStorage.getItem('maxy_access_token');
+    if (token) {
+      fetchUserProfile(token).then((res) => {
+        if (res?.success && res?.data) {
+          setIsLoggedIn(true);
+          const sub = res.data.subscription;
+          const user = res.data.user;
+          const rawTier = sub?.tier || (sub?.is_paid ? 'tier1' : 'free');
+          setUserState((prev) => ({
+            ...prev,
+            name: user?.name || prev.name,
+            email: user?.email || prev.email,
+            tier: rawTier as UserTier,
+          }));
+        }
+      });
+    }
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('login') === 'true') {
       setIsLoginOpen(true);
@@ -50,13 +68,66 @@ export default function App() {
     window.location.href = '/app';
   };
 
+  const processCheckoutOrRedirect = async (tier: 'tier1' | 'tier2', couponCode?: string) => {
+    // 1. Check user profile to verify current active tier status
+    const profileRes = await fetchUserProfile();
+    if (profileRes?.success && profileRes?.data) {
+      const sub = profileRes.data.subscription;
+      const currentTier = sub?.tier || (sub?.is_paid ? 'tier1' : 'free');
+
+      // If user already owns the target tier or higher, redirect directly to /app
+      if (currentTier === tier || (tier === 'tier1' && currentTier === 'tier2') || sub?.is_paid) {
+        navigateToApp();
+        return;
+      }
+    }
+
+    // If coupon is provided, open CheckoutModal for coupon discount preview
+    if (couponCode) {
+      setCheckoutTier(tier);
+      setPrefilledCoupon(couponCode);
+      setIsCheckoutOpen(true);
+      return;
+    }
+
+    // Otherwise, directly initiate Xendit payment checkout
+    const amount = tier === 'tier1'
+      ? (cmsPackages?.tier1?.price ?? 49500)
+      : (cmsPackages?.tier2?.price ?? 299500);
+
+    const description = `Pembelian Paket ${tier === 'tier1' ? 'Tier 1' : 'Tier 2'} AI Navigator`;
+    const res = await checkoutPayment({
+      amount,
+      description,
+      redirect_url: `${window.location.origin}/app`,
+    });
+
+    const invoiceUrl =
+      res?.data?.payment_url ||
+      res?.data?.invoice_url ||
+      res?.data?.data?.payment_url ||
+      res?.data?.data?.invoice_url ||
+      res?.payment_url ||
+      res?.invoice_url;
+
+    if (invoiceUrl) {
+      window.location.href = invoiceUrl;
+      return;
+    }
+
+    // Fallback to CheckoutModal if instant checkout fails
+    setCheckoutTier(tier);
+    setIsCheckoutOpen(true);
+  };
+
   const handleOpenCheckout = (tier: 'free' | 'tier1' | 'tier2', couponCode?: string) => {
     if (tier === 'free') {
       navigateToApp();
       return;
     }
 
-    if (!isLoggedIn) {
+    const token = localStorage.getItem('maxy_access_token');
+    if (!isLoggedIn && !token) {
       setPendingTier(tier);
       if (couponCode) {
         setPendingCoupon(couponCode);
@@ -65,11 +136,7 @@ export default function App() {
       return;
     }
 
-    setCheckoutTier(tier);
-    if (couponCode) {
-      setPrefilledCoupon(couponCode);
-    }
-    setIsCheckoutOpen(true);
+    processCheckoutOrRedirect(tier, couponCode);
   };
 
   const handleSelectCouponFromGiveaway = (code: string) => {
@@ -85,7 +152,7 @@ export default function App() {
     navigateToApp();
   };
 
-  const handleLoginSuccess = (userInfo?: { name: string; email: string }) => {
+  const handleLoginSuccess = async (userInfo?: { name: string; email: string }) => {
     setIsLoggedIn(true);
     if (userInfo) {
       setUserState((prev) => ({
@@ -104,14 +171,13 @@ export default function App() {
       if (targetTier === 'free') {
         navigateToApp();
       } else {
-        setCheckoutTier(targetTier);
-        if (targetCoupon) {
-          setPrefilledCoupon(targetCoupon);
-        }
-        setIsCheckoutOpen(true);
+        await processCheckoutOrRedirect(targetTier, targetCoupon);
       }
     } else {
-      navigateToApp();
+      const profileRes = await fetchUserProfile();
+      if (profileRes?.success && profileRes?.data?.subscription?.is_paid) {
+        navigateToApp();
+      }
     }
   };
 

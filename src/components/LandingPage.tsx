@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Language } from '../types';
 import { translations } from '../data/translations';
+import { BadgesSection } from './BadgesSection';
+import { AIToolsSection } from './AIToolsSection';
 import {
   Sparkles,
   ShieldCheck,
@@ -19,7 +21,7 @@ import {
 
 interface LandingPageProps {
   lang: Language;
-  onOpenCheckout: (tier: 'tier1' | 'tier2') => void;
+  onOpenCheckout: (tier: 'free' | 'tier1' | 'tier2') => void;
   onOpenGiveaway: () => void;
   onOpenApp?: () => void;
 }
@@ -38,24 +40,94 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 selection:bg-[#ffb034] selection:text-slate-950 font-sans">
       {/* Full-width Hero Section */}
-      <section id="hero" className="relative w-full py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-amber-50/50 via-slate-50/50 to-slate-50 overflow-hidden scroll-mt-20">
-        {/* Soft Warm Ambient Glow */}
-        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-b from-amber-200/20 via-amber-100/10 to-transparent rounded-full blur-3xl pointer-events-none -z-0" />
+      <section id="hero" className="relative w-full py-20 sm:py-28 lg:py-36 px-4 sm:px-6 lg:px-12 2xl:px-16 bg-gradient-to-b from-amber-50/80 via-slate-50 to-slate-50 overflow-hidden scroll-mt-20">
+        {/* Soft Modern Tech Background Image Overlay */}
+        <div className="absolute inset-0 pointer-events-none -z-0 overflow-hidden">
+          <img
+            src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2000&auto=format&fit=crop"
+            alt="Hero Background Texture"
+            referrerPolicy="no-referrer"
+            className="w-full h-full object-cover opacity-[0.06] mix-blend-multiply scale-105"
+          />
+        </div>
 
-        <div className="max-w-7xl mx-auto relative z-10">
+        {/* Dynamic Floating Background Ambient Glow Orbs */}
+        <motion.div
+          animate={{
+            scale: [1, 1.25, 1],
+            x: [-40, 40, -40],
+            y: [-15, 15, -15],
+            opacity: [0.35, 0.65, 0.35],
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute -top-32 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-gradient-to-b from-amber-300/35 via-amber-200/20 to-transparent rounded-full blur-3xl pointer-events-none -z-0"
+        />
+        <motion.div
+          animate={{
+            scale: [1.2, 1, 1.2],
+            x: [30, -30, 30],
+            y: [20, -20, 20],
+            opacity: [0.2, 0.5, 0.2],
+          }}
+          transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute top-20 right-10 w-[500px] h-[500px] bg-gradient-to-bl from-amber-400/20 via-orange-300/15 to-transparent rounded-full blur-3xl pointer-events-none -z-0"
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.15, 0.4, 0.15],
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute bottom-10 left-10 w-[450px] h-[450px] bg-gradient-to-tr from-blue-400/20 to-transparent rounded-full blur-3xl pointer-events-none -z-0"
+        />
+
+        {/* Floating Spark Particles */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden -z-0">
+          {[...Array(12)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{
+                x: Math.random() * 1200 - 600,
+                y: Math.random() * 600,
+                opacity: 0.2,
+                scale: 0.6,
+              }}
+              animate={{
+                y: [0, -80, 0],
+                x: [0, i % 2 === 0 ? 30 : -30, 0],
+                opacity: [0.25, 0.8, 0.25],
+              }}
+              transition={{
+                duration: 6 + i * 1.5,
+                repeat: Infinity,
+                ease: 'easeInOut',
+                delay: i * 0.35,
+              }}
+              className="absolute left-1/2 top-1/3 w-1.5 h-1.5 rounded-full bg-[#d98200] shadow-[0_0_12px_#ffb034]"
+            />
+          ))}
+        </div>
+
+        <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="text-center max-w-3xl mx-auto space-y-7"
+            className="text-center max-w-3xl 2xl:max-w-4xl mx-auto space-y-7"
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.1, duration: 0.4 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-slate-200/80 text-xs font-black text-slate-800 shadow-sm"
+              whileHover={{ scale: 1.04 }}
+              className="inline-flex items-center gap-2 px-4.5 py-2 rounded-full bg-white/95 border border-amber-300 text-xs sm:text-sm font-black text-slate-800 shadow-sm backdrop-blur-md cursor-default"
             >
-              <Sparkles className="w-3.5 h-3.5 text-[#d98200]" />
+              <motion.div
+                animate={{ rotate: [0, 360] }}
+                transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+              >
+                <Sparkles className="w-4 h-4 text-[#d98200]" />
+              </motion.div>
               <span>Program Pelatihan AI Navigator MAXY Academy</span>
             </motion.div>
 
@@ -63,7 +135,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.5 }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 leading-[1.15]"
+              className="text-4xl sm:text-5xl lg:text-6xl 2xl:text-7xl font-black tracking-tight text-slate-900 leading-[1.12]"
             >
               {t.heroTitlePrefix}{' '}
               <span className="text-[#d98200]">
@@ -75,7 +147,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.5 }}
-              className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto font-medium"
+              className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed max-w-2xl 2xl:max-w-3xl mx-auto font-medium"
             >
               {t.heroSubtitle}
             </motion.p>
@@ -85,28 +157,28 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.5 }}
-              className="flex flex-col sm:flex-row items-center justify-center gap-3.5 pt-2"
+              className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-3"
             >
               <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
                 onClick={handleScrollToPricing}
-                className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-[#ffb034] hover:bg-[#e59d2a] text-slate-900 font-black text-sm flex items-center justify-center gap-2 transition-all shadow-md shadow-[#ffb034]/20 hover:shadow-lg"
+                className="w-full sm:w-auto px-9 py-4 rounded-xl bg-[#ffb034] hover:bg-[#e59d2a] text-slate-900 font-black text-sm lg:text-base flex items-center justify-center gap-2.5 transition-all shadow-md shadow-[#ffb034]/25 hover:shadow-xl"
               >
                 <span>{t.enrollNow}</span>
-                <ArrowRight className="w-4 h-4 text-slate-900" />
+                <ArrowRight className="w-4.5 h-4.5 text-slate-900" />
               </motion.button>
 
               <motion.a
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
                 href="https://www.tiktok.com/@maxy.academy"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-900 border border-slate-300 font-extrabold text-sm flex items-center justify-center gap-2 transition-all shadow-sm hover:border-slate-400"
+                className="w-full sm:w-auto px-7 py-4 rounded-xl bg-white hover:bg-slate-50 text-slate-900 border border-slate-300 font-extrabold text-sm lg:text-base flex items-center justify-center gap-2.5 transition-all shadow-sm hover:border-slate-400"
               >
                 <span>TikTok @maxy.academy</span>
-                <ExternalLink className="w-4 h-4 text-[#d98200]" />
+                <ExternalLink className="w-4.5 h-4.5 text-[#d98200]" />
               </motion.a>
             </motion.div>
           </motion.div>
@@ -116,55 +188,55 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.6 }}
-            className="mt-14 max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/80 shadow-sm"
+            className="mt-16 max-w-5xl 2xl:max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 p-6 sm:p-7 rounded-2xl bg-white/90 backdrop-blur-md border border-slate-200/90 shadow-lg"
           >
-            <div className="space-y-1 p-2 rounded-xl hover:bg-slate-50 transition-colors">
-              <div className="flex items-center gap-2 text-slate-900 font-extrabold text-xl sm:text-2xl">
-                <Clock className="w-5 h-5 text-[#d98200]" />
+            <div className="space-y-1.5 p-3 rounded-xl hover:bg-slate-50 transition-colors">
+              <div className="flex items-center gap-2 text-slate-900 font-extrabold text-xl sm:text-2xl 2xl:text-3xl">
+                <Clock className="w-5 h-5 sm:w-6 sm:h-6 text-[#d98200]" />
                 <span>28 JP</span>
               </div>
-              <p className="text-xs font-bold text-slate-900">{t.statMeetings}</p>
-              <p className="text-[11px] text-slate-500">{t.statMeetingsSub}</p>
+              <p className="text-xs sm:text-sm font-bold text-slate-900">{t.statMeetings}</p>
+              <p className="text-[11px] sm:text-xs text-slate-500">{t.statMeetingsSub}</p>
             </div>
 
-            <div className="space-y-1 p-2 rounded-xl hover:bg-slate-50 transition-colors">
-              <div className="flex items-center gap-2 text-slate-900 font-extrabold text-xl sm:text-2xl">
-                <ShieldCheck className="w-5 h-5 text-[#d98200]" />
+            <div className="space-y-1.5 p-3 rounded-xl hover:bg-slate-50 transition-colors">
+              <div className="flex items-center gap-2 text-slate-900 font-extrabold text-xl sm:text-2xl 2xl:text-3xl">
+                <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 text-[#d98200]" />
                 <span>Accredify</span>
               </div>
-              <p className="text-xs font-bold text-slate-900">{t.statAccredify}</p>
-              <p className="text-[11px] text-slate-500">{t.statAccredifySub}</p>
+              <p className="text-xs sm:text-sm font-bold text-slate-900">{t.statAccredify}</p>
+              <p className="text-[11px] sm:text-xs text-slate-500">{t.statAccredifySub}</p>
             </div>
 
-            <div className="space-y-1 p-2 rounded-xl hover:bg-slate-50 transition-colors">
-              <div className="flex items-center gap-2 text-slate-900 font-extrabold text-xl sm:text-2xl">
-                <Users className="w-5 h-5 text-[#d98200]" />
+            <div className="space-y-1.5 p-3 rounded-xl hover:bg-slate-50 transition-colors">
+              <div className="flex items-center gap-2 text-slate-900 font-extrabold text-xl sm:text-2xl 2xl:text-3xl">
+                <Users className="w-5 h-5 sm:w-6 sm:h-6 text-[#d98200]" />
                 <span>10.000+</span>
               </div>
-              <p className="text-xs font-bold text-slate-900">{t.statTargetFollowers}</p>
-              <p className="text-[11px] text-slate-500">{t.statTargetFollowersSub}</p>
+              <p className="text-xs sm:text-sm font-bold text-slate-900">{t.statTargetFollowers}</p>
+              <p className="text-[11px] sm:text-xs text-slate-500">{t.statTargetFollowersSub}</p>
             </div>
 
-            <div className="space-y-1 p-2 rounded-xl hover:bg-slate-50 transition-colors">
-              <div className="flex items-center gap-2 text-slate-900 font-extrabold text-xl sm:text-2xl">
-                <Zap className="w-5 h-5 text-[#d98200]" />
+            <div className="space-y-1.5 p-3 rounded-xl hover:bg-slate-50 transition-colors">
+              <div className="flex items-center gap-2 text-slate-900 font-extrabold text-xl sm:text-2xl 2xl:text-3xl">
+                <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-[#d98200]" />
                 <span>Rp150rb Off</span>
               </div>
-              <p className="text-xs font-bold text-slate-900">{t.statDiscountTier}</p>
-              <p className="text-[11px] text-slate-500">{t.statDiscountTierSub}</p>
+              <p className="text-xs sm:text-sm font-bold text-slate-900">{t.statDiscountTier}</p>
+              <p className="text-[11px] sm:text-xs text-slate-500">{t.statDiscountTierSub}</p>
             </div>
           </motion.div>
         </div>
       </section>
 
       {/* Main Page: Features / Keunggulan Section with id="features" */}
-      <section id="features" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-20">
+      <section id="features" className="py-20 sm:py-24 px-4 sm:px-6 lg:px-12 2xl:px-16 max-w-7xl 2xl:max-w-[1536px] mx-auto scroll-mt-20">
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.5 }}
-          className="p-7 sm:p-10 rounded-3xl bg-white border border-slate-200/90 shadow-md space-y-8"
+          className="p-7 sm:p-12 rounded-3xl bg-white border border-slate-200/90 shadow-lg space-y-8"
         >
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-slate-100">
             <div className="flex items-center gap-3.5">
@@ -197,7 +269,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               <span className="text-xs text-slate-500 font-semibold">Target Followers TikTok</span>
               <div className="text-2xl font-black text-slate-900">10.000 Followers</div>
               <div className="w-full bg-slate-200/80 h-2.5 rounded-full overflow-hidden">
-                <div className="bg-[#ffb034] h-full w-[64%] rounded-full" />
+                <motion.div
+                  initial={{ width: 0 }}
+                  whileInView={{ width: '64%' }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.2, ease: 'easeOut' }}
+                  className="bg-[#ffb034] h-full rounded-full"
+                />
               </div>
               <p className="text-[11px] text-slate-500 font-mono font-medium">6.420 / 10.000 Followers (64%)</p>
             </div>
@@ -242,22 +320,76 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       </section>
 
       {/* Pricing Tiers Section */}
-      <section id="pricing" className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-20">
+      <section id="pricing" className="py-20 sm:py-28 px-4 sm:px-6 lg:px-12 2xl:px-16 max-w-7xl 2xl:max-w-[1536px] mx-auto scroll-mt-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.5 }}
-          className="text-center max-w-2xl mx-auto mb-12 sm:mb-16 space-y-3"
+          className="text-center max-w-2xl 2xl:max-w-3xl mx-auto mb-12 sm:mb-16 space-y-3"
         >
-          <span className="text-xs font-mono font-bold text-[#d98200] uppercase tracking-widest px-3 py-1 bg-amber-100/60 rounded-full border border-amber-200">
+          <span className="text-xs font-mono font-bold text-[#d98200] uppercase tracking-widest px-3.5 py-1.5 bg-amber-100/70 rounded-full border border-amber-200">
             Pilihan Paket Belajar
           </span>
-          <h2 className="text-3xl sm:text-4xl font-black text-slate-900">{t.pricingTitle}</h2>
-          <p className="text-sm sm:text-base text-slate-600 leading-relaxed">{t.pricingSubtitle}</p>
+          <h2 className="text-3xl sm:text-4xl 2xl:text-5xl font-black text-slate-900">{t.pricingTitle}</h2>
+          <p className="text-sm sm:text-base 2xl:text-lg text-slate-600 leading-relaxed">{t.pricingSubtitle}</p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 max-w-5xl mx-auto items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 2xl:gap-10 max-w-6xl 2xl:max-w-7xl mx-auto items-stretch">
+          {/* Free Tier / Starter Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            whileHover={{ y: -6, transition: { duration: 0.25 } }}
+            transition={{ duration: 0.4 }}
+            className="p-7 sm:p-8 rounded-[2rem] bg-white border-2 border-emerald-500/80 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-8 relative overflow-hidden"
+          >
+            {/* Promo Soft Launching Tag */}
+            <div className="absolute top-0 right-0 bg-emerald-600 text-white font-black text-[10px] px-3.5 py-1 rounded-bl-xl uppercase tracking-wider shadow-sm flex items-center gap-1">
+              <Sparkles className="w-3 h-3 text-emerald-200" />
+              <span>PROMO SOFT LAUNCHING</span>
+            </div>
+
+            <div className="space-y-5 pt-2">
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <span className="text-xs font-mono text-emerald-600 font-black uppercase tracking-wider">FREE TRIAL</span>
+                  <h3 className="text-2xl font-black text-slate-900 mt-0.5">{t.freeTierTitle}</h3>
+                </div>
+                <span className="px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-mono font-black shrink-0 shadow-sm">
+                  3 HARI
+                </span>
+              </div>
+
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">{t.freeTierSubtitle}</p>
+
+              <div className="pt-2">
+                <div className="text-3xl font-black text-slate-900">{t.freeTierPrice}</div>
+                <div className="text-xs text-slate-400 mt-0.5">
+                  Akses Coba Tanpa Komitmen
+                </div>
+              </div>
+
+              <ul className="space-y-3 text-xs sm:text-sm text-slate-700 pt-4 border-t border-slate-100">
+                {t.freeTierFeatures.map((feat, idx) => (
+                  <li key={idx} className="flex items-start gap-2.5">
+                    <Check className="w-4 h-4 text-slate-500 shrink-0 mt-0.5" />
+                    <span>{feat}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <motion.button
+              whileTap={{ scale: 0.98 }}
+              onClick={() => onOpenCheckout('free')}
+              className="w-full py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs sm:text-sm transition-colors shadow-sm"
+            >
+              {t.selectFreeTier}
+            </motion.button>
+          </motion.div>
+
           {/* Tier 1 Card */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -359,6 +491,12 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           </motion.div>
         </div>
       </section>
+
+      {/* Badges Level & Progression Section */}
+      <BadgesSection lang={lang} />
+
+      {/* AI Tools & Platforms Section */}
+      <AIToolsSection lang={lang} />
 
       {/* FAQ Accordion Section */}
       <section id="faq" className="py-16 sm:py-24 px-4 sm:px-6 max-w-4xl mx-auto space-y-8 scroll-mt-20">

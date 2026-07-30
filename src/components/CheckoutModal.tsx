@@ -32,7 +32,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
   if (!isOpen) return null;
 
-  const basePrice = selectedTier === 'tier1' ? 50000 : 300000;
+  const basePrice = selectedTier === 'tier1' ? 49500 : 299500;
 
   // Calculate discount
   let discountAmount = 0;
@@ -40,7 +40,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
     const found = INITIAL_COUPONS.find((c) => c.code.toUpperCase() === activeCoupon.toUpperCase());
     if (found) {
       if (found.isFreePass && selectedTier === 'tier1') {
-        discountAmount = 50000;
+        discountAmount = 49500;
       } else if (found.discountAmount) {
         discountAmount = found.discountAmount;
       }

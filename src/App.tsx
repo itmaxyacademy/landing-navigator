@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import { Language, UserState, UserTier } from './types';
 import { Navbar } from './components/Navbar';
 import { LandingPage } from './components/LandingPage';
+import { AppDashboard } from './components/AppDashboard';
 import { AdminPanel } from './components/AdminPanel';
 import { TikTokGiveawayModal } from './components/TikTokGiveawayModal';
 import { CheckoutModal } from './components/CheckoutModal';
 import { AccredifyModal } from './components/AccredifyModal';
+import { LoginModal } from './components/LoginModal';
 
 export default function App() {
   const [lang, setLang] = useState<Language>('id');
-  const [activeView, setActiveView] = useState<'landing' | 'admin'>('landing');
+  const [activeView, setActiveView] = useState<'landing' | 'dashboard' | 'admin'>('landing');
 
   // Initial user state with progress 11/28 modules completed as noted in meeting requirements
   const [userState, setUserState] = useState<UserState>({
@@ -40,13 +42,30 @@ export default function App() {
   const [checkoutTier, setCheckoutTier] = useState<'tier1' | 'tier2'>('tier2');
   const [prefilledCoupon, setPrefilledCoupon] = useState<string>('');
   const [isCertificateOpen, setIsCertificateOpen] = useState<boolean>(false);
+  const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [pendingTier, setPendingTier] = useState<'free' | 'tier1' | 'tier2' | null>(null);
+  const [pendingCoupon, setPendingCoupon] = useState<string>('');
 
-  const handleOpenCheckout = (tier: 'tier1' | 'tier2', couponCode?: string) => {
-    setCheckoutTier(tier);
-    if (couponCode) {
-      setPrefilledCoupon(couponCode);
+  const handleOpenCheckout = (tier: 'free' | 'tier1' | 'tier2', couponCode?: string) => {
+    if (!isLoggedIn) {
+      setPendingTier(tier);
+      if (couponCode) {
+        setPendingCoupon(couponCode);
+      }
+      setIsLoginOpen(true);
+      return;
     }
-    setIsCheckoutOpen(true);
+
+    if (tier === 'free') {
+      setActiveView('dashboard');
+    } else {
+      setCheckoutTier(tier);
+      if (couponCode) {
+        setPrefilledCoupon(couponCode);
+      }
+      setIsCheckoutOpen(true);
+    }
   };
 
   const handleSelectCouponFromGiveaway = (code: string) => {
@@ -63,7 +82,37 @@ export default function App() {
       ...prev,
       tier: purchasedTier,
     }));
-    window.open('https://navigator.maxy.academy', '_blank');
+    setActiveView('dashboard');
+  };
+
+  const handleLoginSuccess = (userInfo?: { name: string; email: string }) => {
+    setIsLoggedIn(true);
+    if (userInfo) {
+      setUserState((prev) => ({
+        ...prev,
+        name: userInfo.name,
+        email: userInfo.email,
+      }));
+    }
+
+    if (pendingTier) {
+      const targetTier = pendingTier;
+      const targetCoupon = pendingCoupon;
+      setPendingTier(null);
+      setPendingCoupon('');
+
+      if (targetTier === 'free') {
+        setActiveView('dashboard');
+      } else {
+        setCheckoutTier(targetTier);
+        if (targetCoupon) {
+          setPrefilledCoupon(targetCoupon);
+        }
+        setIsCheckoutOpen(true);
+      }
+    } else {
+      setActiveView('dashboard');
+    }
   };
 
   return (
@@ -74,6 +123,9 @@ export default function App() {
         activeView={activeView}
         setActiveView={setActiveView}
         onOpenGiveaway={() => setIsGiveawayOpen(true)}
+        onOpenLogin={() => setIsLoginOpen(true)}
+        isLoggedIn={isLoggedIn}
+        userName={userState.name}
       />
 
       <main>
@@ -85,12 +137,29 @@ export default function App() {
           />
         )}
 
+        {activeView === 'dashboard' && (
+          <AppDashboard
+            lang={lang}
+            userState={userState}
+            setUserState={setUserState}
+            onOpenCheckout={(tier) => handleOpenCheckout(tier)}
+            onOpenCertificate={() => setIsCertificateOpen(true)}
+          />
+        )}
+
         {activeView === 'admin' && (
           <AdminPanel lang={lang} userState={userState} setUserState={setUserState} />
         )}
       </main>
 
       {/* Modals */}
+      <LoginModal
+        isOpen={isLoginOpen}
+        onClose={() => setIsLoginOpen(false)}
+        lang={lang}
+        onLoginSuccess={handleLoginSuccess}
+      />
+
       <TikTokGiveawayModal
         isOpen={isGiveawayOpen}
         onClose={() => setIsGiveawayOpen(false)}

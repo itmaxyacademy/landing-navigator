@@ -21,7 +21,7 @@ export const translations = {
     heroTitleHighlight: '28 Hari Pelatihan Bersertifikat',
     heroSubtitle:
       'Program komprehensif Certified Applied AI (CAAI™ Level 1) & Badges',
-    enrollNow: 'Daftar Sekarang (Mulai Rp50rb)',
+    enrollNow: 'Daftar Sekarang (Mulai Rp49,5rb)',
     tryAppSimulator: 'Buka Simulator Aplikasi (/app)',
     claimGiveaway: 'Klaim Beasiswa TikTok Harian',
 
@@ -38,19 +38,30 @@ export const translations = {
     // TikTok Campaign Banner
     tiktokBannerTitle: '🎁 Kampanye Beasiswa TikTok Harian MAXY Academy',
     tiktokBannerDesc:
-      'Dorong target 10.000 followers! Dapatkan akses Tier 1 (Rp50.000) GRATIS 100% atau klaim Voucher Upsell Rp150.000 untuk Tier 2 CAAI™!',
+      'Dorong target 10.000 followers! Dapatkan akses Tier 1 (Rp49.500) GRATIS 100% atau klaim Voucher Upsell Rp150.000 untuk Tier 2 CAAI™!',
     tiktokBannerButton: 'Klaim Voucher Beasiswa TikTok',
     tiktokLiveNote: 'Klaim beasiswa juga bisa dilakukan secara langsung saat Sesi Live TikTok @maxy.academy!',
     eventBoothBadge: '🎪 Khusus Booth Event DTICX & IdeaFest: 50 Pengunjung Pertama Gratis Claim Code!',
 
     // Pricing Section
-    pricingTitle: 'Dua Tier Harga Fleksibel',
+    pricingTitle: 'Pilihan Paket Belajar Fleksibel',
     pricingSubtitle: 'Pilih paket yang sesuai dengan kebutuhan akademik dan karir Anda.',
+    freeTierTitle: 'Free Trial / Starter',
+    freeTierSubtitle: 'Promo Soft Launching - Akses Uji Coba 3 Hari Modul Dasar & Pengenalan AI Navigator',
+    freeTierPrice: 'Gratis (Rp 0)',
+    freeTierFeatures: [
+      'Akses 3 Hari Modul Pengenalan AI & Prompting',
+      'Latihan Simulasi Prompt Engineering',
+      'Pratinjau Kuis Pilihan Ganda',
+      'Akses Komunitas Komunitas Belajar',
+      'Bisa Upgrade ke Tier 1 / Tier 2 Kapan Saja',
+    ],
+    selectFreeTier: 'Coba Gratis (3 Hari)',
     tier1Title: 'Tier 1: Self-Paced Basic',
     tier1Subtitle: '21 Hari Pembelajaran Mandiri + Sertifikat Completion (21 JP)',
     tier1Target: '',
-    tier1Price: 'Rp 50.000',
-    tier1OriginalPrice: 'Rp 200.000',
+    tier1Price: 'Rp 49.500',
+    tier1OriginalPrice: 'Rp 125.000',
     tier1Features: [
       'Akses 21 Hari Modul Interaktif Self-Paced',
       'Kuis Pilihan Ganda & Evaluasi Otomatis',
@@ -61,8 +72,8 @@ export const translations = {
     tier2Title: 'Tier 2: Full Mentoring & CAAI™ Certification',
     tier2Subtitle: '28 Hari (21 Hari Self-Paced + 7 Hari Mentoring) + Sertifikat CAAI™ Level 1 (28 JP)',
     tier2Target: 'Sertifikasi Profesional & Wajib Submit Project',
-    tier2Price: 'Rp 600.000',
-    tier2DiscountedPrice: 'Rp 300.000',
+    tier2Price: 'Rp 750.000',
+    tier2DiscountedPrice: 'Rp 299.500',
     tier2DiscountNote: '',
     tier2Features: [
       'Semua Akses Tier 1 (21 Hari Modul Self-Paced)',
@@ -72,8 +83,26 @@ export const translations = {
       'Sertifikat Resmi CAAI™ Level 1 (28 JP) terhubung Accredify',
       'Digital Badge LinkedIn & Verifikasi Kriptografis',
     ],
-    selectTier1: 'Pilih Tier 1 (Rp50.000)',
-    selectTier2: 'Pilih Tier 2 (Rp300.000)',
+    selectTier1: 'Pilih Tier 1 (Rp49.500)',
+    selectTier2: 'Pilih Tier 2 (Rp299.500)',
+
+    // Badges Level & Progression Section
+    badgesCategory: 'Sertifikasi & Penghargaan Global',
+    badgesTitle: 'Lencana Level 1 & Akreditasi HolonIQ',
+    badgesSubtitle: 'Program ini memberikan Sertifikat & Digital Badge CAAI™ Level 1 Amateur yang diakui secara internasional.',
+    badge1Name: 'Amateur (Applied AI)',
+    badge1Level: 'Level 1 (Sertifikat Program Ini)',
+    badge1Desc: 'Mulailah perjalanan Anda dalam kecerdasan buatan terapan dari dasar. Bangun fondasi pengetahuan, etika AI, dan keterampilan prompt engineering yang kuat.',
+    badge2Name: 'Foundational',
+    badge2Level: 'Level 2 (Jalur Lanjutan)',
+    badge2Desc: 'Memperdalam pemahaman teknis dan pengalaman praktis. Memperkuat kemampuan dalam menerapkan konsep AI pada skenario nyata dunia kerja.',
+    badge3Name: 'Profesional',
+    badge3Level: 'Level 3 (Jalur Tingkat Tinggi)',
+    badge3Desc: 'Mendemonstrasikan penguasaan penuh dalam AI terapan. Memimpin proyek inovatif, merancang solusi lanjutan, dan membuktikan kepakaran tingkat tinggi.',
+    badgesFooterDesc: 'Setiap peserta yang lulus program 28 hari ini langsung memperoleh Sertifikat Resmi & Digital Badge CAAI™ Level 1 (Amateur) terverifikasi Accredify.',
+    holonIqTitle: 'Southeast Asia EdTech Top 50',
+    holonIqSubtitle: 'Recognized by HolonIQ & QS World University Rankings',
+    holonIqDesc: 'MAXY Academy terpilih sebagai salah satu dari 50 perusahaan EdTech terbaik di Asia Tenggara oleh HolonIQ dan QS (penyelenggara pemeringkatan universitas dunia). Menjamin kualitas kurikulum dan standar kelulusan peserta.',
 
     // Curriculum Section
     curriculumTitle: 'Kurikulum Terstruktur 28 Hari (28 JP)',
@@ -188,7 +217,7 @@ export const translations = {
     heroTitleHighlight: '28 Days Certified Training',
     heroSubtitle:
       'Comprehensive Certified Applied AI (CAAI™ Level 1) & Badges',
-    enrollNow: 'Enroll Now (From Rp50k)',
+    enrollNow: 'Enroll Now (From Rp49.5k)',
     tryAppSimulator: 'Open App Simulator (/app)',
     claimGiveaway: 'Claim Daily TikTok Scholarship',
 
@@ -205,19 +234,30 @@ export const translations = {
     // TikTok Campaign Banner
     tiktokBannerTitle: '🎁 MAXY Academy Daily TikTok Scholarship Campaign',
     tiktokBannerDesc:
-      'Pushing towards 10,000 TikTok followers! Get Tier 1 (Rp50,000) 100% FREE or claim a Rp150,000 Upsell Voucher for Tier 2 CAAI™!',
+      'Pushing towards 10,000 TikTok followers! Get Tier 1 (Rp49,500) 100% FREE or claim a Rp150,000 Upsell Voucher for Tier 2 CAAI™!',
     tiktokBannerButton: 'Claim TikTok Scholarship Voucher',
     tiktokLiveNote: 'Scholarships can also be claimed live during @maxy.academy TikTok Live sessions!',
     eventBoothBadge: '🎪 DTICX & IdeaFest Event Booth Special: First 50 Visitors Free Claim Code!',
 
     // Pricing Section
-    pricingTitle: 'Two Flexible Pricing Tiers',
+    pricingTitle: 'Flexible Learning Plans',
     pricingSubtitle: 'Choose the plan tailored to your academic and career goals.',
+    freeTierTitle: 'Free Trial / Starter',
+    freeTierSubtitle: 'Promo Soft Launching - 3-Day Trial Access to Basic AI Modules & Navigator Intro',
+    freeTierPrice: 'Free (Rp 0)',
+    freeTierFeatures: [
+      '3 Days Access to Introductory AI & Prompting Modules',
+      'Prompt Engineering Simulation Practice',
+      'Multiple Choice Quiz Preview',
+      'Access to Student Learning Community',
+      'Upgradeable to Tier 1 / Tier 2 Anytime',
+    ],
+    selectFreeTier: 'Try Free (3 Days)',
     tier1Title: 'Tier 1: Self-Paced Basic',
     tier1Subtitle: '21 Days Self-Paced Learning + Completion Certificate (21 JP)',
     tier1Target: '',
-    tier1Price: 'Rp 50,000',
-    tier1OriginalPrice: 'Rp 200,000',
+    tier1Price: 'Rp 49,500',
+    tier1OriginalPrice: 'Rp 125,000',
     tier1Features: [
       'Access to 21 Days Interactive Self-Paced Modules',
       'Multiple Choice Quizzes & Automated Evaluations',
@@ -228,8 +268,8 @@ export const translations = {
     tier2Title: 'Tier 2: Full Mentoring & CAAI™ Certification',
     tier2Subtitle: '28 Days (21 Days Self-Paced + 7 Days Mentoring) + CAAI™ Level 1 Certificate (28 JP)',
     tier2Target: 'Professional Certification & Mandatory Project Submission',
-    tier2Price: 'Rp 600,000',
-    tier2DiscountedPrice: 'Rp 300,000',
+    tier2Price: 'Rp 750,000',
+    tier2DiscountedPrice: 'Rp 299,500',
     tier2DiscountNote: '',
     tier2Features: [
       'All Tier 1 Benefits (21 Days Self-Paced Modules)',
@@ -239,8 +279,26 @@ export const translations = {
       'Official CAAI™ Level 1 Certificate (28 JP) linked to Accredify',
       'Digital LinkedIn Badges & Cryptographic Verification',
     ],
-    selectTier1: 'Select Tier 1 (Rp50,000)',
-    selectTier2: 'Select Tier 2 (Rp300,000)',
+    selectTier1: 'Select Tier 1 (Rp49,500)',
+    selectTier2: 'Select Tier 2 (Rp299,500)',
+
+    // Badges Level & Progression Section
+    badgesCategory: 'Global Accreditation & Awards',
+    badgesTitle: 'Level 1 Badge & HolonIQ Recognition',
+    badgesSubtitle: 'This program awards internationally recognized CAAI™ Level 1 Amateur Certificate & Digital Badge.',
+    badge1Name: 'Amateur (Applied AI)',
+    badge1Level: 'Level 1 (Awarded in this Program)',
+    badge1Desc: 'Start your journey in applied AI with essential fundamentals. Build a solid foundation of knowledge, AI ethics, and prompt engineering.',
+    badge2Name: 'Foundational',
+    badge2Level: 'Level 2 (Advanced Track)',
+    badge2Desc: 'Gain deeper technical understanding and hands-on experience. Strengthen your ability to apply AI concepts to real-world scenarios.',
+    badge3Name: 'Profesional',
+    badge3Level: 'Level 3 (High-Level Track)',
+    badge3Desc: 'Demonstrate full mastery in applied AI. Lead innovative projects, design advanced solutions, and showcase top-tier expertise.',
+    badgesFooterDesc: 'Graduates of this 28-day program earn the Official Accredify-verified CAAI™ Level 1 (Amateur) Certificate and Digital LinkedIn Badge.',
+    holonIqTitle: 'Southeast Asia EdTech Top 50',
+    holonIqSubtitle: 'Recognized by HolonIQ & QS World University Rankings',
+    holonIqDesc: 'MAXY Academy is named among Southeast Asia’s Top 50 EdTech leaders by HolonIQ and QS. Ensuring global curriculum benchmarks and credential integrity.',
 
     // Curriculum Section
     curriculumTitle: 'Structured 28-Day Curriculum (28 JP)',

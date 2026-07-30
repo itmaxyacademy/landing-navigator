@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Language, UserState, UserTier } from './types';
 import { Navbar } from './components/Navbar';
 import { LandingPage } from './components/LandingPage';
 import { TikTokGiveawayModal } from './components/TikTokGiveawayModal';
 import { CheckoutModal } from './components/CheckoutModal';
 import { LoginModal } from './components/LoginModal';
+import { fetchAiNavigatorPackages } from './services/api';
 
 export default function App() {
   const [lang, setLang] = useState<Language>('id');
+  const [cmsPackages, setCmsPackages] = useState<Record<string, { price: number; fake_price: number; name?: string }>>({});
 
   const [userState, setUserState] = useState<UserState>({
     name: 'Mahasiswa MAXY',
@@ -28,6 +30,14 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [pendingTier, setPendingTier] = useState<'free' | 'tier1' | 'tier2' | null>(null);
   const [pendingCoupon, setPendingCoupon] = useState<string>('');
+
+  useEffect(() => {
+    fetchAiNavigatorPackages().then((res) => {
+      if (res.success && res.data) {
+        setCmsPackages(res.data);
+      }
+    });
+  }, []);
 
   React.useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -119,6 +129,7 @@ export default function App() {
       <main>
         <LandingPage
           lang={lang}
+          packages={cmsPackages}
           onOpenCheckout={(tier) => handleOpenCheckout(tier)}
           onOpenGiveaway={() => setIsGiveawayOpen(true)}
         />
@@ -143,6 +154,7 @@ export default function App() {
         isOpen={isCheckoutOpen}
         onClose={() => setIsCheckoutOpen(false)}
         lang={lang}
+        packages={cmsPackages}
         selectedTier={checkoutTier}
         prefilledCoupon={prefilledCoupon}
         onPaymentSuccess={handlePaymentSuccess}

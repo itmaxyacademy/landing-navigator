@@ -85,3 +85,14 @@ export async function checkoutPayment(paymentData: {
     return { success: false, message: 'Gagal membuat invoice checkout' };
   }
 }
+
+export async function fetchAiNavigatorPackages() {
+  try {
+    const res = await fetch(`${API_BASE}/packages/ai-navigator`);
+    return await res.json();
+  } catch (err) {
+    console.error('API fetchAiNavigatorPackages failed:', err);
+    return { success: false };
+  }
+}
+

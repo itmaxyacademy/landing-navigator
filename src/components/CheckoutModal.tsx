@@ -10,6 +10,7 @@ interface CheckoutModalProps {
   isOpen: boolean;
   onClose: () => void;
   lang: Language;
+  packages?: Record<string, { price: number; fake_price: number; name?: string }>;
   selectedTier: 'tier1' | 'tier2';
   prefilledCoupon?: string;
   onPaymentSuccess: (purchasedTier: UserTier) => void;
@@ -19,6 +20,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   isOpen,
   onClose,
   lang,
+  packages,
   selectedTier,
   prefilledCoupon = '',
   onPaymentSuccess,
@@ -34,7 +36,9 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
   if (!isOpen) return null;
 
-  const basePrice = selectedTier === 'tier1' ? 49500 : 299500;
+  const basePrice = selectedTier === 'tier1'
+    ? (packages?.tier1?.price ?? 49500)
+    : (packages?.tier2?.price ?? 299500);
 
   // Calculate discount
   let discountAmount = 0;

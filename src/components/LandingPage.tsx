@@ -19,8 +19,17 @@ import {
   Zap,
 } from 'lucide-react';
 
+const formatRupiah = (num: number) => {
+  return new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+    maximumFractionDigits: 0,
+  }).format(num).replace('IDR', 'Rp').trim();
+};
+
 interface LandingPageProps {
   lang: Language;
+  packages?: Record<string, { price: number; fake_price: number; name?: string }>;
   onOpenCheckout: (tier: 'free' | 'tier1' | 'tier2') => void;
   onOpenGiveaway: () => void;
   onOpenApp?: () => void;
@@ -28,6 +37,7 @@ interface LandingPageProps {
 
 export const LandingPage: React.FC<LandingPageProps> = ({
   lang,
+  packages,
   onOpenCheckout,
 }) => {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(0);
@@ -413,9 +423,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">{t.tier1Subtitle}</p>
 
               <div className="pt-2">
-                <div className="text-3xl font-black text-slate-900">{t.tier1Price}</div>
+                <div className="text-3xl font-black text-slate-900">
+                  {packages?.tier1?.price ? formatRupiah(packages.tier1.price) : t.tier1Price}
+                </div>
                 <div className="text-xs text-slate-400 line-through mt-0.5">
-                  Normal: {t.tier1OriginalPrice}
+                  Normal: {packages?.tier1?.fake_price ? formatRupiah(packages.tier1.fake_price) : t.tier1OriginalPrice}
                 </div>
               </div>
 
@@ -466,8 +478,12 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
               <div className="pt-2">
                 <div className="flex items-baseline gap-2.5">
-                  <div className="text-3xl font-black text-[#ffb034]">{t.tier2DiscountedPrice}</div>
-                  <div className="text-xs text-slate-400 line-through">{t.tier2Price}</div>
+                  <div className="text-3xl font-black text-[#ffb034]">
+                    {packages?.tier2?.price ? formatRupiah(packages.tier2.price) : t.tier2DiscountedPrice}
+                  </div>
+                  <div className="text-xs text-slate-400 line-through">
+                    {packages?.tier2?.fake_price ? formatRupiah(packages.tier2.fake_price) : t.tier2Price}
+                  </div>
                 </div>
               </div>
 

@@ -70,19 +70,25 @@ export default function App() {
 
   const processCheckoutOrRedirect = async (tier: 'tier1' | 'tier2', couponCode?: string) => {
     // 1. Check user profile to verify current active tier status
-    const profileRes = await fetchUserProfile();
-    if (profileRes?.success && profileRes?.data) {
-      const sub = profileRes.data.subscription;
-      const currentTier = sub?.tier || (sub?.is_paid ? 'tier1' : 'free');
+    const token = localStorage.getItem('maxy_access_token');
+    const profileRes = await fetchUserProfile(token || undefined);
 
-      // If user already owns the target tier or higher, redirect directly to /app
-      if (currentTier === tier || (tier === 'tier1' && currentTier === 'tier2') || sub?.is_paid) {
+    if (profileRes?.success && profileRes?.data?.subscription) {
+      const sub = profileRes.data.subscription;
+      const isPaid = sub?.is_paid === true || sub?.is_paid === 1 || sub?.is_paid === '1';
+      const rawTier = sub?.tier || (isPaid ? 'tier1' : 'free');
+      const currentTier = (rawTier === 'tier_2' || rawTier === 'tier2') ? 'tier2' : (rawTier === 'tier_1' || rawTier === 'tier1') ? 'tier1' : 'free';
+
+      // User has access only if they have paid and own the target tier or higher
+      const userHasAccess = isPaid && (currentTier === tier || (tier === 'tier1' && currentTier === 'tier2'));
+
+      if (userHasAccess) {
         navigateToApp();
         return;
       }
     }
 
-    // If coupon is provided, open CheckoutModal for coupon discount preview
+    // 2. If coupon is provided, open CheckoutModal for coupon discount preview
     if (couponCode) {
       setCheckoutTier(tier);
       setPrefilledCoupon(couponCode);
@@ -90,14 +96,15 @@ export default function App() {
       return;
     }
 
-    // Otherwise, directly initiate Xendit payment checkout
-    const amount = tier === 'tier1'
-      ? (cmsPackages?.tier1?.price ?? 49500)
-      : (cmsPackages?.tier2?.price ?? 299500);
+    // 3. Otherwise, directly initiate Xendit payment checkout
+    const pkg = tier === 'tier1' ? cmsPackages?.tier1 : cmsPackages?.tier2;
+    const amount = pkg?.price ?? (tier === 'tier1' ? 49500 : 299500);
+    const package_id = pkg?.id;
 
     const description = `Pembelian Paket ${tier === 'tier1' ? 'Tier 1' : 'Tier 2'} AI Navigator`;
     const res = await checkoutPayment({
       amount,
+      package_id,
       description,
       redirect_url: `${window.location.origin}/app`,
     });

@@ -114,11 +114,13 @@ export const LoginModal: React.FC<LoginModalProps> = ({
 
           {/* Modal Header */}
           <div className="text-center space-y-2 mb-4 pt-2">
-            <img
-              src="https://cms.maxy.academy/uploads/LogoMaxy.png"
-              alt="Maxy Academy Logo"
-              className="h-12 w-auto object-contain mx-auto mb-2"
-            />
+            <div className="inline-flex bg-slate-900 px-4 py-2 rounded-2xl border border-slate-800 shadow-sm items-center justify-center mx-auto mb-1">
+              <img
+                src="https://cms.maxy.academy/uploads/LogoMaxy.png"
+                alt="Maxy Academy Logo"
+                className="h-8 w-auto object-contain"
+              />
+            </div>
             <h2 className="text-2xl font-black text-slate-900">
               {authMode === 'login'
                 ? lang === 'id'

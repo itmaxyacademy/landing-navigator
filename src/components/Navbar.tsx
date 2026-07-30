@@ -47,11 +47,13 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 2xl:px-12 h-16 sm:h-18 flex items-center justify-between">
         {/* Brand Logo */}
         <div className="flex items-center gap-3 cursor-pointer" onClick={handleScrollToHero}>
-          <img
-            src="https://cms.maxy.academy/uploads/LogoMaxy.png"
-            alt="Maxy Academy Logo"
-            className="h-9 w-auto object-contain shrink-0"
-          />
+          <div className="bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-800 shadow-sm flex items-center justify-center">
+            <img
+              src="https://cms.maxy.academy/uploads/LogoMaxy.png"
+              alt="Maxy Academy Logo"
+              className="h-7 w-auto object-contain shrink-0"
+            />
+          </div>
           <div>
             <div className="flex items-center gap-2">
               <span className="font-extrabold text-lg tracking-tight text-slate-900">

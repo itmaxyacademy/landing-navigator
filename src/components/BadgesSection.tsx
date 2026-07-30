@@ -144,44 +144,13 @@ const BadgeLevel3SVG = () => (
 
 // HolonIQ by QS Southeast Asia EdTech 50 Graphic
 const HolonIqGraphic = () => (
-  <div className="w-48 sm:w-56 aspect-square rounded-2xl overflow-hidden shadow-lg border border-slate-700/20 flex flex-col mx-auto">
-    {/* Blue Top Half */}
-    <div className="bg-[#1e5096] p-4 flex-1 flex flex-col items-center justify-between text-white">
-      <div className="text-center font-black tracking-tight leading-snug text-[11px] sm:text-xs uppercase">
-        SOUTHEAST ASIA
-        <br />
-        EDTECH
-      </div>
-
-      <div className="flex items-center justify-center gap-2 my-1">
-        {/* Trophy Line Art */}
-        <svg className="w-8 h-10 text-white stroke-current fill-none" viewBox="0 0 48 56">
-          <path d="M12 8 H36 V24 C36 32 28 36 24 36 C20 36 12 32 12 24 Z" strokeWidth="3" strokeLinejoin="round" />
-          <path d="M12 12 H6 C4 12 4 20 12 20" strokeWidth="2.5" strokeLinecap="round" />
-          <path d="M36 12 H42 C44 12 44 20 36 20" strokeWidth="2.5" strokeLinecap="round" />
-          <path d="M24 36 V44" strokeWidth="3" />
-          <path d="M16 44 H32" strokeWidth="3" strokeLinecap="round" />
-          <polygon points="24,14 26,19 31,19 27,22 28,27 24,24 20,27 21,22 17,19 22,19" fill="white" />
-        </svg>
-
-        {/* Big 50 Number */}
-        <div className="text-4xl font-black tracking-tighter text-white font-mono">
-          50
-        </div>
-      </div>
-    </div>
-
-    {/* Dark Bottom Half */}
-    <div className="bg-[#1c1c1c] py-2.5 px-3 flex items-center justify-center gap-1.5 text-white">
-      <span className="font-black text-xs text-white">Holon</span>
-      <span className="font-light text-xs text-slate-300">IQ</span>
-      <span className="text-[9px] text-slate-400 font-medium">by</span>
-
-      {/* QS Orange Logo Box */}
-      <div className="bg-[#f39c12] text-white px-1 py-0.5 rounded font-black text-[10px] tracking-wider ml-0.5">
-        QS
-      </div>
-    </div>
+  <div className="w-48 sm:w-56 aspect-square rounded-2xl overflow-hidden shadow-lg border border-slate-700/20 flex flex-col mx-auto bg-white p-1">
+    <img
+      src="/edtech50-badge.png"
+      onError={(e) => { (e.currentTarget as HTMLImageElement).src = 'https://cms.maxy.academy/uploads/edtech50-badge.png'; }}
+      alt="Southeast Asia EdTech 50 - HolonIQ by QS"
+      className="w-full h-full object-contain rounded-xl"
+    />
   </div>
 );
 

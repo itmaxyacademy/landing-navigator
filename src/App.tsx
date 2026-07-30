@@ -65,7 +65,10 @@ export default function App() {
   }, []);
 
   const navigateToApp = () => {
-    window.location.href = '/app';
+    const targetUrl = window.location.hostname.includes('localhost')
+      ? '/app'
+      : 'https://ainavigator.maxy.academy';
+    window.location.href = targetUrl;
   };
 
   const processCheckoutOrRedirect = async (tier: 'tier1' | 'tier2', couponCode?: string) => {
@@ -83,11 +86,15 @@ export default function App() {
     const package_id = pkg?.id;
 
     const description = `Pembelian Paket ${tier === 'tier1' ? 'Tier 1' : 'Tier 2'} AI Navigator`;
+    const redirectTarget = window.location.hostname.includes('localhost')
+      ? `${window.location.origin}/app`
+      : 'https://ainavigator.maxy.academy';
+
     const res = await checkoutPayment({
       amount,
       package_id,
       description,
-      redirect_url: `${window.location.origin}/app`,
+      redirect_url: redirectTarget,
     });
 
     const invoiceUrl =

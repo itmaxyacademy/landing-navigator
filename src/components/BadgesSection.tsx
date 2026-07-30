@@ -225,15 +225,15 @@ export const BadgesSection: React.FC<BadgesSectionProps> = ({ lang }) => {
 
           <div className="space-y-3 flex-1">
             <h3 className="text-xl sm:text-2xl font-black text-slate-900 group-hover:text-[#0052ff] transition-colors">
-              Amateur
+              {t.badge1Name}
             </h3>
             <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
-              Start your journey in applied AI with the basics. Build a solid foundation of knowledge and skills to grow further.
+              {t.badge1Desc}
             </p>
           </div>
         </motion.div>
 
-        {/* Card 2: Foundational (Level 2) */}
+        {/* Card 2: Associate (Level 2) */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -252,15 +252,15 @@ export const BadgesSection: React.FC<BadgesSectionProps> = ({ lang }) => {
 
           <div className="space-y-3 flex-1">
             <h3 className="text-xl sm:text-2xl font-black text-slate-900 group-hover:text-[#2563eb] transition-colors">
-              Foundational
+              {t.badge2Name}
             </h3>
             <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
-              Gain deeper understanding and hands-on experience. Strengthen your ability to apply AI concepts to real-world scenarios.
+              {t.badge2Desc}
             </p>
           </div>
         </motion.div>
 
-        {/* Card 3: Profesional (Level 3) */}
+        {/* Card 3: Professional (Level 3) */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -279,10 +279,10 @@ export const BadgesSection: React.FC<BadgesSectionProps> = ({ lang }) => {
 
           <div className="space-y-3 flex-1">
             <h3 className="text-xl sm:text-2xl font-black text-slate-900 group-hover:text-[#00296b] transition-colors">
-              Profesional
+              {t.badge3Name}
             </h3>
             <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
-              Demonstrate mastery in applied AI. Lead projects, design advanced solutions, and showcase expertise at the highest level.
+              {t.badge3Desc}
             </p>
           </div>
         </motion.div>

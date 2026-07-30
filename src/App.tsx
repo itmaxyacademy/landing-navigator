@@ -67,7 +67,7 @@ export default function App() {
   const navigateToApp = () => {
     const targetUrl = window.location.hostname.includes('localhost')
       ? '/app'
-      : 'https://ainavigator.maxy.academy';
+      : 'https://ainavigator.maxy.academy/app';
     window.location.href = targetUrl;
   };
 
@@ -117,12 +117,14 @@ export default function App() {
 
   const handleOpenCheckout = (tier: 'free' | 'tier1' | 'tier2', couponCode?: string) => {
     if (tier === 'free') {
+      // Free tier: langsung ke app (akses free trial)
       navigateToApp();
       return;
     }
 
     const token = localStorage.getItem('maxy_access_token');
     if (!isLoggedIn && !token) {
+      // Simpan tier & coupon yang dipilih, lalu buka login
       setPendingTier(tier);
       if (couponCode) {
         setPendingCoupon(couponCode);
@@ -131,6 +133,7 @@ export default function App() {
       return;
     }
 
+    // Sudah login → langsung ke payment, BUKAN ke /app
     processCheckoutOrRedirect(tier, couponCode);
   };
 
@@ -164,11 +167,14 @@ export default function App() {
       setPendingCoupon('');
 
       if (targetTier === 'free') {
+        // Free tier: masuk ke app setelah login
         navigateToApp();
       } else {
+        // Paid tier: langsung ke halaman payment, BUKAN ke /app
         await processCheckoutOrRedirect(targetTier, targetCoupon);
       }
     }
+    // Jika tidak ada pendingTier (login manual dari Navbar): tetap di landing page
   };
 
   return (

@@ -23,7 +23,10 @@ export const Navbar: React.FC<NavbarProps> = ({
   const t = translations[lang];
 
   const navigateToApp = () => {
-    window.location.href = '/app';
+    const targetUrl = window.location.hostname.includes('localhost')
+      ? '/app'
+      : 'https://ainavigator.maxy.academy/app';
+    window.location.href = targetUrl;
   };
 
   const handleScrollToHero = () => {

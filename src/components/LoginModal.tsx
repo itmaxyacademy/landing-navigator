@@ -68,7 +68,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
           email: result.data.user?.email || email,
         });
         onClose();
-        window.location.href = '/app';
+        // Tidak redirect ke /app di sini — biarkan App.tsx yang handle berdasarkan pendingTier
       }, 900);
     } else {
       setErrorMessage(

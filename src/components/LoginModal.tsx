@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Language } from '../types';
 import { translations } from '../data/translations';
-import { Sparkles, X, Mail, Lock, ArrowRight, CheckCircle2, UserCheck, ShieldCheck } from 'lucide-react';
+import { Sparkles, X, Mail, Lock, ArrowRight, CheckCircle2, UserCheck, ShieldCheck, AlertCircle, User } from 'lucide-react';
 
-import { loginWithEmail, loginWithGoogle } from '../services/api';
+import { loginWithEmail, loginWithGoogle, registerUser } from '../services/api';
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -19,10 +19,12 @@ export const LoginModal: React.FC<LoginModalProps> = ({
   lang,
   onLoginSuccess,
 }) => {
+  const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
+  const [name, setName] = useState('Mahasiswa MAXY');
   const [email, setEmail] = useState('johan@student.maxy.academy');
   const [password, setPassword] = useState('••••••••');
   const [isLoadingGoogle, setIsLoadingGoogle] = useState(false);
-  const [isLoadingEmail, setIsLoadingEmail] = useState(false);
+  const [isLoadingForm, setIsLoadingForm] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -51,21 +53,25 @@ export const LoginModal: React.FC<LoginModalProps> = ({
           email: result.data.user?.email || 'johan@student.maxy.academy',
         });
         onClose();
-        if (window.location.hostname.includes('maxy.academy')) {
-          window.location.href = '/app';
-        }
+        window.location.href = '/app';
       }, 900);
     } else {
-      setErrorMessage(result.message || 'Gagal login via Google');
+      setErrorMessage(result.message || result.error || 'Gagal login via Google');
     }
   };
 
-  const handleEmailLogin = async (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoadingEmail(true);
+    setIsLoadingForm(true);
     setErrorMessage(null);
-    const result = await loginWithEmail(email, password);
-    setIsLoadingEmail(false);
+
+    let result;
+    if (authMode === 'register') {
+      result = await registerUser(name, email, password);
+    } else {
+      result = await loginWithEmail(email, password);
+    }
+    setIsLoadingForm(false);
 
     if (result.success && result.data) {
       if (result.data.access_token) {
@@ -78,16 +84,14 @@ export const LoginModal: React.FC<LoginModalProps> = ({
       setTimeout(() => {
         setLoginSuccess(false);
         onLoginSuccess({
-          name: result.data.user?.name || email.split('@')[0],
+          name: result.data.user?.name || (authMode === 'register' ? name : email.split('@')[0]),
           email: result.data.user?.email || email,
         });
         onClose();
-        if (window.location.hostname.includes('maxy.academy')) {
-          window.location.href = '/app';
-        }
+        window.location.href = '/app';
       }, 900);
     } else {
-      setErrorMessage(result.message || 'Gagal login. Periksa email & password.');
+      setErrorMessage(result.message || result.error || (authMode === 'register' ? 'Gagal mendaftar akun. Pastikan email belum terdaftar.' : 'Gagal login. Periksa email & password Anda.'));
     }
   };
 
@@ -124,19 +128,65 @@ export const LoginModal: React.FC<LoginModalProps> = ({
           </button>
 
           {/* Modal Header */}
-          <div className="text-center space-y-2 mb-6 pt-2">
-            <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-[#ffb034]/20 border border-[#ffb034]/40 text-slate-900 shadow-sm mx-auto mb-2">
+          <div className="text-center space-y-2 mb-4 pt-2">
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-[#ffb034]/20 border border-[#ffb034]/40 text-slate-900 shadow-sm mx-auto mb-1">
               <Sparkles className="w-6 h-6 text-[#d98200]" />
             </div>
             <h2 className="text-2xl font-black text-slate-900">
-              {lang === 'id' ? 'Masuk ke AI Navigator' : 'Sign in to AI Navigator'}
+              {authMode === 'login'
+                ? (lang === 'id' ? 'Masuk ke AI Navigator' : 'Sign in to AI Navigator')
+                : (lang === 'id' ? 'Daftar Akun AI Navigator' : 'Create AI Navigator Account')}
             </h2>
             <p className="text-xs text-slate-500 max-w-xs mx-auto leading-relaxed font-medium">
               {lang === 'id'
-                ? 'Akses portal belajar 28 hari, materi mentoring, dan sertifikat Accredify MAXY Academy'
-                : 'Access 28-day learning portal, mentoring materials, and Accredify certificates'}
+                ? 'Terhubung dengan SSO MAXY Academy & Portal Belajar Interaktif'
+                : 'Connected with SSO MAXY Academy & Interactive Learning Portal'}
             </p>
           </div>
+
+          {/* Auth Mode Switcher Tabs */}
+          <div className="flex bg-slate-100 p-1 rounded-xl mb-4 border border-slate-200">
+            <button
+              type="button"
+              onClick={() => {
+                setAuthMode('login');
+                setErrorMessage(null);
+              }}
+              className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
+                authMode === 'login'
+                  ? 'bg-white text-slate-900 shadow-sm'
+                  : 'text-slate-500 hover:text-slate-800'
+              }`}
+            >
+              {lang === 'id' ? 'Masuk (Login)' : 'Sign In'}
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setAuthMode('register');
+                setErrorMessage(null);
+              }}
+              className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
+                authMode === 'register'
+                  ? 'bg-white text-slate-900 shadow-sm'
+                  : 'text-slate-500 hover:text-slate-800'
+              }`}
+            >
+              {lang === 'id' ? 'Daftar Akun' : 'Register'}
+            </button>
+          </div>
+
+          {/* Error Alert Box */}
+          {errorMessage && (
+            <motion.div
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-4 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-start gap-2.5 font-medium"
+            >
+              <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+              <div className="flex-1">{errorMessage}</div>
+            </motion.div>
+          )}
 
           {loginSuccess ? (
             <motion.div
@@ -148,20 +198,22 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                 <CheckCircle2 className="w-8 h-8" />
               </div>
               <h3 className="text-lg font-black text-slate-900">
-                {lang === 'id' ? 'Berhasil Masuk!' : 'Login Successful!'}
+                {authMode === 'login'
+                  ? (lang === 'id' ? 'Berhasil Masuk!' : 'Login Successful!')
+                  : (lang === 'id' ? 'Pendaftaran Berhasil!' : 'Registration Successful!')}
               </h3>
               <p className="text-xs text-slate-500">
-                {lang === 'id' ? 'Mengarahkan ke dashboard belajar...' : 'Redirecting to learning portal...'}
+                {lang === 'id' ? 'Mengarahkan ke portal belajar /app...' : 'Redirecting to learning portal /app...'}
               </p>
             </motion.div>
           ) : (
-            <div className="space-y-5">
+            <div className="space-y-4">
               {/* Google Sign-In Button */}
               <button
                 type="button"
                 onClick={handleGoogleLogin}
-                disabled={isLoadingGoogle || isLoadingEmail}
-                className="w-full py-3.5 px-4 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 font-extrabold text-sm flex items-center justify-center gap-3 transition-all shadow-sm hover:border-slate-400 focus:outline-none disabled:opacity-60"
+                disabled={isLoadingGoogle || isLoadingForm}
+                className="w-full py-3 px-4 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 font-extrabold text-sm flex items-center justify-center gap-3 transition-all shadow-sm hover:border-slate-400 focus:outline-none disabled:opacity-60"
               >
                 {isLoadingGoogle ? (
                   <div className="flex items-center gap-2 text-slate-600 text-xs">
@@ -197,12 +249,31 @@ export const LoginModal: React.FC<LoginModalProps> = ({
               <div className="relative flex items-center justify-center">
                 <div className="w-full border-t border-slate-200" />
                 <span className="absolute bg-white px-3 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-                  {lang === 'id' ? 'atau email student' : 'or student email'}
+                  {lang === 'id' ? 'atau formulir' : 'or form'}
                 </span>
               </div>
 
-              {/* Email Form */}
-              <form onSubmit={handleEmailLogin} className="space-y-3.5">
+              {/* Form */}
+              <form onSubmit={handleFormSubmit} className="space-y-3">
+                {authMode === 'register' && (
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">
+                      Nama Lengkap
+                    </label>
+                    <div className="relative">
+                      <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                      <input
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Nama Lengkap Anda"
+                        className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:border-[#d98200] focus:bg-white transition-all"
+                        required
+                      />
+                    </div>
+                  </div>
+                )}
+
                 <div>
                   <label className="block text-xs font-bold text-slate-700 mb-1">
                     Email Student MAXY
@@ -214,7 +285,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="e.g. student@maxy.academy"
-                      className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:border-[#d98200] focus:bg-white transition-all"
+                      className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:border-[#d98200] focus:bg-white transition-all"
                       required
                     />
                   </div>
@@ -223,13 +294,6 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                 <div>
                   <div className="flex items-center justify-between mb-1">
                     <label className="block text-xs font-bold text-slate-700">Password</label>
-                    <a
-                      href="#"
-                      onClick={(e) => e.preventDefault()}
-                      className="text-[11px] font-bold text-[#d98200] hover:underline"
-                    >
-                      {lang === 'id' ? 'Lupa Password?' : 'Forgot Password?'}
-                    </a>
                   </div>
                   <div className="relative">
                     <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
@@ -237,7 +301,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                       type="password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:border-[#d98200] focus:bg-white transition-all"
+                      className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:border-[#d98200] focus:bg-white transition-all"
                       required
                     />
                   </div>
@@ -245,17 +309,21 @@ export const LoginModal: React.FC<LoginModalProps> = ({
 
                 <button
                   type="submit"
-                  disabled={isLoadingGoogle || isLoadingEmail}
+                  disabled={isLoadingGoogle || isLoadingForm}
                   className="w-full py-3 px-4 rounded-xl bg-[#ffb034] hover:bg-[#e59d2a] text-slate-900 font-black text-xs flex items-center justify-center gap-2 transition-all shadow-md shadow-[#ffb034]/20 hover:shadow-lg disabled:opacity-60"
                 >
-                  {isLoadingEmail ? (
+                  {isLoadingForm ? (
                     <div className="flex items-center gap-2">
                       <span className="w-4 h-4 border-2 border-slate-900 border-t-transparent rounded-full animate-spin" />
                       <span>{lang === 'id' ? 'Memproses...' : 'Processing...'}</span>
                     </div>
                   ) : (
                     <>
-                      <span>{lang === 'id' ? 'Masuk ke Platform' : 'Sign In to Platform'}</span>
+                      <span>
+                        {authMode === 'login'
+                          ? (lang === 'id' ? 'Masuk ke Platform' : 'Sign In to Platform')
+                          : (lang === 'id' ? 'Daftar Akun Baru' : 'Create Account')}
+                      </span>
                       <ArrowRight className="w-4 h-4 text-slate-900" />
                     </>
                   )}

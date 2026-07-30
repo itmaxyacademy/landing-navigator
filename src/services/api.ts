@@ -1,5 +1,19 @@
 const API_BASE = (import.meta as unknown as { env?: { VITE_MAXY_API_URL?: string } }).env?.VITE_MAXY_API_URL || 'https://api.maxy.academy/api/v1';
 
+export async function registerUser(name: string, email: string, password: string) {
+  try {
+    const res = await fetch(`${API_BASE}/auth/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password, client_app: 'navigator' }),
+    });
+    return await res.json();
+  } catch (err) {
+    console.error('API register failed:', err);
+    return { success: false, message: 'Gagal terhubung ke API Gateway api.maxy.academy' };
+  }
+}
+
 export async function loginWithEmail(email: string, password: string) {
   try {
     const res = await fetch(`${API_BASE}/auth/login`, {

@@ -39,15 +39,31 @@ const BackgroundGridLines = () => (
   </div>
 );
 
+export const CircledTmIcon: React.FC<{ className?: string; size?: string }> = ({ className = "", size = "1em" }) => (
+  <svg
+    viewBox="0 0 100 100"
+    className={`inline-block align-middle select-none shrink-0 ${className}`}
+    style={{ width: size, height: size, transform: 'translateY(-0.2em)' }}
+    fill="currentColor"
+  >
+    <circle cx="50" cy="50" r="43" fill="none" stroke="currentColor" strokeWidth="10" />
+    <text
+      x="50"
+      y="63"
+      textAnchor="middle"
+      fontSize="42"
+      fontWeight="900"
+      fontFamily="system-ui, -apple-system, sans-serif"
+    >
+      TM
+    </text>
+  </svg>
+);
+
 export const CaaiTm: React.FC<{ className?: string }> = ({ className = "" }) => (
   <span className={`inline-flex items-center font-black ${className}`}>
     <span>CAAI</span>
-    <span
-      className="inline-flex items-center justify-center w-[1.15em] h-[1.15em] rounded-full border border-current text-[0.55em] font-extrabold leading-none ml-[0.2em] select-none shrink-0"
-      style={{ transform: 'translateY(-0.3em)' }}
-    >
-      TM
-    </span>
+    <CircledTmIcon className="ml-0.5 text-current" size="0.82em" />
   </span>
 );
 

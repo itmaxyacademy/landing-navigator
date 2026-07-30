@@ -20,9 +20,9 @@ export const LoginModal: React.FC<LoginModalProps> = ({
   onLoginSuccess,
 }) => {
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
-  const [name, setName] = useState('Mahasiswa MAXY');
-  const [email, setEmail] = useState('johan@student.maxy.academy');
-  const [password, setPassword] = useState('••••••••');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [isLoadingGoogle, setIsLoadingGoogle] = useState(false);
   const [isLoadingForm, setIsLoadingForm] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
@@ -329,22 +329,6 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                   )}
                 </button>
               </form>
-
-              {/* Demo Quick Account Option */}
-              <div className="pt-2 border-t border-slate-100">
-                <button
-                  type="button"
-                  onClick={handleGoogleLogin}
-                  className="w-full py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200/80 text-slate-700 font-bold text-xs flex items-center justify-center gap-2 transition-colors border border-slate-200/80"
-                >
-                  <UserCheck className="w-3.5 h-3.5 text-[#d98200]" />
-                  <span>
-                    {lang === 'id'
-                      ? 'Demo Quick Login (Johan - MAXY Student)'
-                      : 'Demo Quick Login (Johan - MAXY Student)'}
-                  </span>
-                </button>
-              </div>
 
               {/* Security Footer Note */}
               <div className="flex items-center justify-center gap-1.5 text-[11px] text-slate-400 pt-1">

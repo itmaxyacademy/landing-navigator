@@ -52,12 +52,20 @@ export default function App() {
           setIsLoggedIn(true);
           const sub = res.data.subscription;
           const user = res.data.user;
-          const rawTier = sub?.tier || (sub?.is_paid ? 'tier1' : 'free');
+          const rawTier = sub?.active_tier || sub?.tier || (sub?.is_paid ? 'tier1' : 'free');
+          const tier: UserTier = (rawTier === 'tier_2' || rawTier === 'tier2') ? 'tier2' : (rawTier === 'tier_1' || rawTier === 'tier1') ? 'tier1' : 'free';
+          const paidTiers: UserTier[] = sub?.paid_tiers ? (sub.paid_tiers.map((t: string) => (t === 'tier_2' ? 'tier2' : t === 'tier_1' ? 'tier1' : t))) : (tier !== 'free' ? [tier] : []);
+          const hasTier1 = Boolean(sub?.has_tier1 || paidTiers.includes('tier1'));
+          const hasTier2 = Boolean(sub?.has_tier2 || paidTiers.includes('tier2'));
+
           setUserState((prev) => ({
             ...prev,
             name: user?.name || prev.name,
             email: user?.email || prev.email,
-            tier: rawTier as UserTier,
+            tier,
+            paidTiers,
+            hasTier1,
+            hasTier2,
           }));
         }
       });

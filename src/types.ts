@@ -38,6 +38,9 @@ export interface UserState {
   name: string;
   email: string;
   tier: UserTier;
+  paidTiers?: UserTier[];
+  hasTier1?: boolean;
+  hasTier2?: boolean;
   completedModules: number[]; // array of day numbers completed e.g. [1,2,3,4,5,6,7,8,9,10,11]
   quizScores: Record<number, number>; // day -> score %
   projectSubmissions: Record<number, ProjectSubmission>;

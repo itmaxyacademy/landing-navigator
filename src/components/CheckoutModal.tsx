@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Language, UserTier } from '../types';
 import { translations } from '../data/translations';
+import { CaaiTm } from './BadgesSection';
 import { INITIAL_COUPONS } from '../data/courseData';
 import { X, CheckCircle2, ShieldCheck, Tag, CreditCard, QrCode, ArrowRight, Sparkles } from 'lucide-react';
 
@@ -129,17 +130,17 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
             {/* Selected Tier Package Summary */}
             <div className="p-4 rounded-xl bg-slate-800/90 border border-slate-700 mb-5">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-bold text-[#ffb034] uppercase tracking-wider">
-                  {selectedTier === 'tier1' ? 'Tier 1: Basic Self-Paced' : 'Tier 2: Full Mentoring & CAAI™'}
+                <span className="text-xs font-bold text-[#ffb034] uppercase tracking-wider flex items-center gap-1">
+                  {selectedTier === 'tier1' ? 'Tier 1: Basic Self-Paced' : <>Tier 2: Full Mentoring & <CaaiTm /></>}
                 </span>
                 <span className="text-xs px-2.5 py-0.5 rounded-full bg-[#ffb034]/20 text-[#ffb034] font-mono font-bold border border-[#ffb034]/40">
                   {selectedTier === 'tier1' ? '21 JP' : '28 JP'}
                 </span>
               </div>
-              <p className="text-xs text-slate-300">
+              <p className="text-xs text-slate-300 flex items-center gap-1 flex-wrap">
                 {selectedTier === 'tier1'
                   ? '21 Hari Modul Self-Paced + Certificate of Completion'
-                  : '28 Hari (21 Hari Self-Paced + 7 Hari Live Mentoring ai.maxy.academy) + Sertifikat CAAI™ Level 1'}
+                  : <>28 Hari (21 Hari Self-Paced + 7 Hari Live Mentoring ai.maxy.academy) + Sertifikat <CaaiTm /> Level 1</>}
               </p>
             </div>
 
@@ -268,8 +269,8 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
             <h3 className="text-xl font-bold text-white">Pembayaran Berhasil!</h3>
             <p className="text-xs text-slate-300 max-w-xs mx-auto">
               Akses akun Anda telah ditingkatkan menjadi{' '}
-              <strong className="text-cyan-400 font-semibold">
-                {selectedTier === 'tier1' ? 'Tier 1 (Self-Paced)' : 'Tier 2 (Full Mentoring & CAAI™)'}
+              <strong className="text-cyan-400 font-semibold flex items-center justify-center gap-1">
+                {selectedTier === 'tier1' ? 'Tier 1 (Self-Paced)' : <>Tier 2 (Full Mentoring & <CaaiTm />)</>}
               </strong>
               . Membuka Dashboard Pembelajaran...
             </p>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { CaaiTm } from './BadgesSection';
 import { motion, AnimatePresence } from 'motion/react';
 import { Language } from '../types';
 import { translations } from '../data/translations';
@@ -414,7 +415,7 @@ export const AIToolsSection: React.FC<AIToolsSectionProps> = ({ lang }) => {
           </h2>
 
           <p className="text-sm sm:text-base lg:text-lg text-slate-300 leading-relaxed font-medium max-w-2xl 2xl:max-w-3xl mx-auto">
-            Program <strong className="text-[#ffb034] font-black">CAAI™</strong> melatih Anda menguasai kombinasi ekosistem AI terpopuler dunia untuk studi akademis, riset berakurasi tinggi, pembuatan materi visual, hingga otomatisasi tugas harian.
+            Program <strong className="text-[#ffb034] font-black"><CaaiTm /></strong> melatih Anda menguasai kombinasi ekosistem AI terpopuler dunia untuk studi akademis, riset berakurasi tinggi, pembuatan materi visual, hingga otomatisasi tugas harian.
           </p>
         </motion.div>
 
@@ -539,7 +540,7 @@ export const AIToolsSection: React.FC<AIToolsSectionProps> = ({ lang }) => {
                   <div className="flex items-center justify-between text-[10.5px] text-slate-400 font-medium pt-1">
                     <span className="flex items-center gap-1 text-emerald-400 font-semibold">
                       <CheckCircle2 className="w-3.5 h-3.5" />
-                      Kurikulum CAAI™
+                      Kurikulum <CaaiTm />
                     </span>
                     <span className="font-mono text-[9.5px] text-slate-500">{tool.category}</span>
                   </div>

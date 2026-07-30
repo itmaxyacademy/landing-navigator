@@ -322,7 +322,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             <div className="p-6 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-3 hover:border-slate-300 transition-colors">
               <span className="text-xs text-slate-500 font-semibold">Upsell Conversion Tier 2</span>
               <div className="text-2xl font-black text-[#d98200]">342 Alumni</div>
-              <p className="text-xs text-slate-600">Peserta CAAI™ Full Mentoring</p>
+              <p className="text-xs text-slate-600 flex items-center justify-center gap-1">Peserta <CaaiTm /> Full Mentoring</p>
             </div>
           </div>
 

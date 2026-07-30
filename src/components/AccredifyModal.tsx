@@ -1,6 +1,7 @@
 import React from 'react';
 import { Language, UserState } from '../types';
 import { translations } from '../data/translations';
+import { CaaiTm } from './BadgesSection';
 import { X, ShieldCheck, Download, Share2, Award, QrCode, CheckCircle2, Globe, ExternalLink } from 'lucide-react';
 
 interface AccredifyModalProps {
@@ -78,7 +79,7 @@ export const AccredifyModal: React.FC<AccredifyModalProps> = ({ isOpen, onClose,
             </div>
             <div>
               <span className="text-slate-400">Program: </span>
-              <span>AI Navigator Certified Applied AI (CAAI™ Level 1)</span>
+              <span className="inline-flex items-center gap-1">AI Navigator Certified Applied AI (<CaaiTm /> Level 1)</span>
             </div>
             <div>
               <span className="text-slate-400">Total Credits: </span>

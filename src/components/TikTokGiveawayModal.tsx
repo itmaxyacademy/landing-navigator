@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Language } from '../types';
 import { translations } from '../data/translations';
+import { CaaiTm } from './BadgesSection';
 import { X, Sparkles, Copy, Check, Ticket, Gift, ExternalLink, ShieldCheck } from 'lucide-react';
 
 interface TikTokGiveawayModalProps {
@@ -135,10 +136,8 @@ export const TikTokGiveawayModal: React.FC<TikTokGiveawayModalProps> = ({
                   Diskon Rp150.000
                 </span>
               </div>
-              <p className="text-xs text-slate-400 mt-1">
-                {lang === 'id'
-                  ? 'Tier 2 CAAI™ Mentoring Rp300.000 -> Rp150.000'
-                  : 'Tier 2 CAAI™ Mentoring Rp300,000 -> Rp150,000'}
+              <p className="text-xs text-slate-400 mt-1 flex items-center gap-1">
+                Tier 2 <CaaiTm /> Mentoring Rp300.000 {'->'} Rp150.000
               </p>
             </div>
             <div className="flex items-center gap-2">

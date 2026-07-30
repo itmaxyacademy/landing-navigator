@@ -1,10 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Language } from '../types';
 import { translations } from '../data/translations';
-import { Sparkles, X, Mail, Lock, ArrowRight, CheckCircle2, UserCheck, ShieldCheck, AlertCircle, User } from 'lucide-react';
+import { Sparkles, X, Mail, Lock, ArrowRight, CheckCircle2, ShieldCheck, AlertCircle, User } from 'lucide-react';
 
 import { loginWithEmail, loginWithGoogle, registerUser } from '../services/api';
+
+declare global {
+  interface Window {
+    google?: {
+      accounts: {
+        id: {
+          initialize: (config: any) => void;
+          prompt: (notification?: any) => void;
+          renderButton: (parent: HTMLElement, options: any) => void;
+        };
+      };
+    };
+  }
+}
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -28,14 +42,47 @@ export const LoginModal: React.FC<LoginModalProps> = ({
   const [loginSuccess, setLoginSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+  // Google Prompt Modal Fallback state
+  const [isGooglePromptOpen, setIsGooglePromptOpen] = useState(false);
+  const [googleEmail, setGoogleEmail] = useState('');
+  const [googleName, setGoogleName] = useState('');
+
   const t = translations[lang];
+
+  // Dynamically load Google Identity Services (GIS) SDK script
+  useEffect(() => {
+    if (!document.getElementById('google-gis-sdk')) {
+      const script = document.createElement('script');
+      script.id = 'google-gis-sdk';
+      script.src = 'https://accounts.google.com/gsi/client';
+      script.async = true;
+      script.defer = true;
+      document.body.appendChild(script);
+    }
+  }, []);
 
   if (!isOpen) return null;
 
-  const handleGoogleLogin = async () => {
+  const parseJwt = (token: string) => {
+    try {
+      const base64Url = token.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split('')
+          .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+          .join('')
+      );
+      return JSON.parse(jsonPayload);
+    } catch (e) {
+      return null;
+    }
+  };
+
+  const executeGoogleAuth = async (userEmail: string, userName: string, userPicture?: string) => {
     setIsLoadingGoogle(true);
     setErrorMessage(null);
-    const result = await loginWithGoogle('johan@student.maxy.academy', 'Johan (Mahasiswa MAXY)');
+    const result = await loginWithGoogle(userEmail, userName, userPicture);
     setIsLoadingGoogle(false);
 
     if (result.success && result.data) {
@@ -46,18 +93,55 @@ export const LoginModal: React.FC<LoginModalProps> = ({
         localStorage.setItem('maxy_refresh_token', result.data.refresh_token);
       }
       setLoginSuccess(true);
+      setIsGooglePromptOpen(false);
       setTimeout(() => {
         setLoginSuccess(false);
         onLoginSuccess({
-          name: result.data.user?.name || 'Johan (Mahasiswa MAXY)',
-          email: result.data.user?.email || 'johan@student.maxy.academy',
+          name: result.data.user?.name || userName,
+          email: result.data.user?.email || userEmail,
         });
         onClose();
         window.location.href = '/app';
       }, 900);
     } else {
-      setErrorMessage(result.message || result.error || 'Gagal login via Google');
+      setErrorMessage(result.message || result.error || 'Gagal autentikasi via Google. Pastikan email Google Anda valid.');
     }
+  };
+
+  const handleGoogleLogin = async () => {
+    setErrorMessage(null);
+
+    const googleClientId = (import.meta as unknown as { env?: { VITE_GOOGLE_CLIENT_ID?: string } }).env?.VITE_GOOGLE_CLIENT_ID;
+
+    if (window.google?.accounts?.id && googleClientId) {
+      try {
+        window.google.accounts.id.initialize({
+          client_id: googleClientId,
+          callback: async (response: any) => {
+            if (response.credential) {
+              const payload = parseJwt(response.credential);
+              if (payload && payload.email) {
+                await executeGoogleAuth(payload.email, payload.name || payload.email.split('@')[0], payload.picture);
+              }
+            }
+          },
+        });
+        window.google.accounts.id.prompt();
+        return;
+      } catch (err) {
+        console.warn('GIS SDK prompt error, opening fallback Google prompt:', err);
+      }
+    }
+
+    // Fallback: Open Google Account prompt modal
+    setIsGooglePromptOpen(true);
+  };
+
+  const handleGooglePromptSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!googleEmail.trim()) return;
+    const displayName = googleName.trim() || googleEmail.split('@')[0];
+    await executeGoogleAuth(googleEmail.trim(), displayName);
   };
 
   const handleFormSubmit = async (e: React.FormEvent) => {
@@ -91,7 +175,13 @@ export const LoginModal: React.FC<LoginModalProps> = ({
         window.location.href = '/app';
       }, 900);
     } else {
-      setErrorMessage(result.message || result.error || (authMode === 'register' ? 'Gagal mendaftar akun. Pastikan email belum terdaftar.' : 'Gagal login. Periksa email & password Anda.'));
+      setErrorMessage(
+        result.message ||
+          result.error ||
+          (authMode === 'register'
+            ? 'Gagal mendaftar akun. Pastikan email belum terdaftar.'
+            : 'Gagal login. Periksa email & password Anda.')
+      );
     }
   };
 
@@ -134,8 +224,12 @@ export const LoginModal: React.FC<LoginModalProps> = ({
             </div>
             <h2 className="text-2xl font-black text-slate-900">
               {authMode === 'login'
-                ? (lang === 'id' ? 'Masuk ke AI Navigator' : 'Sign in to AI Navigator')
-                : (lang === 'id' ? 'Daftar Akun AI Navigator' : 'Create AI Navigator Account')}
+                ? lang === 'id'
+                  ? 'Masuk ke AI Navigator'
+                  : 'Sign in to AI Navigator'
+                : lang === 'id'
+                ? 'Daftar Akun AI Navigator'
+                : 'Create AI Navigator Account'}
             </h2>
             <p className="text-xs text-slate-500 max-w-xs mx-auto leading-relaxed font-medium">
               {lang === 'id'
@@ -151,6 +245,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
               onClick={() => {
                 setAuthMode('login');
                 setErrorMessage(null);
+                setIsGooglePromptOpen(false);
               }}
               className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
                 authMode === 'login'
@@ -165,6 +260,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
               onClick={() => {
                 setAuthMode('register');
                 setErrorMessage(null);
+                setIsGooglePromptOpen(false);
               }}
               className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
                 authMode === 'register'
@@ -199,13 +295,94 @@ export const LoginModal: React.FC<LoginModalProps> = ({
               </div>
               <h3 className="text-lg font-black text-slate-900">
                 {authMode === 'login'
-                  ? (lang === 'id' ? 'Berhasil Masuk!' : 'Login Successful!')
-                  : (lang === 'id' ? 'Pendaftaran Berhasil!' : 'Registration Successful!')}
+                  ? lang === 'id'
+                    ? 'Berhasil Masuk!'
+                    : 'Login Successful!'
+                  : lang === 'id'
+                  ? 'Pendaftaran Berhasil!'
+                  : 'Registration Successful!'}
               </h3>
               <p className="text-xs text-slate-500">
-                {lang === 'id' ? 'Mengarahkan ke portal belajar /app...' : 'Redirecting to learning portal /app...'}
+                {lang === 'id'
+                  ? 'Mengarahkan ke portal belajar /app...'
+                  : 'Redirecting to learning portal /app...'}
               </p>
             </motion.div>
+          ) : isGooglePromptOpen ? (
+            /* Google Email & Name Fallback Prompt Form */
+            <motion.form
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              onSubmit={handleGooglePromptSubmit}
+              className="space-y-4 py-2"
+            >
+              <div className="p-3 rounded-xl bg-amber-50 border border-amber-200/80 text-amber-800 text-xs font-medium space-y-1">
+                <div className="font-bold flex items-center gap-1.5 text-amber-900">
+                  <Sparkles className="w-4 h-4 text-[#d98200]" />
+                  <span>Login / Register via Google Account</span>
+                </div>
+                <p className="text-[11px] text-amber-700">
+                  Masukkan email akun Google Anda untuk masuk atau mendaftar otomatis ke MAXY Academy.
+                </p>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  Email Akun Google
+                </label>
+                <div className="relative">
+                  <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="email"
+                    value={googleEmail}
+                    onChange={(e) => setGoogleEmail(e.target.value)}
+                    placeholder="nama.anda@gmail.com"
+                    className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:border-[#d98200] focus:bg-white transition-all"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  Nama Akun Google (Opsional)
+                </label>
+                <div className="relative">
+                  <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="text"
+                    value={googleName}
+                    onChange={(e) => setGoogleName(e.target.value)}
+                    placeholder="Nama Lengkap Google"
+                    className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:border-[#d98200] focus:bg-white transition-all"
+                  />
+                </div>
+              </div>
+
+              <div className="flex gap-2 pt-1">
+                <button
+                  type="button"
+                  onClick={() => setIsGooglePromptOpen(false)}
+                  className="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-bold text-xs hover:bg-slate-100 transition-colors"
+                >
+                  Batal
+                </button>
+                <button
+                  type="submit"
+                  disabled={isLoadingGoogle}
+                  className="flex-1 py-2.5 rounded-xl bg-[#ffb034] hover:bg-[#e59d2a] text-slate-900 font-black text-xs flex items-center justify-center gap-1.5 transition-all shadow-sm disabled:opacity-60"
+                >
+                  {isLoadingGoogle ? (
+                    <span className="w-4 h-4 border-2 border-slate-900 border-t-transparent rounded-full animate-spin" />
+                  ) : (
+                    <>
+                      <span>Masuk Google</span>
+                      <ArrowRight className="w-4 h-4 text-slate-900" />
+                    </>
+                  )}
+                </button>
+              </div>
+            </motion.form>
           ) : (
             <div className="space-y-4">
               {/* Google Sign-In Button */}
@@ -321,8 +498,12 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                     <>
                       <span>
                         {authMode === 'login'
-                          ? (lang === 'id' ? 'Masuk ke Platform' : 'Sign In to Platform')
-                          : (lang === 'id' ? 'Daftar Akun Baru' : 'Create Account')}
+                          ? lang === 'id'
+                            ? 'Masuk ke Platform'
+                            : 'Sign In to Platform'
+                          : lang === 'id'
+                          ? 'Daftar Akun Baru'
+                          : 'Create Account'}
                       </span>
                       <ArrowRight className="w-4 h-4 text-slate-900" />
                     </>

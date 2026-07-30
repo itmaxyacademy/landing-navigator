@@ -102,7 +102,7 @@ const BadgeLevel3SVG = () => (
 
 // HolonIQ by QS Southeast Asia EdTech 50 Graphic
 const HolonIqGraphic = () => (
-  <div className="w-52 sm:w-60 aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl bg-white p-3 flex items-center justify-center mx-auto border border-slate-200">
+  <div className="w-52 sm:w-60 aspect-square rounded-2xl overflow-hidden flex items-center justify-center mx-auto">
     <img
       src="/edtech50-badge.png"
       onError={(e) => {
@@ -112,7 +112,7 @@ const HolonIqGraphic = () => (
         }
       }}
       alt="Southeast Asia EdTech 50 - HolonIQ by QS"
-      className="w-full h-full object-contain rounded-2xl"
+      className="w-full h-full object-contain rounded-xl"
     />
   </div>
 );

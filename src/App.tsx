@@ -69,26 +69,7 @@ export default function App() {
   };
 
   const processCheckoutOrRedirect = async (tier: 'tier1' | 'tier2', couponCode?: string) => {
-    // 1. Check user profile to verify current active tier status
-    const token = localStorage.getItem('maxy_access_token');
-    const profileRes = await fetchUserProfile(token || undefined);
-
-    if (profileRes?.success && profileRes?.data?.subscription) {
-      const sub = profileRes.data.subscription;
-      const isPaid = sub?.is_paid === true || sub?.is_paid === 1 || sub?.is_paid === '1';
-      const rawTier = sub?.tier || (isPaid ? 'tier1' : 'free');
-      const currentTier = (rawTier === 'tier_2' || rawTier === 'tier2') ? 'tier2' : (rawTier === 'tier_1' || rawTier === 'tier1') ? 'tier1' : 'free';
-
-      // User has access only if they have paid and own the target tier or higher
-      const userHasAccess = isPaid && (currentTier === tier || (tier === 'tier1' && currentTier === 'tier2'));
-
-      if (userHasAccess) {
-        navigateToApp();
-        return;
-      }
-    }
-
-    // 2. If coupon is provided, open CheckoutModal for coupon discount preview
+    // 1. If coupon is provided, open CheckoutModal for coupon discount preview
     if (couponCode) {
       setCheckoutTier(tier);
       setPrefilledCoupon(couponCode);
@@ -96,7 +77,7 @@ export default function App() {
       return;
     }
 
-    // 3. Otherwise, directly initiate Xendit payment checkout
+    // 2. Directly initiate Xendit payment checkout for paid tiers
     const pkg = tier === 'tier1' ? cmsPackages?.tier1 : cmsPackages?.tier2;
     const amount = pkg?.price ?? (tier === 'tier1' ? 49500 : 299500);
     const package_id = pkg?.id;
@@ -122,7 +103,7 @@ export default function App() {
       return;
     }
 
-    // Fallback to CheckoutModal if instant checkout fails
+    // Fallback to CheckoutModal if instant checkout API returns no URL
     setCheckoutTier(tier);
     setIsCheckoutOpen(true);
   };
@@ -179,11 +160,6 @@ export default function App() {
         navigateToApp();
       } else {
         await processCheckoutOrRedirect(targetTier, targetCoupon);
-      }
-    } else {
-      const profileRes = await fetchUserProfile();
-      if (profileRes?.success && profileRes?.data?.subscription?.is_paid) {
-        navigateToApp();
       }
     }
   };

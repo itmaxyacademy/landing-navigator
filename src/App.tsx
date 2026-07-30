@@ -29,6 +29,13 @@ export default function App() {
   const [pendingTier, setPendingTier] = useState<'free' | 'tier1' | 'tier2' | null>(null);
   const [pendingCoupon, setPendingCoupon] = useState<string>('');
 
+  React.useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('login') === 'true') {
+      setIsLoginOpen(true);
+    }
+  }, []);
+
   const navigateToApp = () => {
     window.location.href = '/app';
   };

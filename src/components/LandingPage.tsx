@@ -19,12 +19,11 @@ import {
   Zap,
 } from 'lucide-react';
 
-const formatRupiah = (num: number) => {
-  return new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
-    maximumFractionDigits: 0,
-  }).format(num).replace('IDR', 'Rp').trim();
+const formatRupiah = (val?: number | string | null, fallback?: string) => {
+  if (val === undefined || val === null || val === '') return fallback || '';
+  const num = typeof val === 'number' ? val : parseFloat(String(val));
+  if (isNaN(num)) return fallback || String(val);
+  return `Rp ${Math.round(num).toLocaleString('id-ID')}`;
 };
 
 interface LandingPageProps {
@@ -175,7 +174,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 onClick={handleScrollToPricing}
                 className="w-full sm:w-auto px-9 py-4 rounded-xl bg-[#ffb034] hover:bg-[#e59d2a] text-slate-900 font-black text-sm lg:text-base flex items-center justify-center gap-2.5 transition-all shadow-md shadow-[#ffb034]/25 hover:shadow-xl"
               >
-                <span>{t.enrollNow}</span>
+                <span>
+                  {packages?.tier1?.price
+                    ? (lang === 'id' ? `Daftar Sekarang (Mulai ${formatRupiah(packages.tier1.price)})` : `Enroll Now (From ${formatRupiah(packages.tier1.price)})`)
+                    : t.enrollNow}
+                </span>
                 <ArrowRight className="w-4.5 h-4.5 text-slate-900" />
               </motion.button>
 
@@ -446,7 +449,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               onClick={() => onOpenCheckout('tier1')}
               className="w-full py-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-900 font-extrabold text-xs sm:text-sm border border-slate-200 transition-colors shadow-sm"
             >
-              {t.selectTier1}
+              {packages?.tier1?.price
+                ? (lang === 'id' ? `Pilih Tier 1 (${formatRupiah(packages.tier1.price)})` : `Select Tier 1 (${formatRupiah(packages.tier1.price)})`)
+                : t.selectTier1}
             </motion.button>
           </motion.div>
 
@@ -502,7 +507,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               onClick={() => onOpenCheckout('tier2')}
               className="w-full py-4 rounded-xl bg-[#ffb034] hover:bg-[#e59d2a] text-slate-900 font-black text-xs sm:text-sm transition-all shadow-lg shadow-[#ffb034]/25 hover:shadow-xl hover:shadow-[#ffb034]/35"
             >
-              {t.selectTier2}
+              {packages?.tier2?.price
+                ? (lang === 'id' ? `Pilih Tier 2 (${formatRupiah(packages.tier2.price)})` : `Select Tier 2 (${formatRupiah(packages.tier2.price)})`)
+                : t.selectTier2}
             </motion.button>
           </motion.div>
         </div>

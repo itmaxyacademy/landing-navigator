@@ -38,7 +38,14 @@ export default function App() {
       }
     });
 
-    const token = localStorage.getItem('maxy_access_token');
+    const urlParams = new URLSearchParams(window.location.search);
+    const tokenFromUrl = urlParams.get('token');
+    const token = tokenFromUrl || localStorage.getItem('maxy_access_token');
+
+    if (tokenFromUrl) {
+      localStorage.setItem('maxy_access_token', tokenFromUrl);
+    }
+
     if (token) {
       fetchUserProfile(token).then((res) => {
         if (res?.success && res?.data) {

@@ -75,7 +75,7 @@ export async function checkoutPayment(paymentData: {
       headers,
       body: JSON.stringify({
         description: 'Pembelian Paket Navigator Maxy Academy',
-        redirect_url: 'https://navigator.maxy.academy/app',
+        redirect_url: typeof window !== 'undefined' ? `${window.location.origin}/app` : 'https://ainavigator.maxy.academy/app',
         ...paymentData,
       }),
     });

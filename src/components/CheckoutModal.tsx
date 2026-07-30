@@ -83,7 +83,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
       amount: finalTotal,
       voucher_code: activeCoupon || undefined,
       description: `Pembelian Paket ${selectedTier === 'tier1' ? 'Tier 1' : 'Tier 2'} AI Navigator`,
-      redirect_url: 'https://navigator.maxy.academy/app',
+      redirect_url: `${window.location.origin}/app`,
     });
     setIsProcessing(false);
 

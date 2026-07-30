@@ -36,7 +36,8 @@ export const LoginModal: React.FC<LoginModalProps> = ({
     setIsLoadingGoogle(true);
     setErrorMessage(null);
     const apiBase = (import.meta as unknown as { env?: { VITE_MAXY_API_URL?: string } }).env?.VITE_MAXY_API_URL || 'https://api.maxy.academy/api/v1';
-    window.location.href = `${apiBase}/auth/google/redirect?redirect_url=https://navigator.maxy.academy/app`;
+    const targetRedirect = `${window.location.origin}/app`;
+    window.location.href = `${apiBase}/auth/google/redirect?redirect_url=${encodeURIComponent(targetRedirect)}`;
   };
 
   const handleFormSubmit = async (e: React.FormEvent) => {

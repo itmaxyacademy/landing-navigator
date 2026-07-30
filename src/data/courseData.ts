@@ -1259,40 +1259,40 @@ export const COURSE_MODULES: CourseModule[] = [
   {
     day: 28,
     title: {
-      id: 'Hari 28: Sidang Kelulusan, Badge Digital, & Terhubung ke Accredify (28 JP)',
-      en: 'Day 28: Graduation, Digital Badges, & Accredify Verification Link (28 JP)',
+      id: 'Hari 28: Sidang Kelulusan, Badge Digital, & Terhubung ke System Verification (28 JP)',
+      en: 'Day 28: Graduation, Digital Badges, & System Verification Link (28 JP)',
     },
     category: { id: 'Sertifikasi CAAI™', en: 'CAAI™ Certification' },
     description: {
-      id: 'Hari Puncak Kelulusan! Pengumuman kelulusan CAAI™ Level 1 (28 JP), penerbitan sertifikat digital berstempel resmi terverifikasi Accredify, dan pembagian Badges.',
-      en: 'Graduation Peak Day! Announcement of CAAI™ Level 1 (28 JP) completion, officially stamped Accredify verified credentials, and Digital Badges issuance.',
+      id: 'Hari Puncak Kelulusan! Pengumuman kelulusan CAAI™ Level 1 (28 JP), penerbitan sertifikat digital berstempel resmi terverifikasi, dan pembagian Badges.',
+      en: 'Graduation Peak Day! Announcement of CAAI™ Level 1 (28 JP) completion, officially stamped verified credentials, and Digital Badges issuance.',
     },
     durationJP: 1,
     tierRequired: 'tier2',
     isMentoring: true,
     learningObjectives: {
-      id: ['Penerbitan Sertifikat CAAI™ Level 1 (28 JP)', 'Verifikasi blockchain via Accredify', 'Klaim Badge Digital di LinkedIn'],
-      en: ['Issuance of CAAI™ Level 1 Certificate (28 JP)', 'Blockchain verification via Accredify', 'LinkedIn Digital Badge claim'],
+      id: ['Penerbitan Sertifikat CAAI™ Level 1 (28 JP)', 'Verifikasi blockchain resmi', 'Klaim Badge Digital di LinkedIn'],
+      en: ['Issuance of CAAI™ Level 1 Certificate (28 JP)', 'Official blockchain verification', 'LinkedIn Digital Badge claim'],
     },
     summaryContent: {
-      id: 'Selamat! Anda resmi menjadi Certified Applied AI Specialist (CAAI™ Level 1) berakreditasi 28 JP! Sertifikat terverifikasi terhubung langsung dengan sistem Accredify untuk validasi autentik secara global.',
-      en: 'Congratulations! You are officially a Certified Applied AI Specialist (CAAI™ Level 1) with 28 JP accreditation! Your verified credential links directly with Accredify for global authentic verification.',
+      id: 'Selamat! Anda resmi menjadi Certified Applied AI Specialist (CAAI™ Level 1) berakreditasi 28 JP! Sertifikat terverifikasi terhubung langsung dengan sistem resmi untuk validasi autentik secara global.',
+      en: 'Congratulations! You are officially a Certified Applied AI Specialist (CAAI™ Level 1) with 28 JP accreditation! Your verified credential links directly with the official system for global authentic verification.',
     },
     quiz: [
       {
         id: 2801,
         question: {
-          id: 'Layanan terverifikasi yang digunakan AI Navigator MAXY Academy untuk penerbitan sertifikat resmi adalah...',
-          en: 'The verified service used by AI Navigator MAXY Academy for official certificate issuance is...',
+          id: 'Sistem terverifikasi yang digunakan AI Navigator MAXY Academy untuk penerbitan sertifikat resmi adalah...',
+          en: 'The verified system used by AI Navigator MAXY Academy for official certificate issuance is...',
         },
         options: {
-          id: ['Accredify', 'Paint.exe', 'Notepad', 'Excel 2003'],
-          en: ['Accredify', 'Paint.exe', 'Notepad', 'Excel 2003'],
+          id: ['Sertifikasi Digital Resmi', 'Paint.exe', 'Notepad', 'Excel 2003'],
+          en: ['Official Digital Certificate', 'Paint.exe', 'Notepad', 'Excel 2003'],
         },
         correctIndex: 0,
         explanation: {
-          id: 'Integrasi Accredify memberikan verifikasi kriptografis anti-pemalsuan bagi seluruh lulusan sertifikasi.',
-          en: 'Accredify integration provides tamper-proof cryptographic verification for all certification graduates.',
+          id: 'Integrasi sistem sertifikasi memberikan verifikasi kriptografis anti-pemalsuan bagi seluruh lulusan sertifikasi.',
+          en: 'Certificate system integration provides tamper-proof cryptographic verification for all certification graduates.',
         },
       },
     ],

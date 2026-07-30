@@ -337,7 +337,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
               {/* Security Footer Note */}
               <div className="flex items-center justify-center gap-1.5 text-[11px] text-slate-400 pt-1">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                <span>Terhubung dengan SSO MAXY Academy & Accredify</span>
+                <span>Terhubung dengan SSO MAXY Academy</span>
               </div>
             </div>
           )}

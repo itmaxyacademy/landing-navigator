@@ -38,7 +38,7 @@ export const AccredifyModal: React.FC<AccredifyModalProps> = ({ isOpen, onClose,
           <X className="w-5 h-5" />
         </button>
 
-        {/* Accredify Verification Header */}
+        {/* Certificate Verification Header */}
         <div className="flex items-center gap-3 mb-6">
           <div className="p-3 bg-gradient-to-tr from-cyan-500 to-indigo-600 rounded-xl text-slate-950 shadow-lg shadow-cyan-500/20">
             <ShieldCheck className="w-6 h-6" />
@@ -46,7 +46,7 @@ export const AccredifyModal: React.FC<AccredifyModalProps> = ({ isOpen, onClose,
           <div>
             <div className="flex items-center gap-2">
               <span className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-widest">
-                Accredify Blockchain Verified
+                Official Blockchain Verified
               </span>
               <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center gap-1 font-mono">
                 <CheckCircle2 className="w-3 h-3" /> VERIFIED
@@ -86,7 +86,7 @@ export const AccredifyModal: React.FC<AccredifyModalProps> = ({ isOpen, onClose,
             </div>
           </div>
 
-          {/* QR Code & Accredify Hash Verification Footer */}
+          {/* QR Code & Hash Verification Footer */}
           <div className="pt-4 border-t border-slate-800 flex items-center justify-between gap-4 font-mono text-[11px]">
             <div className="space-y-1 flex-1">
               <div className="text-slate-400 flex items-center gap-1">
@@ -108,7 +108,7 @@ export const AccredifyModal: React.FC<AccredifyModalProps> = ({ isOpen, onClose,
         {/* Action Buttons: PDF & LinkedIn Share */}
         <div className="grid grid-cols-2 gap-3 mb-4">
           <button
-            onClick={() => alert('Mengunduh Sertifikat PDF Resmi Accredify (Simulasi)...')}
+            onClick={() => alert('Mengunduh Sertifikat PDF Resmi (Simulasi)...')}
             className="py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-bold text-white flex items-center justify-center gap-2 transition-colors"
           >
             <Download className="w-4 h-4 text-cyan-400" />
@@ -127,14 +127,9 @@ export const AccredifyModal: React.FC<AccredifyModalProps> = ({ isOpen, onClose,
 
         <div className="text-center text-[11px] text-slate-400 flex items-center justify-center gap-1">
           <span>Official verification direct link:</span>
-          <a
-            href="https://accredify.io"
-            target="_blank"
-            rel="noreferrer"
-            className="text-cyan-400 hover:underline flex items-center gap-0.5"
-          >
-            accredify.io/verify <ExternalLink className="w-3 h-3" />
-          </a>
+          <span className="text-cyan-400 flex items-center gap-0.5">
+            navigator.maxy.academy/verify <ExternalLink className="w-3 h-3" />
+          </span>
         </div>
       </div>
     </div>

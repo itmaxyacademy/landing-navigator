@@ -158,7 +158,7 @@ export const AppDashboard: React.FC<AppDashboardProps> = ({
                 className="px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs flex items-center justify-center gap-2 transition-all shadow-md shadow-emerald-500/20"
               >
                 <Award className="w-4 h-4" />
-                <span>Lihat Sertifikat Accredify (28 JP)</span>
+                <span>Lihat Sertifikat Resmi (28 JP)</span>
               </button>
             )}
 
@@ -315,7 +315,7 @@ export const AppDashboard: React.FC<AppDashboardProps> = ({
                     Modul Khusus Tier 2 Mentoring & Sertifikasi CAAI™
                   </h3>
                   <p className="text-xs text-slate-600 max-w-md mx-auto leading-relaxed">
-                    Hari 22-28 mencakup sesi Live Mentoring 1-on-1 via ai.maxy.academy, bimbingan capstone project, dan penerbitan Sertifikat Resmi CAAI™ Level 1 (28 JP) terverifikasi Accredify.
+                    Hari 22-28 mencakup sesi Live Mentoring 1-on-1 via ai.maxy.academy, bimbingan capstone project, dan penerbitan Sertifikat Resmi CAAI™ Level 1 (28 JP) terverifikasi.
                   </p>
                   <button
                     onClick={() => onOpenCheckout('tier2')}
@@ -474,7 +474,7 @@ export const AppDashboard: React.FC<AppDashboardProps> = ({
                                 onClick={onOpenCertificate}
                                 className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl transition-all shadow-sm"
                               >
-                                Terbitkan Sertifikat Accredify Sekarang
+                                Terbitkan Sertifikat Resmi Sekarang
                               </button>
                             </div>
                           ) : (

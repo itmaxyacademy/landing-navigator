@@ -179,7 +179,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ lang, userState, setUser
                 Review Capstone Project & Issuance CAAI™ Level 1
               </h2>
               <p className="text-xs text-slate-500">
-                Pengumpulan wajib peserta Tier 2 untuk verifikasi penerbitan sertifikat resmi Accredify.
+                Pengumpulan wajib peserta Tier 2 untuk verifikasi penerbitan sertifikat resmi.
               </p>
             </div>
 

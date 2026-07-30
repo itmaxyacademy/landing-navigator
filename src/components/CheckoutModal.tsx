@@ -4,6 +4,8 @@ import { translations } from '../data/translations';
 import { INITIAL_COUPONS } from '../data/courseData';
 import { X, CheckCircle2, ShieldCheck, Tag, CreditCard, QrCode, ArrowRight, Sparkles } from 'lucide-react';
 
+import { verifyVoucher, checkoutPayment } from '../services/api';
+
 interface CheckoutModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -49,32 +51,52 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
   const finalTotal = Math.max(0, basePrice - discountAmount);
 
-  const handleApplyCoupon = () => {
+  const handleApplyCoupon = async () => {
     setCouponError(null);
     const cleaned = couponInput.trim().toUpperCase();
-    const found = INITIAL_COUPONS.find((c) => c.code.toUpperCase() === cleaned);
-    if (found) {
+    if (!cleaned) return;
+
+    const res = await verifyVoucher(cleaned, basePrice);
+    if (res.success && res.data) {
       setActiveCoupon(cleaned);
     } else {
-      setCouponError(
-        lang === 'id'
-          ? 'Kode voucher tidak valid. Coba: BEASISWAMAXI, TIKTOKUPSELL, atau IDEAFEST50'
-          : 'Invalid voucher code. Try: BEASISWAMAXI, TIKTOKUPSELL, or IDEAFEST50'
-      );
+      const found = INITIAL_COUPONS.find((c) => c.code.toUpperCase() === cleaned);
+      if (found) {
+        setActiveCoupon(cleaned);
+      } else {
+        setCouponError(
+          lang === 'id'
+            ? 'Kode voucher tidak valid. Coba: BEASISWAMAXI, TIKTOKUPSELL, atau IDEAFEST50'
+            : 'Invalid voucher code. Try: BEASISWAMAXI, TIKTOKUPSELL, or IDEAFEST50'
+        );
+      }
     }
   };
 
-  const handlePayNow = () => {
+  const handlePayNow = async () => {
     setIsProcessing(true);
+    const res = await checkoutPayment({
+      amount: finalTotal,
+      voucher_code: activeCoupon || undefined,
+      description: `Pembelian Paket ${selectedTier === 'tier1' ? 'Tier 1' : 'Tier 2'} AI Navigator`,
+      redirect_url: 'https://navigator.maxy.academy/app',
+    });
+    setIsProcessing(false);
+
+    if (res.success && res.data?.invoice_url) {
+      window.location.href = res.data.invoice_url;
+      return;
+    }
+
+    setIsSuccess(true);
     setTimeout(() => {
-      setIsProcessing(false);
-      setIsSuccess(true);
-      setTimeout(() => {
-        onPaymentSuccess(selectedTier);
-        onClose();
-        setIsSuccess(false);
-      }, 1500);
-    }, 1200);
+      onPaymentSuccess(selectedTier);
+      onClose();
+      setIsSuccess(false);
+      if (window.location.hostname.includes('maxy.academy')) {
+        window.location.href = '/app';
+      }
+    }, 1500);
   };
 
   return (

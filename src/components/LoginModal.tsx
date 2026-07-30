@@ -4,6 +4,8 @@ import { Language } from '../types';
 import { translations } from '../data/translations';
 import { Sparkles, X, Mail, Lock, ArrowRight, CheckCircle2, UserCheck, ShieldCheck } from 'lucide-react';
 
+import { loginWithEmail, loginWithGoogle } from '../services/api';
+
 interface LoginModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -22,42 +24,71 @@ export const LoginModal: React.FC<LoginModalProps> = ({
   const [isLoadingGoogle, setIsLoadingGoogle] = useState(false);
   const [isLoadingEmail, setIsLoadingEmail] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const t = translations[lang];
 
   if (!isOpen) return null;
 
-  const handleGoogleLogin = () => {
+  const handleGoogleLogin = async () => {
     setIsLoadingGoogle(true);
-    setTimeout(() => {
-      setIsLoadingGoogle(false);
+    setErrorMessage(null);
+    const result = await loginWithGoogle('johan@student.maxy.academy', 'Johan (Mahasiswa MAXY)');
+    setIsLoadingGoogle(false);
+
+    if (result.success && result.data) {
+      if (result.data.access_token) {
+        localStorage.setItem('maxy_access_token', result.data.access_token);
+      }
+      if (result.data.refresh_token) {
+        localStorage.setItem('maxy_refresh_token', result.data.refresh_token);
+      }
       setLoginSuccess(true);
       setTimeout(() => {
         setLoginSuccess(false);
         onLoginSuccess({
-          name: 'Johan (Mahasiswa MAXY)',
-          email: 'johan@student.maxy.academy',
+          name: result.data.user?.name || 'Johan (Mahasiswa MAXY)',
+          email: result.data.user?.email || 'johan@student.maxy.academy',
         });
         onClose();
+        if (window.location.hostname.includes('maxy.academy')) {
+          window.location.href = '/app';
+        }
       }, 900);
-    }, 1000);
+    } else {
+      setErrorMessage(result.message || 'Gagal login via Google');
+    }
   };
 
-  const handleEmailLogin = (e: React.FormEvent) => {
+  const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoadingEmail(true);
-    setTimeout(() => {
-      setIsLoadingEmail(false);
+    setErrorMessage(null);
+    const result = await loginWithEmail(email, password);
+    setIsLoadingEmail(false);
+
+    if (result.success && result.data) {
+      if (result.data.access_token) {
+        localStorage.setItem('maxy_access_token', result.data.access_token);
+      }
+      if (result.data.refresh_token) {
+        localStorage.setItem('maxy_refresh_token', result.data.refresh_token);
+      }
       setLoginSuccess(true);
       setTimeout(() => {
         setLoginSuccess(false);
         onLoginSuccess({
-          name: email.split('@')[0] || 'Mahasiswa MAXY',
-          email: email || 'student@maxy.academy',
+          name: result.data.user?.name || email.split('@')[0],
+          email: result.data.user?.email || email,
         });
         onClose();
+        if (window.location.hostname.includes('maxy.academy')) {
+          window.location.href = '/app';
+        }
       }, 900);
-    }, 800);
+    } else {
+      setErrorMessage(result.message || 'Gagal login. Periksa email & password.');
+    }
   };
 
   return (

@@ -51,109 +51,36 @@ export const CaaiTm: React.FC<{ className?: string }> = ({ className = "" }) => 
   </span>
 );
 
-// Level 1 Badge (Amateur)
+// Level 1 Badge (Essentials)
 const BadgeLevel1SVG = () => (
-  <div className="relative w-28 h-32 mx-auto flex items-center justify-center">
-    <svg viewBox="0 0 160 190" className="w-full h-full filter drop-shadow">
-      <defs>
-        <linearGradient id="cyanBadgeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#00b4d8" />
-          <stop offset="100%" stopColor="#0077b6" />
-        </linearGradient>
-      </defs>
-      {/* Outer Shield */}
-      <path d="M80 12 L138 36 V96 C138 138 80 168 80 168 C80 168 22 138 22 96 V36 Z" fill="url(#cyanBadgeGrad)" stroke="#023e8a" strokeWidth="2.5" />
-      {/* Inner Shield */}
-      <path d="M80 20 L130 40 V92 C130 130 80 156 80 156 C80 156 30 130 30 92 V40 Z" fill="#0f172a" opacity="0.2" />
-      {/* Top MAXY Icon */}
-      <circle cx="80" cy="42" r="10" fill="#ffffff" />
-      <path d="M75 45 L78 37 L80 41 L82 37 L85 45" stroke="#0077b6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-      {/* CERTIFIED Banner */}
-      <rect x="22" y="58" width="116" height="26" rx="3" fill="#ffffff" stroke="#0077b6" strokeWidth="1.5" />
-      <text x="80" y="75" fill="#0077b6" fontSize="12" fontWeight="900" textAnchor="middle" letterSpacing="0.8">
-        CERTIFIED
-      </text>
-      {/* Subtext: CAAI with Circled TM */}
-      <rect x="36" y="88" width="88" height="22" rx="2" fill="#023e8a" opacity="0.9" />
-      <text x="73" y="103" fill="#ffffff" fontSize="11" fontWeight="900" textAnchor="middle" letterSpacing="0.5">CAAI</text>
-      <circle cx="94" cy="98.5" r="4.5" fill="none" stroke="#ffffff" strokeWidth="0.8" />
-      <text x="94" y="100.5" fill="#ffffff" fontSize="3.8" fontWeight="800" textAnchor="middle">TM</text>
-      {/* Level Circle */}
-      <circle cx="80" cy="128" r="13" fill="#ffffff" stroke="#0077b6" strokeWidth="2" />
-      <text x="80" y="133" fill="#0077b6" fontSize="12" fontWeight="900" textAnchor="middle">1</text>
-    </svg>
+  <div className="relative w-36 h-40 mx-auto flex items-center justify-center">
+    <img
+      src="/badge-caai-essentials.png"
+      alt="CAAI Essentials Badge"
+      className="w-full h-full object-contain filter drop-shadow-md hover:scale-105 transition-transform"
+    />
   </div>
 );
 
-// Level 2 Badge (Foundational)
+// Level 2 Badge (Associate)
 const BadgeLevel2SVG = () => (
-  <div className="relative w-28 h-32 mx-auto flex items-center justify-center">
-    <svg viewBox="0 0 160 190" className="w-full h-full filter drop-shadow">
-      <defs>
-        <linearGradient id="blueBadgeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#2563eb" />
-          <stop offset="100%" stopColor="#1d4ed8" />
-        </linearGradient>
-      </defs>
-      {/* Outer Shield */}
-      <path d="M80 12 L138 36 V96 C138 138 80 168 80 168 C80 168 22 138 22 96 V36 Z" fill="url(#blueBadgeGrad)" stroke="#1e3a8a" strokeWidth="2.5" />
-      {/* Top MAXY Icon */}
-      <circle cx="80" cy="42" r="10" fill="#ffffff" />
-      <path d="M75 45 L78 37 L80 41 L82 37 L85 45" stroke="#1d4ed8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-      {/* CERTIFIED Banner */}
-      <rect x="22" y="58" width="116" height="26" rx="3" fill="#ffffff" stroke="#1d4ed8" strokeWidth="1.5" />
-      <text x="80" y="75" fill="#1e3a8a" fontSize="12" fontWeight="900" textAnchor="middle" letterSpacing="0.8">
-        CERTIFIED
-      </text>
-      {/* Subtext: CAAI with Circled TM */}
-      <rect x="36" y="88" width="88" height="22" rx="2" fill="#1e3a8a" opacity="0.9" />
-      <text x="73" y="103" fill="#ffffff" fontSize="11" fontWeight="900" textAnchor="middle" letterSpacing="0.5">CAAI</text>
-      <circle cx="94" cy="98.5" r="4.5" fill="none" stroke="#ffffff" strokeWidth="0.8" />
-      <text x="94" y="100.5" fill="#ffffff" fontSize="3.8" fontWeight="800" textAnchor="middle">TM</text>
-      {/* Level Shield Ribbon */}
-      <path d="M64 116 L80 108 L96 116 L96 142 L80 149 L64 142 Z" fill="#1e3a8a" stroke="#ffffff" strokeWidth="1.5" />
-      <text x="80" y="134" fill="#ffffff" fontSize="13" fontWeight="900" textAnchor="middle">2</text>
-    </svg>
+  <div className="relative w-36 h-40 mx-auto flex items-center justify-center">
+    <img
+      src="/badge-caai-associate.png"
+      alt="CAAI Associate Badge"
+      className="w-full h-full object-contain filter drop-shadow-md hover:scale-105 transition-transform"
+    />
   </div>
 );
 
-// Level 3 Badge (Profesional)
+// Level 3 Badge (Professional)
 const BadgeLevel3SVG = () => (
-  <div className="relative w-28 h-32 mx-auto flex items-center justify-center">
-    <svg viewBox="0 0 160 190" className="w-full h-full filter drop-shadow">
-      <defs>
-        <linearGradient id="purpleBadgeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#7e22ce" />
-          <stop offset="100%" stopColor="#581c87" />
-        </linearGradient>
-        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#fef08a" />
-          <stop offset="50%" stopColor="#eab308" />
-          <stop offset="100%" stopColor="#ca8a04" />
-        </linearGradient>
-      </defs>
-      {/* Gold Ribbon Tails */}
-      <path d="M52 140 L38 178 L56 168 L70 178 L66 142 Z" fill="url(#goldGrad)" />
-      <path d="M108 140 L122 178 L104 168 L90 178 L94 142 Z" fill="url(#goldGrad)" />
-      {/* Outer Shield */}
-      <path d="M80 12 L138 36 V96 C138 138 80 168 80 168 C80 168 22 138 22 96 V36 Z" fill="url(#purpleBadgeGrad)" stroke="url(#goldGrad)" strokeWidth="3" />
-      {/* Top MAXY Icon */}
-      <circle cx="80" cy="40" r="10" fill="url(#goldGrad)" />
-      <path d="M75 43 L78 35 L80 39 L82 35 L85 43" stroke="#581c87" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-      {/* CERTIFIED Banner */}
-      <rect x="22" y="56" width="116" height="26" rx="3" fill="url(#purpleBadgeGrad)" stroke="url(#goldGrad)" strokeWidth="2" />
-      <text x="80" y="73" fill="#fef08a" fontSize="12" fontWeight="900" textAnchor="middle" letterSpacing="0.8">
-        CERTIFIED
-      </text>
-      {/* Subtext: CAAI with Circled TM */}
-      <rect x="36" y="86" width="88" height="22" rx="2" fill="#581c87" />
-      <text x="73" y="101" fill="#ffffff" fontSize="11" fontWeight="900" textAnchor="middle" letterSpacing="0.5">CAAI</text>
-      <circle cx="94" cy="96.5" r="4.5" fill="none" stroke="#ffffff" strokeWidth="0.8" />
-      <text x="94" y="98.5" fill="#ffffff" fontSize="3.8" fontWeight="800" textAnchor="middle">TM</text>
-      {/* Level Star */}
-      <polygon points="80,118 83,125 91,126 85,131 87,139 80,135 73,139 75,131 69,126 77,125" fill="url(#goldGrad)" />
-      <text x="80" y="133" fill="#581c87" fontSize="10" fontWeight="900" textAnchor="middle">3</text>
-    </svg>
+  <div className="relative w-36 h-40 mx-auto flex items-center justify-center">
+    <img
+      src="/badge-caai-professional.png"
+      alt="CAAI Professional Badge"
+      className="w-full h-full object-contain filter drop-shadow-md hover:scale-105 transition-transform"
+    />
   </div>
 );
 

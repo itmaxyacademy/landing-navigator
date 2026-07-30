@@ -39,6 +39,18 @@ const BackgroundGridLines = () => (
   </div>
 );
 
+export const CaaiTm: React.FC<{ className?: string }> = ({ className = "" }) => (
+  <span className={`inline-flex items-center font-black ${className}`}>
+    <span>CAAI</span>
+    <span
+      className="inline-flex items-center justify-center w-[1.15em] h-[1.15em] rounded-full border border-current text-[0.55em] font-extrabold leading-none ml-[0.2em] select-none shrink-0"
+      style={{ transform: 'translateY(-0.3em)' }}
+    >
+      TM
+    </span>
+  </span>
+);
+
 // Level 1 Badge (Amateur)
 const BadgeLevel1SVG = () => (
   <div className="relative w-28 h-32 mx-auto flex items-center justify-center">
@@ -61,10 +73,11 @@ const BadgeLevel1SVG = () => (
       <text x="80" y="75" fill="#0077b6" fontSize="12" fontWeight="900" textAnchor="middle" letterSpacing="0.8">
         CERTIFIED
       </text>
-      {/* Subtext */}
-      <rect x="38" y="88" width="84" height="22" rx="2" fill="#023e8a" opacity="0.9" />
-      <text x="80" y="97" fill="#ffffff" fontSize="6.5" fontWeight="800" textAnchor="middle">APPLIED AI FOR</text>
-      <text x="80" y="105" fill="#ffffff" fontSize="6" fontWeight="700" textAnchor="middle">LECTURERS</text>
+      {/* Subtext: CAAI with Circled TM */}
+      <rect x="36" y="88" width="88" height="22" rx="2" fill="#023e8a" opacity="0.9" />
+      <text x="73" y="103" fill="#ffffff" fontSize="11" fontWeight="900" textAnchor="middle" letterSpacing="0.5">CAAI</text>
+      <circle cx="94" cy="98.5" r="4.5" fill="none" stroke="#ffffff" strokeWidth="0.8" />
+      <text x="94" y="100.5" fill="#ffffff" fontSize="3.8" fontWeight="800" textAnchor="middle">TM</text>
       {/* Level Circle */}
       <circle cx="80" cy="128" r="13" fill="#ffffff" stroke="#0077b6" strokeWidth="2" />
       <text x="80" y="133" fill="#0077b6" fontSize="12" fontWeight="900" textAnchor="middle">1</text>
@@ -92,10 +105,11 @@ const BadgeLevel2SVG = () => (
       <text x="80" y="75" fill="#1e3a8a" fontSize="12" fontWeight="900" textAnchor="middle" letterSpacing="0.8">
         CERTIFIED
       </text>
-      {/* Subtext */}
-      <rect x="38" y="88" width="84" height="22" rx="2" fill="#1e3a8a" opacity="0.9" />
-      <text x="80" y="97" fill="#ffffff" fontSize="6.5" fontWeight="800" textAnchor="middle">APPLIED AI FOR</text>
-      <text x="80" y="105" fill="#ffffff" fontSize="6" fontWeight="700" textAnchor="middle">LECTURERS</text>
+      {/* Subtext: CAAI with Circled TM */}
+      <rect x="36" y="88" width="88" height="22" rx="2" fill="#1e3a8a" opacity="0.9" />
+      <text x="73" y="103" fill="#ffffff" fontSize="11" fontWeight="900" textAnchor="middle" letterSpacing="0.5">CAAI</text>
+      <circle cx="94" cy="98.5" r="4.5" fill="none" stroke="#ffffff" strokeWidth="0.8" />
+      <text x="94" y="100.5" fill="#ffffff" fontSize="3.8" fontWeight="800" textAnchor="middle">TM</text>
       {/* Level Shield Ribbon */}
       <path d="M64 116 L80 108 L96 116 L96 142 L80 149 L64 142 Z" fill="#1e3a8a" stroke="#ffffff" strokeWidth="1.5" />
       <text x="80" y="134" fill="#ffffff" fontSize="13" fontWeight="900" textAnchor="middle">2</text>
@@ -131,10 +145,11 @@ const BadgeLevel3SVG = () => (
       <text x="80" y="73" fill="#fef08a" fontSize="12" fontWeight="900" textAnchor="middle" letterSpacing="0.8">
         CERTIFIED
       </text>
-      {/* Subtext */}
-      <rect x="38" y="86" width="84" height="22" rx="2" fill="#581c87" />
-      <text x="80" y="95" fill="#ffffff" fontSize="6.5" fontWeight="800" textAnchor="middle">APPLIED AI FOR</text>
-      <text x="80" y="103" fill="#ffffff" fontSize="6" fontWeight="700" textAnchor="middle">LECTURERS</text>
+      {/* Subtext: CAAI with Circled TM */}
+      <rect x="36" y="86" width="88" height="22" rx="2" fill="#581c87" />
+      <text x="73" y="101" fill="#ffffff" fontSize="11" fontWeight="900" textAnchor="middle" letterSpacing="0.5">CAAI</text>
+      <circle cx="94" cy="96.5" r="4.5" fill="none" stroke="#ffffff" strokeWidth="0.8" />
+      <text x="94" y="98.5" fill="#ffffff" fontSize="3.8" fontWeight="800" textAnchor="middle">TM</text>
       {/* Level Star */}
       <polygon points="80,118 83,125 91,126 85,131 87,139 80,135 73,139 75,131 69,126 77,125" fill="url(#goldGrad)" />
       <text x="80" y="133" fill="#581c87" fontSize="10" fontWeight="900" textAnchor="middle">3</text>

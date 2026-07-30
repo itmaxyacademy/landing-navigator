@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Language } from '../types';
 import { translations } from '../data/translations';
-import { BadgesSection } from './BadgesSection';
+import { BadgesSection, CaaiTm } from './BadgesSection';
 import { AIToolsSection } from './AIToolsSection';
 import {
   Sparkles,
@@ -491,7 +491,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             <div className="space-y-5">
               <div className="flex items-center justify-between gap-3">
                 <div>
-                  <span className="text-xs font-mono text-[#ffb034] font-extrabold uppercase tracking-wider">PRO CAAI™ TIER</span>
+                  <span className="text-xs font-mono text-[#ffb034] font-extrabold uppercase tracking-wider flex items-center gap-1">
+                    PRO <CaaiTm /> TIER
+                  </span>
                   <h3 className="text-2xl font-black text-white mt-0.5">{t.tier2Title}</h3>
                 </div>
                 <span className="px-3.5 py-1 rounded-full bg-[#ffb034] text-slate-900 text-xs font-mono font-black shrink-0 shadow-md">

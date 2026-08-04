@@ -4,11 +4,23 @@ import { Navbar } from './components/Navbar';
 import { LandingPage } from './components/LandingPage';
 import { TikTokGiveawayModal } from './components/TikTokGiveawayModal';
 import { LoginModal } from './components/LoginModal';
+import { TermsPage } from './components/TermsPage';
+import { PrivacyPage } from './components/PrivacyPage';
 import { fetchAiNavigatorPackages, fetchUserProfile } from './services/api';
 
 export default function App() {
   const [lang, setLang] = useState<Language>('id');
   const [cmsPackages, setCmsPackages] = useState<Record<string, { price: number; fake_price: number; name?: string }>>({});
+
+  const [viewMode, setViewMode] = useState<'home' | 'terms' | 'privacy'>(() => {
+    if (typeof window !== 'undefined') {
+      const path = window.location.pathname.toLowerCase();
+      const search = window.location.search.toLowerCase();
+      if (path.includes('terms') || path.includes('syarat') || search.includes('view=terms')) return 'terms';
+      if (path.includes('privacy') || path.includes('privasi') || search.includes('view=privacy')) return 'privacy';
+    }
+    return 'home';
+  });
 
   const [userState, setUserState] = useState<UserState>({
     name: 'Mahasiswa MAXY',
@@ -175,6 +187,30 @@ export default function App() {
       redirectToApp('/app');
     }
   };
+
+  if (viewMode === 'terms') {
+    return (
+      <TermsPage
+        lang={lang}
+        onBack={() => {
+          setViewMode('home');
+          window.history.pushState({}, '', '/');
+        }}
+      />
+    );
+  }
+
+  if (viewMode === 'privacy') {
+    return (
+      <PrivacyPage
+        lang={lang}
+        onBack={() => {
+          setViewMode('home');
+          window.history.pushState({}, '', '/');
+        }}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-slate-950 font-sans text-white antialiased selection:bg-[#ffb034] selection:text-slate-950">

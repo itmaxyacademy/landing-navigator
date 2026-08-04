@@ -25,6 +25,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
   const [password, setPassword] = useState('');
   const [phone, setPhone] = useState('');
   const [institution, setInstitution] = useState('');
+  const [agreedPrivacy, setAgreedPrivacy] = useState(true);
   const [isLoadingGoogle, setIsLoadingGoogle] = useState(false);
   const [isLoadingForm, setIsLoadingForm] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);

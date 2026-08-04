@@ -19,7 +19,7 @@ export const translations = {
     // Hero Section
     recognizedBadge: 'Maxy Academy is Recognized by HolonIQ EdTech Top 50',
     heroTitlePrefix: 'Master AI Dalam 21 Hari +',
-    heroTitleHighlight: 'Sertifikasi Internasional Dalam 29 Hari',
+    heroTitleHighlight: 'Sertifikasi Internasional Dalam 28 Hari',
     heroSubtitle:
       'Program komprehensif Certified Applied AI (CAAI™ Level 1) & Badges',
     enrollNow: 'Daftar Sekarang (Mulai Rp 49.900)',

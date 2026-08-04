@@ -375,7 +375,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                   <h3 className="text-2xl font-black text-slate-900 mt-0.5">{t.freeTierTitle}</h3>
                 </div>
                 <span className="px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-mono font-black shrink-0 shadow-sm">
-                  3 HARI
+                  3 MODUL
                 </span>
               </div>
 

@@ -129,21 +129,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.1, duration: 0.4 }}
               whileHover={{ scale: 1.04 }}
-              className="inline-flex items-center gap-2 px-4.5 py-2 rounded-full bg-white/95 border border-amber-300 text-xs sm:text-sm font-black text-slate-800 shadow-sm backdrop-blur-md cursor-default"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-50/90 border border-amber-300/80 text-xs sm:text-sm font-bold text-slate-800 shadow-sm backdrop-blur-md cursor-default"
             >
-              <img
-                src="https://cms.maxy.academy/uploads/edtech50-badge.png"
-                alt="HolonIQ EdTech 50"
-                className="w-5 h-5 object-contain"
-                onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/edtech50-badge.png'; }}
-              />
-              <motion.div
-                animate={{ rotate: [0, 360] }}
-                transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
-              >
-                <Sparkles className="w-4 h-4 text-[#d98200]" />
-              </motion.div>
-              <span>Recognized by HolonIQ EdTech Top 50</span>
+              <span className="text-base">🎓</span>
+              <span>{t.recognizedBadge || 'Maxy Academy is Recognized by HolonIQ EdTech Top 50'}</span>
             </motion.div>
 
             <motion.h1
@@ -153,7 +142,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               className="text-4xl sm:text-5xl lg:text-6xl 2xl:text-7xl font-black tracking-tight text-slate-900 leading-[1.12]"
             >
               {t.heroTitlePrefix}{' '}
-              <span className="text-[#d98200]">
+              <span className="text-[#d98200] block mt-1">
                 {t.heroTitleHighlight}
               </span>
             </motion.h1>
@@ -182,23 +171,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               >
                 <span>
                   {packages?.tier1?.price
-                    ? (lang === 'id' ? `Daftar Sekarang (Mulai ${formatRupiah(packages.tier1.price)})` : `Enroll Now (From ${formatRupiah(packages.tier1.price)})`)
+                    ? (lang === 'id' ? `Daftar Sekarang (Mulai ${formatRupiah(packages.tier1.price, 'Rp 49.900')})` : `Enroll Now (From ${formatRupiah(packages.tier1.price, 'Rp 49.900')})`)
                     : t.enrollNow}
                 </span>
                 <ArrowRight className="w-4.5 h-4.5 text-slate-900" />
               </motion.button>
-
-              <motion.a
-                whileHover={{ scale: 1.04 }}
-                whileTap={{ scale: 0.96 }}
-                href="https://www.tiktok.com/@maxy.academy"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full sm:w-auto px-7 py-4 rounded-xl bg-white hover:bg-slate-50 text-slate-900 border border-slate-300 font-extrabold text-sm lg:text-base flex items-center justify-center gap-2.5 transition-all shadow-sm hover:border-slate-400"
-              >
-                <span>TikTok @maxy.academy</span>
-                <ExternalLink className="w-4.5 h-4.5 text-[#d98200]" />
-              </motion.a>
             </motion.div>
           </motion.div>
 
@@ -207,7 +184,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.6 }}
-            className="mt-16 max-w-6xl 2xl:max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-4 p-6 sm:p-7 rounded-2xl bg-white/90 backdrop-blur-md border border-slate-200/90 shadow-lg"
+            className="mt-16 max-w-6xl 2xl:max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-6 sm:p-7 rounded-2xl bg-white/90 backdrop-blur-md border border-slate-200/90 shadow-lg"
           >
             <div className="space-y-1.5 p-3 rounded-xl hover:bg-slate-50 transition-colors">
               <div className="flex items-center gap-2 text-slate-900 font-extrabold text-lg sm:text-xl 2xl:text-2xl">
@@ -228,8 +205,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 />
                 <span>HolonIQ</span>
               </div>
-              <p className="text-xs sm:text-sm font-bold text-slate-900">EdTech Top 50</p>
-              <p className="text-[11px] sm:text-xs text-slate-500">Recognized by HolonIQ &amp; QS World</p>
+              <p className="text-xs sm:text-sm font-bold text-slate-900">{t.statHolonIqTitle || 'EdTech Top 50'}</p>
+              <p className="text-[11px] sm:text-xs text-slate-500">{t.statHolonIqSub || 'Maxy Academy direkognisi Oleh HolonIQ'}</p>
             </div>
 
             <div className="space-y-1.5 p-3 rounded-xl hover:bg-slate-50 transition-colors">
@@ -239,15 +216,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               </div>
               <p className="text-xs sm:text-sm font-bold text-slate-900">{t.statAccredify}</p>
               <p className="text-[11px] sm:text-xs text-slate-500">{t.statAccredifySub}</p>
-            </div>
-
-            <div className="space-y-1.5 p-3 rounded-xl hover:bg-slate-50 transition-colors">
-              <div className="flex items-center gap-2 text-slate-900 font-extrabold text-lg sm:text-xl 2xl:text-2xl">
-                <Users className="w-5 h-5 text-[#d98200]" />
-                <span>10.000+</span>
-              </div>
-              <p className="text-xs sm:text-sm font-bold text-slate-900">{t.statTargetFollowers}</p>
-              <p className="text-[11px] sm:text-xs text-slate-500">{t.statTargetFollowersSub}</p>
             </div>
 
             <div className="space-y-1.5 p-3 rounded-xl hover:bg-slate-50 transition-colors">
@@ -273,15 +241,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         >
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-slate-100">
             <div className="flex items-center gap-3.5">
-              <div className="p-3.5 bg-[#ffb034]/20 text-slate-900 rounded-2xl border border-[#ffb034]/40 shadow-sm">
+              <div className="p-3.5 bg-amber-100/90 text-slate-900 rounded-2xl border border-amber-200 shadow-sm">
                 <BarChart2 className="w-6 h-6 text-[#d98200]" />
               </div>
               <div>
-                <span className="text-xs font-mono font-bold text-[#d98200] uppercase tracking-wider">
-                  Program Beasiswa Harian MAXY Academy
+                <span className="inline-block px-3 py-1 text-xs font-mono font-bold text-amber-800 uppercase tracking-wider bg-amber-100/80 border border-amber-200 rounded-md mb-1">
+                  {t.tiktokProgramBadge || 'PROGRAM 1 JUTA BEASISWA'}
                 </span>
                 <h2 className="text-xl sm:text-2xl font-black text-slate-900 mt-0.5">
-                  Statistik Klaim Beasiswa TikTok
+                  {t.tiktokSectionTitle || 'Follow dan Ikuti Live Tiktok Kami'}
                 </h2>
               </div>
             </div>
@@ -292,37 +260,28 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               rel="noopener noreferrer"
               className="px-5 py-2.5 rounded-xl bg-[#ffb034] hover:bg-[#e59d2a] text-slate-900 font-bold text-xs flex items-center justify-center gap-2 transition-all shadow-sm shrink-0"
             >
-              <span>Follow @maxy.academy</span>
+              <span>{t.tiktokFollowBtn || 'Follow @maxy.academy'}</span>
               <ExternalLink className="w-4 h-4 text-slate-900" />
             </a>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            <div className="p-6 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-3 hover:border-slate-300 transition-colors">
-              <span className="text-xs text-slate-500 font-semibold">Target Followers TikTok</span>
-              <div className="text-2xl font-black text-slate-900">10.000 Followers</div>
-              <div className="w-full bg-slate-200/80 h-2.5 rounded-full overflow-hidden">
-                <motion.div
-                  initial={{ width: 0 }}
-                  whileInView={{ width: '64%' }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1.2, ease: 'easeOut' }}
-                  className="bg-[#ffb034] h-full rounded-full"
-                />
-              </div>
-              <p className="text-[11px] text-slate-500 font-mono font-medium">6.420 / 10.000 Followers (64%)</p>
+            <div className="p-6 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-2 hover:border-slate-300 transition-colors">
+              <span className="text-xs text-slate-500 font-semibold">{t.tiktokCard1Header || 'Bagi-Bagi Voucher'}</span>
+              <div className="text-2xl font-black text-slate-900">{t.tiktokCard1Value || 'SETIAP HARI'}</div>
+              <p className="text-xs text-slate-500 font-medium">{t.tiktokCard1Desc || 'Undian dan Voucher Dibagikan di Live TIKTOK'}</p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-3 hover:border-slate-300 transition-colors">
-              <span className="text-xs text-slate-500 font-semibold">Voucher BEASISWAMAXI Claimed</span>
-              <div className="text-2xl font-black text-emerald-600">1.284 Claims</div>
-              <p className="text-xs text-slate-600">Akses Tier 1 Self-Paced Gratis</p>
+            <div className="p-6 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-2 hover:border-slate-300 transition-colors">
+              <span className="text-xs text-slate-500 font-semibold">{t.tiktokCard2Header || 'Voucher'}</span>
+              <div className="text-2xl font-black text-emerald-600">{t.tiktokCard2Value || '1.284+ Klaim'}</div>
+              <p className="text-xs text-slate-500 font-medium">{t.tiktokCard2Desc || 'Lulusan CAAI Level 1'}</p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-3 hover:border-slate-300 transition-colors">
-              <span className="text-xs text-slate-500 font-semibold">Upsell Conversion Tier 2</span>
-              <div className="text-2xl font-black text-[#d98200]">342 Alumni</div>
-              <p className="text-xs text-slate-600 flex items-center justify-center gap-1">Peserta <CaaiTm /> Full Mentoring</p>
+            <div className="p-6 rounded-2xl bg-slate-50/80 border border-slate-200/80 space-y-2 hover:border-slate-300 transition-colors">
+              <span className="text-xs text-slate-500 font-semibold">{t.tiktokCard3Header || 'Upsell Conversion Tier 2'}</span>
+              <div className="text-2xl font-black text-[#d98200]">{t.tiktokCard3Value || '342+ Alumni'}</div>
+              <p className="text-xs text-slate-500 font-medium">{t.tiktokCard3Desc || 'Peserta CAAI™ Full Mentoring'}</p>
             </div>
           </div>
 
@@ -345,7 +304,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               rel="noopener noreferrer"
               className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs flex items-center gap-2 transition-colors shrink-0 shadow-sm"
             >
-              <span>Gabung Live TikTok</span>
+              <span>{t.tiktokJoinLiveBtn || 'Follow TikTok'}</span>
               <ExternalLink className="w-3.5 h-3.5 text-[#ffb034]" />
             </a>
           </div>

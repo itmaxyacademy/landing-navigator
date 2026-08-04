@@ -17,30 +17,44 @@ export const translations = {
     launchBadge: 'Terhubung dengan ai.maxy.academy',
 
     // Hero Section
-    heroTitlePrefix: 'Akselerasi Karir AI dalam',
-    heroTitleHighlight: '28 Hari Pelatihan Bersertifikat',
+    recognizedBadge: 'Maxy Academy is Recognized by HolonIQ EdTech Top 50',
+    heroTitlePrefix: 'Master AI Dalam 21 Hari +',
+    heroTitleHighlight: 'Sertifikasi Internasional Dalam 29 Hari',
     heroSubtitle:
       'Program komprehensif Certified Applied AI (CAAI™ Level 1) & Badges',
-    enrollNow: 'Daftar Sekarang (Mulai Rp49,5rb)',
+    enrollNow: 'Daftar Sekarang (Mulai Rp 49.900)',
     tryAppSimulator: 'Buka Simulator Aplikasi (/app)',
     claimGiveaway: 'Klaim Beasiswa TikTok Harian',
 
     // Stats Bar
     statMeetings: '28 Pertemuan / 28 JP',
     statMeetingsSub: '21 Hari Self-Paced + 7 Hari Mentoring',
+    statHolonIqTitle: 'EdTech Top 50',
+    statHolonIqSub: 'Maxy Academy direkognisi Oleh HolonIQ',
     statAccredify: 'Sertifikat Resmi',
     statAccredifySub: 'Terverifikasi & Diakui Industri',
-    statTargetFollowers: '10.000+ Target Community',
-    statTargetFollowersSub: 'Kampanye Beasiswa TikTok Harian',
     statDiscountTier: 'Hemat s/d Rp150.000',
-    statDiscountTierSub: 'Khusus Upsell Tier 2',
+    statDiscountTierSub: 'Hubungi Whatsapp Kami Untuk Kampanye Yang Tersedia',
 
-    // TikTok Campaign Banner
+    // TikTok Campaign Banner / Features Section
+    tiktokProgramBadge: 'PROGRAM 1 JUTA BEASISWA',
+    tiktokSectionTitle: 'Follow dan Ikuti Live Tiktok Kami',
+    tiktokFollowBtn: 'Follow @maxy.academy',
+    tiktokCard1Header: 'Bagi-Bagi Voucher',
+    tiktokCard1Value: 'SETIAP HARI',
+    tiktokCard1Desc: 'Undian dan Voucher Dibagikan di Live TIKTOK',
+    tiktokCard2Header: 'Voucher',
+    tiktokCard2Value: '1.284+ Klaim',
+    tiktokCard2Desc: 'Lulusan CAAI Level 1',
+    tiktokCard3Header: 'Upsell Conversion Tier 2',
+    tiktokCard3Value: '342+ Alumni',
+    tiktokCard3Desc: 'Peserta CAAI™ Full Mentoring',
     tiktokBannerTitle: '🎁 Kampanye Beasiswa TikTok Harian MAXY Academy',
     tiktokBannerDesc:
       'Dorong target 10.000 followers! Dapatkan akses Tier 1 (Rp49.500) GRATIS 100% atau klaim Voucher Upsell Rp150.000 untuk Tier 2 CAAI™!',
     tiktokBannerButton: 'Klaim Voucher Beasiswa TikTok',
     tiktokLiveNote: 'Klaim beasiswa juga bisa dilakukan secara langsung saat Sesi Live TikTok @maxy.academy!',
+    tiktokJoinLiveBtn: 'Follow TikTok',
     eventBoothBadge: '🎪 Khusus Booth Event DTICX & IdeaFest: 50 Pengunjung Pertama Gratis Claim Code!',
 
     // Pricing Section
@@ -213,30 +227,44 @@ export const translations = {
     launchBadge: 'Connected to ai.maxy.academy',
 
     // Hero Section
-    heroTitlePrefix: 'Accelerate Your AI Career in',
-    heroTitleHighlight: '28 Days Certified Training',
+    recognizedBadge: 'Maxy Academy is Recognized by HolonIQ EdTech Top 50',
+    heroTitlePrefix: 'Master AI in 21 Days +',
+    heroTitleHighlight: 'International Certification in 29 Days',
     heroSubtitle:
       'Comprehensive Certified Applied AI (CAAI™ Level 1) & Badges',
-    enrollNow: 'Enroll Now (From Rp49.5k)',
+    enrollNow: 'Enroll Now (From Rp 49.900)',
     tryAppSimulator: 'Open App Simulator (/app)',
     claimGiveaway: 'Claim Daily TikTok Scholarship',
 
     // Stats Bar
     statMeetings: '28 Meetings / 28 JP',
     statMeetingsSub: '21 Days Self-Paced + 7 Days Mentoring',
+    statHolonIqTitle: 'EdTech Top 50',
+    statHolonIqSub: 'Maxy Academy recognized by HolonIQ',
     statAccredify: 'Official Certificate',
-    statAccredifySub: 'Tamper-proof & Verified Credentials',
-    statTargetFollowers: '10,000+ Target Community',
-    statTargetFollowersSub: 'Daily TikTok Scholarship Campaign',
+    statAccredifySub: 'Verified & Industry Recognized',
     statDiscountTier: 'Save up to Rp150,000',
-    statDiscountTierSub: 'Exclusive Tier 2 Upsell',
+    statDiscountTierSub: 'Contact Our Whatsapp For Available Campaigns',
 
-    // TikTok Campaign Banner
+    // TikTok Campaign Banner / Features Section
+    tiktokProgramBadge: '1 MILLION SCHOLARSHIP PROGRAM',
+    tiktokSectionTitle: 'Follow and Join Our Tiktok Live',
+    tiktokFollowBtn: 'Follow @maxy.academy',
+    tiktokCard1Header: 'Voucher Giveaway',
+    tiktokCard1Value: 'EVERY DAY',
+    tiktokCard1Desc: 'Raffles and Vouchers Shared on TikTok Live',
+    tiktokCard2Header: 'Voucher',
+    tiktokCard2Value: '1,284+ Claimed',
+    tiktokCard2Desc: 'CAAI Level 1 Graduates',
+    tiktokCard3Header: 'Upsell Conversion Tier 2',
+    tiktokCard3Value: '342+ Alumni',
+    tiktokCard3Desc: 'CAAI™ Full Mentoring Participants',
     tiktokBannerTitle: '🎁 MAXY Academy Daily TikTok Scholarship Campaign',
     tiktokBannerDesc:
       'Pushing towards 10,000 TikTok followers! Get Tier 1 (Rp49,500) 100% FREE or claim a Rp150,000 Upsell Voucher for Tier 2 CAAI™!',
     tiktokBannerButton: 'Claim TikTok Scholarship Voucher',
     tiktokLiveNote: 'Scholarships can also be claimed live during @maxy.academy TikTok Live sessions!',
+    tiktokJoinLiveBtn: 'Follow TikTok',
     eventBoothBadge: '🎪 DTICX & IdeaFest Event Booth Special: First 50 Visitors Free Claim Code!',
 
     // Pricing Section

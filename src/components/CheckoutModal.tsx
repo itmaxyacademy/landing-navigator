@@ -67,24 +67,27 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
     if (!cleaned) return;
 
     const res = await verifyVoucher(cleaned, basePrice);
+    const serverData = res?.data || res;
+
     if (res && (res.success || res.valid) && res.data && res.data.valid) {
       setActiveCoupon(cleaned);
       const discount = typeof res.data.discount_amount === 'number' ? res.data.discount_amount : 0;
       setServerDiscountAmount(discount);
+    } else if (serverData && serverData.valid === true) {
+      setActiveCoupon(cleaned);
+      const discount = typeof serverData.discount_amount === 'number' ? serverData.discount_amount : 0;
+      setServerDiscountAmount(discount);
     } else {
-      const found = INITIAL_COUPONS.find((c) => c.code.toUpperCase() === cleaned);
-      if (found) {
-        setActiveCoupon(cleaned);
-        setServerDiscountAmount(null);
-      } else {
-        setServerDiscountAmount(null);
-        setCouponError(
-          res?.data?.message ||
-          (lang === 'id'
-            ? 'Kode voucher tidak valid atau sudah kadaluwarsa.'
-            : 'Invalid or expired voucher code.')
-        );
-      }
+      setActiveCoupon(null);
+      setServerDiscountAmount(null);
+      const errorMsg =
+        res?.data?.message ||
+        serverData?.message ||
+        res?.message ||
+        (lang === 'id'
+          ? 'Kode voucher tidak valid atau sudah kadaluwarsa.'
+          : 'Invalid or expired voucher code.');
+      setCouponError(errorMsg);
     }
   };
 

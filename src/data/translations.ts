@@ -146,16 +146,13 @@ export const translations = {
     faqTitle: 'Pertanyaan Sering Diajukan (FAQ)',
     faq1Q: 'Apa perbedaan utama Tier 1 dan Tier 2?',
     faq1A:
-      'Tier 1 (Rp50.000) mencakup 21 hari modul self-paced dengan Certificate of Completion (21 JP). Tier 2 (Rp300.000) mencakup 28 hari penuh (termasuk 7 hari mentoring intensif via ai.maxy.academy), wajib submit project, dan mendapatkan Sertifikat Resmi CAAI™ Level 1 (28 JP).',
+      'Tier 1 (Rp 49.900) mencakup 21 hari modul self-paced dengan Certificate of Completion (21 JP). Tier 2 (Rp 299.900) mencakup 28 hari penuh (termasuk 7 hari mentoring intensif via ai.maxy.academy), wajib submit project, dan mendapatkan Sertifikat Resmi CAAI™ Level 1 (28 JP).',
     faq2Q: 'Bagaimana cara klaim Beasiswa TikTok atau Voucher Booth Event?',
     faq2A:
-      'Klaim beasiswa bisa dilakukan secara langsung saat Sesi Live TikTok @maxy.academy atau dengan memasukkan kode voucher (seperti `BEASISWAMAXI` untuk Tier 1 Gratis, atau `TIKTOKUPSELL` / `IDEAFEST50` / `DTICXBOOTH` untuk diskon Rp150.000 di Tier 2) saat checkout.',
+      'Klaim beasiswa bisa dilakukan secara langsung saat Sesi Live TikTok @maxy.academy atau dengan memasukkan kode voucher saat checkout.',
     faq3Q: 'Bagaimana integrasi dengan verifikasi sertifikat bekerja?',
     faq3A:
       'Setiap lulusan Tier 2 yang project-nya disetujui oleh mentor akan menerima ID sertifikat digital unik dengan stempel verifikasi resmi yang dapat diverifikasi oleh publik atau direkrut di LinkedIn.',
-    faq4Q: 'Kapan target peluncuran resmi AI Navigator?',
-    faq4A:
-      'Inisiatif AI Navigator ditargetkan peluncurannya pada Jumat minggu ini di navigator.maxy.academy dengan integrasi ke ai.maxy.academy.',
 
     // App Dashboard (/app)
     appHeaderTitle: 'Dashboard Pembelajaran AI Navigator',
@@ -356,16 +353,13 @@ export const translations = {
     faqTitle: 'Frequently Asked Questions (FAQ)',
     faq1Q: 'What is the key difference between Tier 1 and Tier 2?',
     faq1A:
-      'Tier 1 (Rp50,000) includes 21 days of self-paced learning with a Certificate of Completion (21 JP). Tier 2 (Rp300,000) includes the full 28 days (with 7 days intensive live mentoring via ai.maxy.academy), mandatory project submission, and earns you an Official CAAI™ Level 1 Certificate (28 JP).',
+      'Tier 1 (Rp 49.900) includes 21 days of self-paced learning with a Certificate of Completion (21 JP). Tier 2 (Rp 299.900) includes full 28 days (with 7 days intensive live mentoring via ai.maxy.academy), mandatory project submission, and earns you an Official CAAI™ Level 1 Certificate (28 JP).',
     faq2Q: 'How do I claim the TikTok Scholarship or Event Booth Voucher?',
     faq2A:
-      'Scholarships can be claimed directly during MAXY Academy TikTok Live (@maxy.academy) or by applying your voucher code (such as `BEASISWAMAXI` for free Tier 1, or `TIKTOKUPSELL` / `IDEAFEST50` / `DTICXBOOTH` for Rp150,000 off Tier 2) during checkout.',
+      'Scholarships can be claimed directly during MAXY Academy TikTok Live (@maxy.academy) or by applying your voucher code during checkout.',
     faq3Q: 'How does certificate verification work?',
     faq3A:
       'Every Tier 2 graduate whose project is approved by a mentor receives a unique digital credential ID with official verification hash stamp that can be verified publicly or attached to LinkedIn.',
-    faq4Q: 'When is the official launch target for AI Navigator?',
-    faq4A:
-      'AI Navigator is scheduled for official launch this Friday on navigator.maxy.academy integrated with ai.maxy.academy.',
 
     // App Dashboard (/app)
     appHeaderTitle: 'AI Navigator Learning Dashboard',

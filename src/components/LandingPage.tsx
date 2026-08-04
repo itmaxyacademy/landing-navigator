@@ -521,7 +521,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             { q: t.faq1Q, a: t.faq1A },
             { q: t.faq2Q, a: t.faq2A },
             { q: t.faq3Q, a: t.faq3A },
-            { q: t.faq4Q, a: t.faq4A },
           ].map((item, idx) => (
             <motion.div
               key={idx}

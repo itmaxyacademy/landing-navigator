@@ -71,8 +71,8 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
       } else {
         setCouponError(
           lang === 'id'
-            ? 'Kode voucher tidak valid. Coba: BEASISWAMAXI, TIKTOKUPSELL, atau IDEAFEST50'
-            : 'Invalid voucher code. Try: BEASISWAMAXI, TIKTOKUPSELL, or IDEAFEST50'
+            ? 'Kode voucher tidak valid.'
+            : 'Invalid voucher code.'
         );
       }
     }
@@ -155,7 +155,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   type="text"
                   value={couponInput}
                   onChange={(e) => setCouponInput(e.target.value)}
-                  placeholder="e.g. BEASISWAMAXI / TIKTOKUPSELL"
+                  placeholder={lang === 'id' ? 'Masukkan kode voucher' : 'Enter voucher code'}
                   className="flex-1 bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-xs font-mono uppercase text-white focus:outline-none focus:border-indigo-500"
                 />
                 <button

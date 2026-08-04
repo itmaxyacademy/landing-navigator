@@ -144,25 +144,32 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               transition={{ delay: 0.2, duration: 0.5 }}
               className="text-4xl sm:text-5xl lg:text-6xl 2xl:text-7xl font-black tracking-tight text-slate-900 leading-[1.12]"
             >
-              {lang === 'id' ? (
-                <>
-                  <div>
-                    Master AI Dalam <span className="text-[#d98200]">21 Hari</span> +
-                  </div>
-                  <div className="mt-1">
-                    Sertifikasi Internasional Dalam <span className="text-[#d98200]">29 Hari</span>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div>
-                    Master AI in <span className="text-[#d98200]">21 Days</span> +
-                  </div>
-                  <div className="mt-1">
-                    International Certification in <span className="text-[#d98200]">29 Days</span>
-                  </div>
-                </>
-              )}
+              <div>
+                {t.heroTitlePrefix ? (
+                  t.heroTitlePrefix.split(/(\d+\s*(?:Hari|Days))/gi).map((part, idx) =>
+                    /^\d+\s*(?:Hari|Days)$/i.test(part) ? (
+                      <span key={idx} className="text-[#d98200]">{part}</span>
+                    ) : (
+                      part
+                    )
+                  )
+                ) : (
+                  <>Master AI Dalam <span className="text-[#d98200]">21 Hari</span> +</>
+                )}
+              </div>
+              <div className="mt-1">
+                {t.heroTitleHighlight ? (
+                  t.heroTitleHighlight.split(/(\d+\s*(?:Hari|Days))/gi).map((part, idx) =>
+                    /^\d+\s*(?:Hari|Days)$/i.test(part) ? (
+                      <span key={idx} className="text-[#d98200]">{part}</span>
+                    ) : (
+                      part
+                    )
+                  )
+                ) : (
+                  <>Sertifikasi Internasional Dalam <span className="text-[#d98200]">29 Hari</span></>
+                )}
+              </div>
             </motion.h1>
 
             <motion.p

@@ -226,7 +226,7 @@ export const translations = {
     // Hero Section
     recognizedBadge: 'Maxy Academy is Recognized by HolonIQ EdTech Top 50',
     heroTitlePrefix: 'Master AI in 21 Days +',
-    heroTitleHighlight: 'International Certification in 29 Days',
+    heroTitleHighlight: 'International Certification in 28 Days',
     heroSubtitle:
       'Comprehensive Certified Applied AI (CAAI™ Level 1) & Badges',
     enrollNow: 'Enroll Now (From Rp 49.900)',

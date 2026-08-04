@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Language } from '../types';
 import { translations } from '../data/translations';
-import { Sparkles, X, Mail, Lock, ArrowRight, CheckCircle2, ShieldCheck, AlertCircle, User } from 'lucide-react';
+import { Sparkles, X, Mail, Lock, ArrowRight, CheckCircle2, ShieldCheck, AlertCircle, User, Phone, Building2 } from 'lucide-react';
 
 import { loginWithEmail, registerUser } from '../services/api';
 
@@ -23,6 +23,8 @@ export const LoginModal: React.FC<LoginModalProps> = ({
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [phone, setPhone] = useState('');
+  const [institution, setInstitution] = useState('');
   const [isLoadingGoogle, setIsLoadingGoogle] = useState(false);
   const [isLoadingForm, setIsLoadingForm] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
@@ -48,7 +50,7 @@ export const LoginModal: React.FC<LoginModalProps> = ({
 
     let result;
     if (authMode === 'register') {
-      result = await registerUser(name, email, password);
+      result = await registerUser(name, email, password, phone, institution);
     } else {
       result = await loginWithEmail(email, password);
     }
@@ -257,22 +259,58 @@ export const LoginModal: React.FC<LoginModalProps> = ({
               {/* Form */}
               <form onSubmit={handleFormSubmit} className="space-y-3">
                 {authMode === 'register' && (
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1">
-                      Nama Lengkap
-                    </label>
-                    <div className="relative">
-                      <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                      <input
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="Nama Lengkap Anda"
-                        className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:border-[#d98200] focus:bg-white transition-all"
-                        required
-                      />
+                  <>
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 mb-1">
+                        {lang === 'id' ? 'Nama Lengkap' : 'Full Name'}
+                      </label>
+                      <div className="relative">
+                        <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                        <input
+                          type="text"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          placeholder={lang === 'id' ? 'Nama Lengkap Anda' : 'Your Full Name'}
+                          className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:border-[#d98200] focus:bg-white transition-all"
+                          required
+                        />
+                      </div>
                     </div>
-                  </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 mb-1">
+                        {lang === 'id' ? 'Nomor WhatsApp / Telepon' : 'WhatsApp / Phone Number'}
+                      </label>
+                      <div className="relative">
+                        <Phone className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                        <input
+                          type="tel"
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          placeholder="e.g. 08123456789"
+                          className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:border-[#d98200] focus:bg-white transition-all"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-slate-700 mb-1">
+                        {lang === 'id' ? 'Asal Instansi / Universitas / Perusahaan' : 'Institution / University / Company'}
+                      </label>
+                      <div className="relative">
+                        <Building2 className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                        <input
+                          type="text"
+                          value={institution}
+                          onChange={(e) => setInstitution(e.target.value)}
+                          placeholder={lang === 'id' ? 'e.g. Universitas Indonesia / Maxy Academy' : 'e.g. Harvard University / Acme Corp'}
+                          className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:border-[#d98200] focus:bg-white transition-all"
+                          required
+                        />
+                      </div>
+                    </div>
+                  </>
                 )}
 
                 <div>
@@ -308,10 +346,34 @@ export const LoginModal: React.FC<LoginModalProps> = ({
                   </div>
                 </div>
 
+                {authMode === 'register' && (
+                  <div className="flex items-start gap-2 pt-1 pb-1">
+                    <input
+                      type="checkbox"
+                      id="privacy_policy_agree"
+                      checked={agreedPrivacy}
+                      onChange={(e) => setAgreedPrivacy(e.target.checked)}
+                      className="mt-0.5 w-4 h-4 rounded text-[#d98200] focus:ring-[#d98200] border-slate-300 cursor-pointer"
+                      required
+                    />
+                    <label htmlFor="privacy_policy_agree" className="text-[11px] text-slate-600 font-medium cursor-pointer leading-tight">
+                      {lang === 'id' ? (
+                        <>
+                          Saya menyetujui <a href="https://maxy.academy/terms" target="_blank" rel="noreferrer" className="text-amber-600 underline font-bold hover:text-amber-700">Syarat & Ketentuan</a> dan <a href="https://maxy.academy/privacy" target="_blank" rel="noreferrer" className="text-amber-600 underline font-bold hover:text-amber-700">Kebijakan Privasi</a>.
+                        </>
+                      ) : (
+                        <>
+                          I agree to the <a href="https://maxy.academy/terms" target="_blank" rel="noreferrer" className="text-amber-600 underline font-bold hover:text-amber-700">Terms & Conditions</a> and <a href="https://maxy.academy/privacy" target="_blank" rel="noreferrer" className="text-amber-600 underline font-bold hover:text-amber-700">Privacy Policy</a>.
+                        </>
+                      )}
+                    </label>
+                  </div>
+                )}
+
                 <button
                   type="submit"
-                  disabled={isLoadingGoogle || isLoadingForm}
-                  className="w-full py-3 px-4 rounded-xl bg-[#ffb034] hover:bg-[#e59d2a] text-slate-900 font-black text-xs flex items-center justify-center gap-2 transition-all shadow-md shadow-[#ffb034]/20 hover:shadow-lg disabled:opacity-60"
+                  disabled={isLoadingGoogle || isLoadingForm || (authMode === 'register' && !agreedPrivacy)}
+                  className="w-full py-3 px-4 rounded-xl bg-[#ffb034] hover:bg-[#e59d2a] text-slate-900 font-black text-xs flex items-center justify-center gap-2 transition-all shadow-md shadow-[#ffb034]/20 hover:shadow-lg disabled:opacity-60 cursor-pointer"
                 >
                   {isLoadingForm ? (
                     <div className="flex items-center gap-2">

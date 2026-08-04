@@ -62,12 +62,12 @@ export async function fetchUserProfile(token?: string) {
   }
 }
 
-export async function registerUser(name: string, email: string, password: string) {
+export async function registerUser(name: string, email: string, password: string, phone?: string, institution?: string) {
   try {
     const res = await fetch(`${API_BASE}/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, password, client_app: 'navigator' }),
+      body: JSON.stringify({ name, email, password, phone, institution, university: institution, client_app: 'navigator' }),
     });
     return await res.json();
   } catch (err) {

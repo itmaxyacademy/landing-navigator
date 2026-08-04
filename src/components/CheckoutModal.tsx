@@ -28,6 +28,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 }) => {
   const [couponInput, setCouponInput] = useState(prefilledCoupon);
   const [activeCoupon, setActiveCoupon] = useState<string | null>(prefilledCoupon || null);
+  const [serverDiscountAmount, setServerDiscountAmount] = useState<number | null>(null);
   const [couponError, setCouponError] = useState<string | null>(null);
   const [paymentMethod, setPaymentMethod] = useState<'qris' | 'gopay' | 'va'>('qris');
   const [isProcessing, setIsProcessing] = useState(false);
@@ -44,12 +45,16 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   // Calculate discount
   let discountAmount = 0;
   if (activeCoupon) {
-    const found = INITIAL_COUPONS.find((c) => c.code.toUpperCase() === activeCoupon.toUpperCase());
-    if (found) {
-      if (found.isFreePass && selectedTier === 'tier1') {
-        discountAmount = basePrice;
-      } else if (found.discountAmount) {
-        discountAmount = found.discountAmount;
+    if (serverDiscountAmount !== null) {
+      discountAmount = serverDiscountAmount;
+    } else {
+      const found = INITIAL_COUPONS.find((c) => c.code.toUpperCase() === activeCoupon.toUpperCase());
+      if (found) {
+        if (found.isFreePass && selectedTier === 'tier1') {
+          discountAmount = basePrice;
+        } else if (found.discountAmount) {
+          discountAmount = found.discountAmount;
+        }
       }
     }
   }
@@ -62,17 +67,22 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
     if (!cleaned) return;
 
     const res = await verifyVoucher(cleaned, basePrice);
-    if (res.success && res.data) {
+    if (res && (res.success || res.valid) && res.data && res.data.valid) {
       setActiveCoupon(cleaned);
+      const discount = typeof res.data.discount_amount === 'number' ? res.data.discount_amount : 0;
+      setServerDiscountAmount(discount);
     } else {
       const found = INITIAL_COUPONS.find((c) => c.code.toUpperCase() === cleaned);
       if (found) {
         setActiveCoupon(cleaned);
+        setServerDiscountAmount(null);
       } else {
+        setServerDiscountAmount(null);
         setCouponError(
-          lang === 'id'
-            ? 'Kode voucher tidak valid.'
-            : 'Invalid voucher code.'
+          res?.data?.message ||
+          (lang === 'id'
+            ? 'Kode voucher tidak valid atau sudah kadaluwarsa.'
+            : 'Invalid or expired voucher code.')
         );
       }
     }

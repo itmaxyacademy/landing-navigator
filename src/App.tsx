@@ -3,10 +3,8 @@ import { Language, UserState, UserTier } from './types';
 import { Navbar } from './components/Navbar';
 import { LandingPage } from './components/LandingPage';
 import { TikTokGiveawayModal } from './components/TikTokGiveawayModal';
-import { CheckoutModal } from './components/CheckoutModal';
-import { UpgradeModal } from './components/UpgradeModal';
 import { LoginModal } from './components/LoginModal';
-import { fetchAiNavigatorPackages, fetchUserProfile, checkoutPayment } from './services/api';
+import { fetchAiNavigatorPackages, fetchUserProfile } from './services/api';
 
 export default function App() {
   const [lang, setLang] = useState<Language>('id');
@@ -24,17 +22,11 @@ export default function App() {
 
   // Modal States
   const [isGiveawayOpen, setIsGiveawayOpen] = useState<boolean>(false);
-  const [isCheckoutOpen, setIsCheckoutOpen] = useState<boolean>(false);
-  const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState<boolean>(false);
-  const [checkoutTier, setCheckoutTier] = useState<'tier1' | 'tier2'>('tier2');
   const [prefilledCoupon, setPrefilledCoupon] = useState<string>('');
   const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [pendingTier, setPendingTier] = useState<'free' | 'tier1' | 'tier2' | null>(null);
   const [pendingCoupon, setPendingCoupon] = useState<string>('');
-
-  const [isPaymentLoading, setIsPaymentLoading] = useState<boolean>(false);
-  const [loadingTier, setLoadingTier] = useState<'tier1' | 'tier2' | null>(null);
 
   useEffect(() => {
     fetchAiNavigatorPackages().then((res) => {
@@ -91,64 +83,44 @@ export default function App() {
     window.location.href = targetUrl;
   };
 
+  const APP_URL = typeof window !== 'undefined' && window.location.hostname.includes('localhost')
+    ? window.location.origin
+    : 'https://ainavigator.maxy.academy';
+
+  const redirectToApp = (path = '', params?: Record<string, string>) => {
+    let url = `${APP_URL}${path}`;
+    if (params) {
+      const query = new URLSearchParams(params).toString();
+      url += `?${query}`;
+    }
+    window.location.href = url;
+  };
+
   const processCheckoutOrRedirect = (tier: 'tier1' | 'tier2', couponCode?: string) => {
-    setCheckoutTier(tier);
-    setPrefilledCoupon(couponCode || '');
-    setIsUpgradeModalOpen(true);
+    // Redirect ke ai-navigator dengan query params untuk langsung buka UpgradeModal
+    const params: Record<string, string> = { upgrade: 'true', tier };
+    if (couponCode) params.voucher = couponCode;
+    redirectToApp('/app', params);
   };
 
   const handleOpenCheckout = (tier: 'free' | 'tier1' | 'tier2', couponCode?: string) => {
     if (tier === 'free') {
-      navigateToApp();
+      // Free tier: langsung ke app
+      redirectToApp('/app');
       return;
     }
 
     const token = localStorage.getItem('maxy_access_token');
     if (!isLoggedIn && !token) {
+      // Simpan tier & coupon yang dipilih, lalu buka login
       setPendingTier(tier);
-      if (couponCode) {
-        setPendingCoupon(couponCode);
-      }
+      if (couponCode) setPendingCoupon(couponCode);
       setIsLoginOpen(true);
       return;
     }
 
+    // Sudah login → redirect ke ai-navigator UpgradeModal
     processCheckoutOrRedirect(tier, couponCode);
-  };
-
-  const handleSelectUpgradeTier = async (selectedTier: 'tier1' | 'tier2', voucherCode?: string, customAmount?: number) => {
-    setIsPaymentLoading(true);
-    setLoadingTier(selectedTier);
-    try {
-      const pkg = selectedTier === 'tier1' ? cmsPackages?.tier1 : cmsPackages?.tier2;
-      const res = await checkoutPayment({
-        amount: customAmount,
-        package_id: pkg?.id,
-        voucher_code: voucherCode,
-        description: `Pembelian Paket ${selectedTier === 'tier1' ? 'Tier 1' : 'Tier 2'} AI Navigator`,
-        redirect_url: `${window.location.origin}/app`,
-      });
-
-      const invoiceUrl =
-        res?.data?.payment_url ||
-        res?.data?.invoice_url ||
-        res?.data?.data?.payment_url ||
-        res?.data?.data?.invoice_url ||
-        res?.payment_url ||
-        res?.invoice_url;
-
-      if (invoiceUrl) {
-        window.location.href = invoiceUrl;
-        return;
-      }
-      alert(res?.message || res?.error || 'Gagal membuat halaman pembayaran Xendit. Silakan coba lagi.');
-    } catch (err) {
-      console.error('Payment checkout error:', err);
-      alert('Terjadi kesalahan saat menghubungkan ke payment gateway.');
-    } finally {
-      setIsPaymentLoading(false);
-      setLoadingTier(null);
-    }
   };
 
   const handleSelectCouponFromGiveaway = (code: string) => {
@@ -158,10 +130,6 @@ export default function App() {
     } else {
       handleOpenCheckout('tier2', code);
     }
-  };
-
-  const handlePaymentSuccess = (_purchasedTier: UserTier) => {
-    navigateToApp();
   };
 
   const handleLoginSuccess = async (userInfo?: { name: string; email: string }) => {
@@ -181,10 +149,14 @@ export default function App() {
       setPendingCoupon('');
 
       if (targetTier === 'free') {
-        navigateToApp();
+        redirectToApp('/app');
       } else {
+        // Paid tier: redirect ke ai-navigator UpgradeModal
         processCheckoutOrRedirect(targetTier, targetCoupon);
       }
+    } else {
+      // Login manual dari Navbar tanpa pending → masuk ke app
+      redirectToApp('/app');
     }
   };
 
@@ -221,27 +193,6 @@ export default function App() {
         onClose={() => setIsGiveawayOpen(false)}
         lang={lang}
         onSelectCoupon={handleSelectCouponFromGiveaway}
-      />
-
-      <UpgradeModal
-        isOpen={isUpgradeModalOpen}
-        onClose={() => setIsUpgradeModalOpen(false)}
-        lang={lang}
-        currentTier={userState.tier}
-        onSelectTier={handleSelectUpgradeTier}
-        isLoading={isPaymentLoading}
-        loadingTier={loadingTier}
-        packages={cmsPackages}
-      />
-
-      <CheckoutModal
-        isOpen={isCheckoutOpen}
-        onClose={() => setIsCheckoutOpen(false)}
-        lang={lang}
-        packages={cmsPackages}
-        selectedTier={checkoutTier}
-        prefilledCoupon={prefilledCoupon}
-        onPaymentSuccess={handlePaymentSuccess}
       />
     </div>
   );

@@ -93,10 +93,8 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 
   const handlePayNow = async () => {
     setIsProcessing(true);
-    const pkg = selectedTier === 'tier1' ? packages?.tier1 : packages?.tier2;
     const res = await checkoutPayment({
       amount: finalTotal,
-      package_id: pkg?.id,
       voucher_code: activeCoupon || undefined,
       description: `Pembelian Paket ${selectedTier === 'tier1' ? 'Tier 1' : 'Tier 2'} AI Navigator`,
       redirect_url: `${window.location.origin}/app`,

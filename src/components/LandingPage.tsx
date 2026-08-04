@@ -583,13 +583,22 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           
           {/* Col 1: Brand & Tagline */}
           <div className="lg:col-span-4 space-y-4">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#d98200] to-[#ffb034] flex items-center justify-center text-slate-950 font-black text-lg shadow-md shadow-[#d98200]/20">
-                M
+            <div className="flex items-center gap-3">
+              <div className="bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-800 shadow-sm flex items-center justify-center shrink-0">
+                <img
+                  src="https://cms.maxy.academy/uploads/LogoMaxy.png"
+                  alt="Maxy Academy Logo"
+                  className="h-7 w-auto object-contain shrink-0"
+                />
               </div>
-              <span className="text-xl font-extrabold tracking-tight text-white">
-                Maxy<span className="text-[#ffb034]">AI</span>
-              </span>
+              <div className="flex flex-col">
+                <span className="text-base font-black tracking-tight text-white leading-tight">
+                  Maxy Academy
+                </span>
+                <span className="text-xs font-extrabold tracking-wider text-[#ffb034] uppercase font-mono">
+                  AI Navigator
+                </span>
+              </div>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed pr-4 font-normal">
               {lang === 'id'

@@ -96,18 +96,11 @@ export default function App() {
   }, []);
 
   const navigateToApp = () => {
-    const targetUrl = window.location.hostname.includes('localhost')
-      ? '/app'
-      : 'https://ainavigator.maxy.academy/app';
-    window.location.href = targetUrl;
+    window.location.href = window.location.origin + '/app';
   };
 
-  const APP_URL = typeof window !== 'undefined' && window.location.hostname.includes('localhost')
-    ? window.location.origin
-    : 'https://ainavigator.maxy.academy';
-
-  const redirectToApp = (path = '', params?: Record<string, string>) => {
-    let url = `${APP_URL}${path}`;
+  const redirectToApp = (path = '/app', params?: Record<string, string>) => {
+    let url = window.location.origin + (path.startsWith('/') ? path : '/' + path);
     if (params) {
       const query = new URLSearchParams(params).toString();
       url += `?${query}`;

@@ -4,6 +4,7 @@ import { Navbar } from './components/Navbar';
 import { LandingPage } from './components/LandingPage';
 import { TikTokGiveawayModal } from './components/TikTokGiveawayModal';
 import { CheckoutModal } from './components/CheckoutModal';
+import { UpgradeModal } from './components/UpgradeModal';
 import { LoginModal } from './components/LoginModal';
 import { fetchAiNavigatorPackages, fetchUserProfile, checkoutPayment } from './services/api';
 
@@ -24,12 +25,16 @@ export default function App() {
   // Modal States
   const [isGiveawayOpen, setIsGiveawayOpen] = useState<boolean>(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState<boolean>(false);
+  const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState<boolean>(false);
   const [checkoutTier, setCheckoutTier] = useState<'tier1' | 'tier2'>('tier2');
   const [prefilledCoupon, setPrefilledCoupon] = useState<string>('');
   const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [pendingTier, setPendingTier] = useState<'free' | 'tier1' | 'tier2' | null>(null);
   const [pendingCoupon, setPendingCoupon] = useState<string>('');
+
+  const [isPaymentLoading, setIsPaymentLoading] = useState<boolean>(false);
+  const [loadingTier, setLoadingTier] = useState<'tier1' | 'tier2' | null>(null);
 
   useEffect(() => {
     fetchAiNavigatorPackages().then((res) => {
@@ -89,19 +94,17 @@ export default function App() {
   const processCheckoutOrRedirect = (tier: 'tier1' | 'tier2', couponCode?: string) => {
     setCheckoutTier(tier);
     setPrefilledCoupon(couponCode || '');
-    setIsCheckoutOpen(true);
+    setIsUpgradeModalOpen(true);
   };
 
   const handleOpenCheckout = (tier: 'free' | 'tier1' | 'tier2', couponCode?: string) => {
     if (tier === 'free') {
-      // Free tier: langsung ke app (akses free trial)
       navigateToApp();
       return;
     }
 
     const token = localStorage.getItem('maxy_access_token');
     if (!isLoggedIn && !token) {
-      // Simpan tier & coupon yang dipilih, lalu buka login
       setPendingTier(tier);
       if (couponCode) {
         setPendingCoupon(couponCode);
@@ -110,8 +113,42 @@ export default function App() {
       return;
     }
 
-    // Sudah login → langsung ke payment, BUKAN ke /app
     processCheckoutOrRedirect(tier, couponCode);
+  };
+
+  const handleSelectUpgradeTier = async (selectedTier: 'tier1' | 'tier2', voucherCode?: string, customAmount?: number) => {
+    setIsPaymentLoading(true);
+    setLoadingTier(selectedTier);
+    try {
+      const pkg = selectedTier === 'tier1' ? cmsPackages?.tier1 : cmsPackages?.tier2;
+      const res = await checkoutPayment({
+        amount: customAmount,
+        package_id: pkg?.id,
+        voucher_code: voucherCode,
+        description: `Pembelian Paket ${selectedTier === 'tier1' ? 'Tier 1' : 'Tier 2'} AI Navigator`,
+        redirect_url: `${window.location.origin}/app`,
+      });
+
+      const invoiceUrl =
+        res?.data?.payment_url ||
+        res?.data?.invoice_url ||
+        res?.data?.data?.payment_url ||
+        res?.data?.data?.invoice_url ||
+        res?.payment_url ||
+        res?.invoice_url;
+
+      if (invoiceUrl) {
+        window.location.href = invoiceUrl;
+        return;
+      }
+      alert(res?.message || res?.error || 'Gagal membuat halaman pembayaran Xendit. Silakan coba lagi.');
+    } catch (err) {
+      console.error('Payment checkout error:', err);
+      alert('Terjadi kesalahan saat menghubungkan ke payment gateway.');
+    } finally {
+      setIsPaymentLoading(false);
+      setLoadingTier(null);
+    }
   };
 
   const handleSelectCouponFromGiveaway = (code: string) => {
@@ -144,14 +181,11 @@ export default function App() {
       setPendingCoupon('');
 
       if (targetTier === 'free') {
-        // Free tier: masuk ke app setelah login
         navigateToApp();
       } else {
-        // Paid tier: langsung ke halaman payment, BUKAN ke /app
-        await processCheckoutOrRedirect(targetTier, targetCoupon);
+        processCheckoutOrRedirect(targetTier, targetCoupon);
       }
     }
-    // Jika tidak ada pendingTier (login manual dari Navbar): tetap di landing page
   };
 
   return (
@@ -187,6 +221,17 @@ export default function App() {
         onClose={() => setIsGiveawayOpen(false)}
         lang={lang}
         onSelectCoupon={handleSelectCouponFromGiveaway}
+      />
+
+      <UpgradeModal
+        isOpen={isUpgradeModalOpen}
+        onClose={() => setIsUpgradeModalOpen(false)}
+        lang={lang}
+        currentTier={userState.tier}
+        onSelectTier={handleSelectUpgradeTier}
+        isLoading={isPaymentLoading}
+        loadingTier={loadingTier}
+        packages={cmsPackages}
       />
 
       <CheckoutModal

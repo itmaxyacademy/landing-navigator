@@ -86,47 +86,9 @@ export default function App() {
     window.location.href = targetUrl;
   };
 
-  const processCheckoutOrRedirect = async (tier: 'tier1' | 'tier2', couponCode?: string) => {
-    // 1. If coupon is provided, open CheckoutModal for coupon discount preview
-    if (couponCode) {
-      setCheckoutTier(tier);
-      setPrefilledCoupon(couponCode);
-      setIsCheckoutOpen(true);
-      return;
-    }
-
-    // 2. Directly initiate Xendit payment checkout for paid tiers
-    const pkg = tier === 'tier1' ? cmsPackages?.tier1 : cmsPackages?.tier2;
-    const amount = pkg?.price ?? (tier === 'tier1' ? 49500 : 299500);
-    const package_id = pkg?.id;
-
-    const description = `Pembelian Paket ${tier === 'tier1' ? 'Tier 1' : 'Tier 2'} AI Navigator`;
-    const redirectTarget = window.location.hostname.includes('localhost')
-      ? `${window.location.origin}/app`
-      : 'https://ainavigator.maxy.academy';
-
-    const res = await checkoutPayment({
-      amount,
-      package_id,
-      description,
-      redirect_url: redirectTarget,
-    });
-
-    const invoiceUrl =
-      res?.data?.payment_url ||
-      res?.data?.invoice_url ||
-      res?.data?.data?.payment_url ||
-      res?.data?.data?.invoice_url ||
-      res?.payment_url ||
-      res?.invoice_url;
-
-    if (invoiceUrl) {
-      window.location.href = invoiceUrl;
-      return;
-    }
-
-    // Fallback to CheckoutModal if instant checkout API returns no URL
+  const processCheckoutOrRedirect = (tier: 'tier1' | 'tier2', couponCode?: string) => {
     setCheckoutTier(tier);
+    setPrefilledCoupon(couponCode || '');
     setIsCheckoutOpen(true);
   };
 

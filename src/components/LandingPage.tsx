@@ -582,7 +582,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-12">
           
           {/* Col 1: Brand & Tagline */}
-          <div className="lg:col-span-4 space-y-4">
+          <div className="lg:col-span-5 space-y-4">
             <div className="flex items-center gap-3">
               <div className="bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-800 shadow-sm flex items-center justify-center shrink-0">
                 <img
@@ -600,48 +600,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({
                 </span>
               </div>
             </div>
-            <p className="text-xs text-slate-400 leading-relaxed pr-4 font-normal">
+            <p className="text-xs text-slate-400 leading-relaxed pr-4 font-normal max-w-sm">
               {lang === 'id'
                 ? 'Lingkungan pembelajaran sandbox visual premium, 100% gratis. Sama sekali tidak memerlukan login, pendaftaran, atau langkah pembayaran.'
                 : 'Premium visual sandbox learning environment, 100% free. Absolutely no login, registration, or payment steps required.'}
             </p>
           </div>
 
-          {/* Col 2: PRODUK AI GRATIS */}
+          {/* Col 2: MEDIA SOSIAL */}
           <div className="lg:col-span-3 space-y-3">
-            <h4 className="font-mono text-xs font-bold text-[#d98200] uppercase tracking-wider">
-              {lang === 'id' ? 'PRODUK AI GRATIS' : 'FREE AI PRODUCTS'}
-            </h4>
-            <ul className="space-y-2.5 text-xs text-slate-300">
-              <li>
-                <a href="https://ai.maxy.academy" target="_blank" rel="noopener noreferrer" className="hover:text-[#ffb034] transition-colors flex items-center gap-1.5 group">
-                  <span>Sandbox MaxyBlock</span>
-                  <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-[#ffb034] transition-colors" />
-                </a>
-              </li>
-              <li>
-                <a href="https://ai.maxy.academy" target="_blank" rel="noopener noreferrer" className="hover:text-[#ffb034] transition-colors flex items-center gap-1.5 group">
-                  <span>Taman Bermain MaxyBox</span>
-                  <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-[#ffb034] transition-colors" />
-                </a>
-              </li>
-              <li>
-                <a href="https://ai.maxy.academy" target="_blank" rel="noopener noreferrer" className="hover:text-[#ffb034] transition-colors flex items-center gap-1.5 group">
-                  <span>Strategis MaxyCanvas</span>
-                  <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-[#ffb034] transition-colors" />
-                </a>
-              </li>
-              <li>
-                <a href="https://ai.maxy.academy" target="_blank" rel="noopener noreferrer" className="hover:text-[#ffb034] transition-colors flex items-center gap-1.5 group">
-                  <span>Keamanan Siber MaXyber</span>
-                  <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-[#ffb034] transition-colors" />
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Col 3: MEDIA SOSIAL */}
-          <div className="lg:col-span-2 space-y-3">
             <h4 className="font-mono text-xs font-bold text-[#d98200] uppercase tracking-wider">
               {lang === 'id' ? 'MEDIA SOSIAL' : 'SOCIAL MEDIA'}
             </h4>
@@ -673,8 +640,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             </ul>
           </div>
 
-          {/* Col 4: KEBIJAKAN PENGGUNAAN INSTAN Card */}
-          <div className="lg:col-span-3">
+          {/* Col 3: KEBIJAKAN PENGGUNAAN INSTAN Card */}
+          <div className="lg:col-span-4">
             <div className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 backdrop-blur-sm shadow-xl space-y-2.5">
               <h4 className="font-mono text-xs font-bold text-[#d98200] uppercase tracking-wider">
                 {lang === 'id' ? 'KEBIJAKAN PENGGUNAAN INSTAN' : 'INSTANT USE POLICY'}
@@ -691,7 +658,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
         {/* Bottom Bar Separator & Text */}
         <div className="max-w-7xl 2xl:max-w-[1536px] mx-auto border-t border-slate-800/80 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
-          <p>© 2026 Maxy AI & Maxy Academy. Hak cipta dilindungi undang-undang.</p>
+          <p>© 2026 AI Navigator & Maxy Academy. Hak cipta dilindungi undang-undang.</p>
           <p className="flex items-center gap-1">
             <span>Dibuat dengan</span>
             <span className="text-amber-400">💛</span>

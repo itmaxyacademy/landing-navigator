@@ -36,7 +36,8 @@ export const LoginModal: React.FC<LoginModalProps> = ({
     setIsLoadingGoogle(true);
     setErrorMessage(null);
     const apiBase = (import.meta as unknown as { env?: { VITE_MAXY_API_URL?: string } }).env?.VITE_MAXY_API_URL || 'https://api.maxy.academy/api/v1';
-    const targetRedirect = `${window.location.origin}`;
+    // Selalu redirect kembali ke landing page agar sessionStorage pendingTier bisa dibaca
+    const targetRedirect = window.location.origin;
     window.location.href = `${apiBase}/auth/google/redirect?redirect_url=${encodeURIComponent(targetRedirect)}`;
   };
 

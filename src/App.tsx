@@ -41,7 +41,13 @@ export default function App() {
 
     if (tokenFromUrl) {
       localStorage.setItem('maxy_access_token', tokenFromUrl);
+      // Bersihkan token dari URL
+      window.history.replaceState({}, document.title, window.location.pathname);
     }
+
+    // Cek apakah ada pendingTier yang tersimpan sebelum Google OAuth redirect
+    const savedTier = sessionStorage.getItem('pending_tier') as 'tier1' | 'tier2' | null;
+    const savedCoupon = sessionStorage.getItem('pending_coupon') || '';
 
     if (token) {
       fetchUserProfile(token).then((res) => {
@@ -64,6 +70,19 @@ export default function App() {
             hasTier1,
             hasTier2,
           }));
+
+          // Jika ada pending tier dari sebelum Google OAuth → langsung redirect
+          if (savedTier && tokenFromUrl) {
+            sessionStorage.removeItem('pending_tier');
+            sessionStorage.removeItem('pending_coupon');
+            const APP_URL_INIT = window.location.hostname.includes('localhost')
+              ? window.location.origin
+              : 'https://ainavigator.maxy.academy';
+            const params: Record<string, string> = { upgrade: 'true', tier: savedTier };
+            if (savedCoupon) params.voucher = savedCoupon;
+            const query = new URLSearchParams(params).toString();
+            window.location.href = `${APP_URL_INIT}/app?${query}`;
+          }
         }
       });
     }
@@ -112,7 +131,10 @@ export default function App() {
 
     const token = localStorage.getItem('maxy_access_token');
     if (!isLoggedIn && !token) {
-      // Simpan tier & coupon yang dipilih, lalu buka login
+      // Simpan tier & coupon ke sessionStorage (survive Google OAuth redirect)
+      sessionStorage.setItem('pending_tier', tier);
+      if (couponCode) sessionStorage.setItem('pending_coupon', couponCode);
+      else sessionStorage.removeItem('pending_coupon');
       setPendingTier(tier);
       if (couponCode) setPendingCoupon(couponCode);
       setIsLoginOpen(true);
@@ -142,20 +164,21 @@ export default function App() {
       }));
     }
 
-    if (pendingTier) {
-      const targetTier = pendingTier;
-      const targetCoupon = pendingCoupon;
-      setPendingTier(null);
-      setPendingCoupon('');
+    // Ambil pending dari state atau sessionStorage
+    const targetTier = (pendingTier || sessionStorage.getItem('pending_tier')) as 'tier1' | 'tier2' | null;
+    const targetCoupon = pendingCoupon || sessionStorage.getItem('pending_coupon') || '';
 
-      if (targetTier === 'free') {
-        redirectToApp('/app');
-      } else {
-        // Paid tier: redirect ke ai-navigator UpgradeModal
-        processCheckoutOrRedirect(targetTier, targetCoupon);
-      }
+    // Bersihkan pending
+    setPendingTier(null);
+    setPendingCoupon('');
+    sessionStorage.removeItem('pending_tier');
+    sessionStorage.removeItem('pending_coupon');
+
+    if (targetTier && targetTier !== 'free') {
+      // Paid tier: redirect ke ai-navigator UpgradeModal
+      processCheckoutOrRedirect(targetTier, targetCoupon);
     } else {
-      // Login manual dari Navbar tanpa pending → masuk ke app
+      // Free atau login manual dari Navbar → masuk ke app
       redirectToApp('/app');
     }
   };
